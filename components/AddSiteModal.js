@@ -14,7 +14,7 @@ import {
   Input,
   useToast,
   useDisclosure
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 
 import { createSite } from '@/lib/db';
 import { useAuth } from '@/lib/auth';
