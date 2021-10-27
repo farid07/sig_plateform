@@ -2,7 +2,7 @@ import React from 'react';
 import { NextSeo } from 'next-seo';
 
 const Page = ({ name, path, children }) => {
-  const title = `Sig Platefroorme – ${name}`;
+  const title = `Sig Platform – ${name}`;
   const url = `https://fastfeedback.io${path}`;
 
   return (

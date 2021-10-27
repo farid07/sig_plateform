@@ -5,5 +5,14 @@ const withMDX = require('@next/mdx')({
 */
 
 module.exports = {
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/login/email',
+        permanent: true,
+      },
+    ]
+  },
   pageExtensions: ['js', 'jsx', 'mdx']
 };

@@ -9,7 +9,7 @@ import {
   Stack,
   Icon,
   useToast
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
@@ -54,38 +54,38 @@ const Login = () => {
       >
         <Flex justify="center">
           <Box as="a" href="/" aria-label="Back to homepage">
-            <Icon color="black" name="logo" size="64px" mb={4} />
+            <p> Sign in </p>
           </Box>
         </Flex>
-        <FormControl isInvalid={errors.email && errors.email.message}>
+        <FormControl isInvalid={errors?.email && errors?.email.message}>
           <FormLabel>Email Address</FormLabel>
           <Input
             autoFocus
             aria-label="Email Address"
             id="email"
             name="email"
-            ref={register({
+            {...register("email",{
               required: 'Please enter your email.'
             })}
             placeholder="name@site.com"
           />
           <FormErrorMessage>
-            {errors.email && errors.email.message}
+            {errors?.email && errors?.email.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={errors.pass && errors.pass.message}>
+        <FormControl isInvalid={errors?.pass && errors?.pass.message}>
           <FormLabel>Password</FormLabel>
           <Input
             aria-label="Password"
-            name="pass"
+            name="password"
             id="password"
             type="password"
-            ref={register({
+            {...register("password", {
               required: 'Please enter a password.'
             })}
           />
           <FormErrorMessage>
-            {errors.pass && errors.pass.message}
+            {errors?.pass && errors?.pass.message}
           </FormErrorMessage>
         </FormControl>
         <Button
@@ -95,7 +95,7 @@ const Login = () => {
           color="white"
           isLoading={loading}
           fontWeight="medium"
-          mt={4}
+          mt={5}
           h="50px"
           fontSize="lg"
           _hover={{ bg: 'gray.700' }}
