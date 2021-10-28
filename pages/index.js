@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Home() {
     return (
-       <p> En apprentissage </p>
+       <p> Apprendre </p>
         /*
         <div>
             <Head>
