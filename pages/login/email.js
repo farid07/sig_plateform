@@ -73,7 +73,7 @@ const Login = () => {
             {errors?.email && errors?.email.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={errors?.pass && errors?.pass.message}>
+        <FormControl isInvalid={errors?.password && errors?.password.message}>
           <FormLabel>Password</FormLabel>
           <Input
             aria-label="Password"
@@ -89,6 +89,8 @@ const Login = () => {
           </FormErrorMessage>
         </FormControl>
         <Button
+
+          onClick={() => auth.signInWithEmailAndPassword}
           id="login"
           type="submit"
           backgroundColor="gray.900"
