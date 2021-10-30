@@ -14,7 +14,7 @@ import {
   Switch,
   useToast,
   useDisclosure
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 
 import { updateSite } from '@/lib/db';
 

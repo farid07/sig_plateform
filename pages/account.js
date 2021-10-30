@@ -12,7 +12,7 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 
 import { useAuth } from '@/lib/auth';
 import { goToBillingPortal } from '@/lib/db';
@@ -73,7 +73,7 @@ const SettingsTable = ({ stripeRole, children }) => (
 );
 
 const Account = () => {
-  const { user, signout } = useAuth();
+  const { authUser, signOut } = useAuth();
   const [isBillingLoading, setBillingLoading] = useState(false);
 
   return (
@@ -89,12 +89,12 @@ const Account = () => {
             w={['3rem', '6rem']}
             h={['3rem', '6rem']}
             mb={4}
-            src={user?.photoUrl}
+            src={authUser?.photoUrl}
           />
-          <Heading letterSpacing="-1px">{user?.name}</Heading>
-          <Text>{user?.email}</Text>
+          <Heading letterSpacing="-1px">{authUser?.name}</Heading>
+          <Text>{authUser?.email}</Text>
         </Flex>
-        <SettingsTable stripeRole={user?.stripeRole}>
+        <SettingsTable stripeRole={authUser?.stripeRole}>
           <FeedbackUsage />
           <Text my={4}>
             Fast Feedback uses Stripe to update, change, or cancel your
@@ -102,8 +102,8 @@ const Account = () => {
             addresses through the secure portal.
           </Text>
           <Flex justify="flex-end">
-            <Button variant="ghost" ml={4} onClick={() => signout()}>
-              Log Out
+            <Button variant="ghost" ml={4} onClick={() => signOut()}>
+              Déconnexion
             </Button>
             <Button
               onClick={() => {
