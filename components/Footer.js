@@ -4,7 +4,7 @@ import { Link, Flex } from '@chakra-ui/react';
 
 const Footer = () => {
   return (
-    <Flex mb={8} mt={24} justify="center">
+    <Flex as={'footer'} bottom={0} left={0} right={0} mb={8} mt={24} justify="center">
       <NextLink href="/privacy" passHref>
         <Link fontSize="sm" mr={4} fontWeight="medium" color="gray.500">
           Privacy
