@@ -6,10 +6,10 @@ const theme = {
     styles: {
         global: {
             body: {
-                bg: "#FFFFFF",
+                bg: "gray.100",
                 width: "100%",
                 color: "black",
-                overflowX: "hidden",
+                overflowX: "visible",
                 fontFamily: "Inter, sans-serif"
             }
         }

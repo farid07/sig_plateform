@@ -18,7 +18,7 @@ export default function NavItem({ icon, title, description, active }) {
             w="100%"
             alignItems={"flex-start"}
         >
-            <Menu placement="right">
+            <Menu>
                 <Link
                     backgroundColor={active && "gray.200"}
                     p={3}
@@ -33,15 +33,6 @@ export default function NavItem({ icon, title, description, active }) {
                         </Flex>
                     </MenuButton>
                 </Link>
-                <MenuList
-                    py={0}
-                    border="none"
-                    w={200}
-                    h={200}
-                    ml={5}
-                >
-                    <NavHoverBox title={title} icon={icon} description={description} />
-                </MenuList>
             </Menu>
         </Flex>
     )

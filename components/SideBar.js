@@ -25,11 +25,11 @@ export default function Sidebar() {
             pos={"fixed"}
             bg={"gray.50"}
             left="0"
-            top={"64px"}
-            zIndex={"10px"}
+            mt={16}
+            zIndex={1400}
             h="full"
             boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.07)"
-            w={{base:"200px", lg:"250px"}}
+            w={{base:"250px", lg:"250px"}}
             flexDir="column"
             justifyContent="space-between"
         >
@@ -42,8 +42,8 @@ export default function Sidebar() {
                 as="nav"
             >
                 <NavItem icon={FiHome} title="Accueil"
-                         description="This is the description for the dashboard." active/>
-                <NavItem icon={FiCalendar} title="Operateurs"/>
+                         description="This is the description for the dashboard." />
+                <NavItem icon={FiCalendar} title="Operateurs" active/>
                 <NavItem icon={FiUser} title="Utilisateurs"/>
                 <NavItem icon={IoPawOutline} title="Equipements"/>
                 <NavItem icon={FiDollarSign} title="Réseaux"/>

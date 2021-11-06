@@ -20,6 +20,7 @@ import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 import NextLink from "next/link";
 import {FiMap} from "react-icons/fi";
 import Sidebar from "@/components/SideBar";
+import {useAuth} from "@/lib/auth";
 
 const Links = ['Dashboard', 'Projects', 'Team'];
 
@@ -38,19 +39,19 @@ const NavLink = ({ children }) => (
 );
 
 export default function DashboardShell2({children}) {
+    const {user} = useAuth();
     return (
         <>
             <Box bg={'gray.100'}>
-                <Sidebar/>
                 <Flex
                     h={16}
-                    px={4}
+                    px={6}
                     alignItems={'center'}
                     justifyContent={'space-between'}
                     w="full"
                     position={"fixed"}
                     borderTop="5px solid"
-                    zIndex={"20px"}
+                    zIndex={1500}
                     mb={[8, 16]}
                     borderTopColor={"#72c8dc"}
                     backgroundColor="white"
@@ -76,36 +77,23 @@ export default function DashboardShell2({children}) {
                             variant={'solid'}
                             colorScheme={'teal'}
                             size={'sm'}
-                            mr={4}
+                            mr={6}
                             leftIcon={<AddIcon />}>
                             Action
                         </Button>
-                        <Menu>
-                            <MenuButton
-                                as={Button}
-                                rounded={'full'}
-                                variant={'link'}
-                                cursor={'pointer'}
-                                minW={0}>
-                                <Avatar
-                                    size={'sm'}
-                                    src={
-                                        'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                                    }
-                                />
-                            </MenuButton>
-                            <MenuList>
-                                <MenuItem>Link 1</MenuItem>
-                                <MenuItem>Link 2</MenuItem>
-                                <MenuDivider />
-                                <MenuItem>Link 3</MenuItem>
-                            </MenuList>
-                        </Menu>
+                        <NextLink href="/account" passHref>
+                            <Link>
+                                <Avatar size="sm" src={user?.photoUrl}/>
+                            </Link>
+                        </NextLink>
                     </Flex>
                 </Flex>
+                <Sidebar/>
             </Box>
 
-            <Flex pl={"286px"} pt={"105px"}  minWidth={"calc(1250px - 250px)"} bg={'gray.100'} h={"100vh"} justifyContent={"flex-start"} alignItems={"flex-start"}>{children}</Flex>
+            <Flex pl={"286px"} pt={"105px"}  minWidth={"calc(100% - 250px)"} bg={'gray.100'} h={"100vh"} justifyContent={"flex-start"} alignItems={"flex-start"}>
+                {children}
+            </Flex>
         </>
     );
 }
