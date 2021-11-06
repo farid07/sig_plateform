@@ -25,7 +25,7 @@ export default function Sidebar() {
             pos={"fixed"}
             bg={"gray.50"}
             left="0"
-            mt={16}
+            pt={16}
             zIndex={1400}
             h="full"
             boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.07)"
