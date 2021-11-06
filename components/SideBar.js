@@ -22,22 +22,22 @@ export default function Sidebar() {
     return (
         <Flex
             display={"flex"}
-            position="fixed"
+            pos={"fixed"}
             bg={"gray.50"}
             left="0"
-            top={"65px"}
+            top={"64px"}
             zIndex={"10px"}
             h="full"
-            boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-            w={{base:"200px", lg:"315px"}}
+            boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.07)"
+            w={{base:"200px", lg:"250px"}}
             flexDir="column"
             justifyContent="space-between"
         >
             <Flex
-                p="5%"
+                px="5%"
+                py={2}
                 flexDir="column"
                 w="100%"
-                h={"45vh"}
                 alignItems={"flex-start"}
                 as="nav"
             >

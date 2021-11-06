@@ -1,18 +1,15 @@
 import React from 'react';
 import NextLink from 'next/link';
-import {Box, Flex, Link, Avatar, Icon} from '@chakra-ui/react';
+import {Box, Flex, Link, Avatar, Icon, Stack} from '@chakra-ui/react';
 
 import {useAuth} from '@/lib/auth';
-import Sidebar from "@/components/SideBar";
 import {FiMap} from "react-icons/fi";
-import Footer from "@/components/Footer";
 
 const DashboardShell = ({children}) => {
     const {user} = useAuth();
 
     return (
-        <Flex justify={"center"} alignItems={"center"} backgroundColor="gray.100" h="100vh" w={"full"}>
-            <Sidebar/>
+        <Flex justifyContent={"flex-start"} alignContent={"flex-start"} backgroundColor="gray.100" h="100vh" w={"full"}>
             <Flex
                 as={"header"}
                 backgroundColor="white"
@@ -57,22 +54,9 @@ const DashboardShell = ({children}) => {
                     </Flex>
                 </Flex>
             </Flex>
-
-            <Flex
-                  as={"main"}
-                  mb={24}
-                  t={0}
-                  l={0}
-                  zIndex={"0px"}
-                  justify={"center"}
-                  alignItems={"center"}
-                  direction="column"
-                  // maxW="1250px"
-                  px={[0, 8, 8]}
-            >
+            <Stack pl={["250px", "300px"]} pr={"90px"} flexDirection="row">
                 {children}
-                <Footer/>
-            </Flex>
+            </Stack>
         </Flex>
     );
 };

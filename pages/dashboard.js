@@ -3,11 +3,10 @@ import useSWR from 'swr';
 import { useAuth } from '@/lib/auth';
 import fetcher from '@/utils/fetcher';
 import Page from '@/components/Page';
-import DashboardShell from '@/components/DashboardShell';
-import SiteTable from '@/components/SiteTable';
-import SiteTableHeader from '@/components/SiteTableHeader';
-import SiteTableSkeleton from '@/components/SiteTableSkeleton';
+// import DashboardShell from '@/layouts/DashboardShell';
 import {useRouter} from "next/router";
+import Container from "@/components/Container";
+import DashboardShell2 from "@/layouts/DashboardShell2";
 
 const Dashboard = () => {
     const { authUser } = useAuth();
@@ -21,31 +20,29 @@ const Dashboard = () => {
 
     if (!data) {
         return (
-            <DashboardShell>
-                <SiteTableHeader />
-                <SiteTableSkeleton />
-            </DashboardShell>
+            <DashboardShell2>
+                <Container/>
+            </DashboardShell2>
         );
     }
 
     if (data?.sites?.length) {
         return (
-            <DashboardShell>
-                <SiteTableHeader isPaidAccount={false} />
-                <SiteTable sites={data.sites} />
-            </DashboardShell>
+            <DashboardShell2>
+                <Container/>
+            </DashboardShell2>
         );
     }
 
     return (
-        <DashboardShell>
-            <SiteTableHeader isPaidAccount={false} />
-        </DashboardShell>
+        <DashboardShell2>
+            <Container/>
+        </DashboardShell2>
     );
 };
 
 const DashboardPage = () => (
-    <Page name="Dashboard" path="/sites">
+    <Page name="Dashboard" path="/dashboard">
         <Dashboard />
     </Page>
 );
