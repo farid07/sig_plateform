@@ -67,7 +67,7 @@ export default function DashboardShell2({children}) {
                             >
                                 <Icon as={FiMap} w="24px" h={"24px"} mr={4}/>
                                 <Box as={"span"} >
-                                    Plateforme Sig
+                                    PLATEFORME SIG
                                 </Box>
                             </Link>
                         </NextLink>
@@ -91,7 +91,7 @@ export default function DashboardShell2({children}) {
                 <Sidebar/>
             </Box>
 
-            <Flex pl={"286px"} pt={"105px"}  minWidth={"calc(100% - 250px)"} bg={'gray.100'} h={"100vh"} justifyContent={"flex-start"} alignItems={"flex-start"}>
+            <Flex pl={"286px"} pt={"105px"}  minWidth={"calc(18%)"} bg={'gray.100'} h={"100vh"} justifyContent={"flex-start"} alignItems={"flex-start"}>
                 {children}
             </Flex>
         </>

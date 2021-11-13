@@ -166,42 +166,7 @@ const Container = (props) => {
                         </Button>
                     </Stack>
                 </Box>
-                <Box
-                    maxW={['180px', '310px', '420px']}
-                    bg={'white'}
-                    boxShadow={'xl'}
-                    rounded={'lg'}
-                    py={6}
-                    px={4}
-                    textAlign={'center'}>
-                    <Avatar
-                        size={'xl'}
-                        src={
-                            'https://i1.wp.com/nigerianfranknewsng.com/wp-content/uploads/2018/10/MTN-logo.png?w=300&ssl=1'
-                        }
-                        alt={'Avatar Alt'}
-                        mb={6}
-                        pos={'relative'}
-                    />
-                    <Heading fontSize={['lg', 'xl']} fontFamily={'body'} mb={8}>
-                        MTN
-                    </Heading>
 
-                    <Stack mt={6} direction={'row'}>
-                        <Button
-                            flex={1}
-                            fontSize={'md'}
-                            w={"lg"}
-                            rounded={'lg'}
-                            colorScheme={'teal'}
-                            boxShadow={
-                                '0px 1px 25px -5px rgb(66 153 225 / 38%), 0 10px 10px -5px rgb(66 153 225 / 33%)'
-                            }
-                        >
-                            Voir informations
-                        </Button>
-                    </Stack>
-                </Box>
             </SimpleGrid>
         </Flex>
     )

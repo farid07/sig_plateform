@@ -7,3 +7,11 @@ html {
     flex-direction: column;
     min-height: 100vh;
 }
+
+
+#radioGroup {
+    background-color: grey;
+    width: 82%;
+    height: 80%;
+    margin: 5% 0 0 18% ;
+}

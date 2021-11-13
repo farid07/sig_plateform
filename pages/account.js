@@ -15,9 +15,10 @@ import {
 } from '@chakra-ui/react';
 
 import { useAuth } from '@/lib/auth';
-import { goToBillingPortal } from '@/lib/db';
+import Router from 'next/router'
+// import { goToBillingPortal } from '@/lib/db';
 import Page from '@/components/Page';
-import DashboardShell from '@/components/DashboardShell';
+import DashboardShell from '@/layouts/DashboardShell';
 
 const FeedbackUsage = () => (
   <StatGroup>
@@ -107,8 +108,9 @@ const Account = () => {
             </Button>
             <Button
               onClick={() => {
-                setBillingLoading(true);
-                goToBillingPortal();
+                Router.push('/dashboard')
+               // setBillingLoading(true);
+                // goToBillingPortal();
               }}
               backgroundColor="gray.900"
               color="white"
@@ -121,7 +123,7 @@ const Account = () => {
                 transform: 'scale(0.95)'
               }}
             >
-              Manage Billing
+             Retour
             </Button>
           </Flex>
         </SettingsTable>
