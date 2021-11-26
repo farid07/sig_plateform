@@ -1,6 +1,6 @@
-import { Flex, Link } from '@chakra-ui/react';
+import {Flex, Link} from '@chakra-ui/react';
 
-import { useTheme } from '@/utils/useTheme';
+import {useTheme} from '@/utils/useTheme';
 
 export default function FeedbackLink({ paths }) {
   const colorMode = useTheme();

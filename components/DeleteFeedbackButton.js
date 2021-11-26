@@ -1,28 +1,28 @@
-import React, { useState, useRef } from 'react';
-import { mutate } from 'swr';
+import React, {useRef, useState} from 'react';
+import {mutate} from 'swr';
 import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-  IconButton,
-  Button
+    AlertDialog,
+    AlertDialogBody,
+    AlertDialogContent,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogOverlay,
+    Button,
+    IconButton
 } from '@chakra-ui/react';
 
-import { deleteFeedback } from '@/lib/db';
-import { useAuth } from '@/lib/auth';
+import {deleteFeedback} from '@/lib/db';
+import {useAuth} from '@/lib/auth';
 
-const DeleteFeedbackButton = ({ feedbackId }) => {
-  const [isOpen, setIsOpen] = useState();
-  const cancelRef = useRef();
-  const auth = useAuth();
+const DeleteFeedbackButton = ({feedbackId}) => {
+    const [isOpen, setIsOpen] = useState();
+    const cancelRef = useRef();
+    const auth = useAuth();
 
-  const onClose = () => setIsOpen(false);
-  const onDelete = () => {
-    deleteFeedback(feedbackId);
-    mutate(
+    const onClose = () => setIsOpen(false);
+    const onDelete = () => {
+        deleteFeedback(feedbackId);
+        mutate(
       ['/api/feedback', auth.user.token],
       async (data) => {
         return {

@@ -1,12 +1,9 @@
-import useSWR from 'swr';
-
-import { useAuth } from '@/lib/auth';
-import fetcher from '@/utils/fetcher';
+import {useAuth} from '@/lib/auth';
 import Page from '@/components/Page';
 // import DashboardShell from '@/layouts/DashboardShell';
 import {useRouter} from "next/router";
 import Container from "@/components/Container";
-import DashboardShell2 from "@/layouts/DashboardShell2";
+import DashboardShell from "@/layouts/DashboardShell";
 
 const Dashboard = () => {
     const { authUser } = useAuth();
@@ -20,24 +17,24 @@ const Dashboard = () => {
 
     if (!data) {
         return (
-            <DashboardShell2>
+            <DashboardShell>
                 <Container/>
-            </DashboardShell2>
+            </DashboardShell>
         );
     }
 
     if (data?.sites?.length) {
         return (
-            <DashboardShell2>
+            <DashboardShell>
                 <Container/>
-            </DashboardShell2>
+            </DashboardShell>
         );
     }
 
     return (
-        <DashboardShell2>
+        <DashboardShell>
             <Container/>
-        </DashboardShell2>
+        </DashboardShell>
     );
 };
 

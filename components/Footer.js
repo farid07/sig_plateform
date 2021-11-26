@@ -1,6 +1,6 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { Link, Flex } from '@chakra-ui/react';
+import {Flex, Link} from '@chakra-ui/react';
 
 const Footer = () => {
   return (

@@ -1,51 +1,70 @@
 import React from 'react';
-import NextLink from 'next/link';
-import {Box, Flex, Link, Avatar, Icon, Stack} from '@chakra-ui/react';
-
-import {useAuth} from '@/lib/auth';
+import {Avatar, Box, Button, Flex, HStack, Icon, Link, useColorModeValue,} from '@chakra-ui/react';
+import {AddIcon} from '@chakra-ui/icons';
+import NextLink from "next/link";
 import {FiMap} from "react-icons/fi";
+import Sidebar from "@/components/SideBar";
+import {useAuth} from "@/lib/auth";
 
-const DashboardShell = ({children}) => {
+const Links = ['Dashboard', 'Projects', 'Team'];
+
+const NavLink = ({children}) => (
+    <Link
+        px={2}
+        py={1}
+        rounded={'md'}
+        _hover={{
+            textDecoration: 'none',
+            bg: useColorModeValue('gray.200', 'gray.700'),
+        }}
+        href={'#'}>
+        {children}
+    </Link>
+);
+
+export default function DashboardShell({children}) {
     const {user} = useAuth();
-
     return (
-        <Flex justifyContent={"flex-start"} alignContent={"flex-start"} backgroundColor="gray.100" h="100vh" w={"full"}>
-            <Flex
-                as={"header"}
-                backgroundColor="white"
-                boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-                top={0}
-                position={"fixed"}
-                zIndex={"20px"}
-                mb={[8, 16]}
-                w="full"
-                justifyContent={"center"}
-                alignItems={"center"}
-                borderTop="5px solid"
-                borderTopColor={"#72c8dc"}
-            >
+        <>
+            <Box bg={'gray.100'}>
                 <Flex
-                    alignItems="center"
-                    justifyContent="space-between"
-                    pt={4}
-                    pb={4}
-                    maxW="full"
-                    margin="0 auto"
+                    h={16}
+                    px={6}
+                    alignItems={'center'}
+                    justifyContent={'space-between'}
                     w="full"
-                    px={8}
-                    h="60px"
+                    position={"fixed"}
+                    borderTop="5px solid"
+                    zIndex={1200}
+                    mb={[8, 16]}
+                    borderTopColor={"#72c8dc"}
+                    backgroundColor="white"
+                    boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
                 >
-                    <Flex align="center">
+                    <HStack spacing={8} alignItems={'center'}>
                         <NextLink href="/" passHref>
-                            <Link fontWeight={"bold"}>
+                            <Link
+                                fontWeight={"bold"}
+                                _hover={{
+                                    textDecoration: 'none',
+                                }}
+                            >
                                 <Icon as={FiMap} w="24px" h={"24px"} mr={4}/>
-                                <Box as={"span"} >
+                                <Box as={"span"}>
                                     Plateforme Sig
                                 </Box>
                             </Link>
                         </NextLink>
-                    </Flex>
-                    <Flex justifyContent="center" alignItems="center">
+                    </HStack>
+                    <Flex alignItems={'center'}>
+                        <Button
+                            variant={'solid'}
+                            colorScheme={'teal'}
+                            size={'sm'}
+                            mr={6}
+                            leftIcon={<AddIcon/>}>
+                            Action
+                        </Button>
                         <NextLink href="/account" passHref>
                             <Link>
                                 <Avatar size="sm" src={user?.photoUrl}/>
@@ -53,12 +72,13 @@ const DashboardShell = ({children}) => {
                         </NextLink>
                     </Flex>
                 </Flex>
-            </Flex>
-            <Stack pl={["250px", "300px"]} pr={"90px"} flexDirection="row">
-                {children}
-            </Stack>
-        </Flex>
-    );
-};
+                <Sidebar/>
+            </Box>
 
-export default DashboardShell;
+            <Flex pl={"200px"} pt={"105px"} margin="0 auto" maxW={"1250px"} minWidth={"calc(100% - 200px)"}
+                  bg={'gray.100'} h={"100vh"} justifyContent={"flex-start"} alignItems={"flex-start"}>
+                {children}
+            </Flex>
+        </>
+    );
+}

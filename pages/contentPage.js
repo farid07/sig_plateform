@@ -1,6 +1,6 @@
 import {Radio, RadioGroup, Stack} from "@chakra-ui/react"
-import React, {Component, useState} from 'react';
-import {Map, GoogleApiWrapper} from 'google-maps-react';
+import React, {useState} from 'react';
+import {GoogleApiWrapper, Map} from 'google-maps-react';
 import DashboardShell2 from "@/layouts/DashboardShell2";
 
 const mapStyles = {
@@ -9,7 +9,7 @@ const mapStyles = {
     margin: '1% 0 0 18%',
 };
 
-function contentPage(props){
+function contentPage(props) {
 
     const [Value, setValue] = useState("1")
 

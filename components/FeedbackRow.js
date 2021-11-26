@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { Box, Code, Switch } from '@chakra-ui/react';
-import { mutate } from 'swr';
+import React from 'react';
+import {Box, Code, Switch} from '@chakra-ui/react';
+import {mutate} from 'swr';
 
-import { Td } from './Table';
-import { useAuth } from '@/lib/auth';
-import { updateFeedback } from '@/lib/db';
+import {Td} from './Table';
+import {useAuth} from '@/lib/auth';
+import {updateFeedback} from '@/lib/db';
 import DeleteFeedbackButton from './DeleteFeedbackButton';
 
-const FeedbackRow = ({ id, author, text, route, status }) => {
-  const auth = useAuth();
-  const isChecked = status === 'active';
+const FeedbackRow = ({id, author, text, route, status}) => {
+    const auth = useAuth();
+    const isChecked = status === 'active';
 
-  const toggleFeedback = async () => {
-    await updateFeedback(id, { status: isChecked ? 'pending' : 'active' });
-    mutate(['/api/feedback', auth.user.token]);
-  };
+    const toggleFeedback = async () => {
+        await updateFeedback(id, {status: isChecked ? 'pending' : 'active'});
+        mutate(['/api/feedback', auth.user.token]);
+    };
 
   return (
     <Box as="tr" key={id}>

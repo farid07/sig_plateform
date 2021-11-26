@@ -1,11 +1,11 @@
 import {Radio, RadioGroup, Stack} from "@chakra-ui/react"
-import React, {Component} from 'react';
-import {Map, GoogleApiWrapper} from 'google-maps-react';
+import React from 'react';
+import {GoogleApiWrapper, Map} from 'google-maps-react';
 
 const mapStyles = {
     width: '100%',
     height: '100%',
-    margin: '5px 5px 5px 5px' ,
+    margin: '5px 5px 5px 5px',
 };
 
 const MainContent = () => {

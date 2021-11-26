@@ -1,15 +1,12 @@
-import {useEffect} from 'react';
-import {ChakraProvider, extendTheme} from '@chakra-ui/react';
-
-{/*import { DefaultSeo } from 'next-seo'; */
-}
+import {ChakraProvider} from '@chakra-ui/react';
 import Head from 'next/head';
 import "@/styles/styles.css";
 
-import Router from 'next/router';
-
 import {AuthProvider} from '@/lib/auth';
 import customTheme from '@/styles/theme';
+
+{/*import { DefaultSeo } from 'next-seo'; */
+}
 
 {/*import SEO from '../next-seo.config'; */
 }

@@ -1,6 +1,6 @@
-import { Button, Flex } from '@chakra-ui/react';
+import {Button, Flex} from '@chakra-ui/react';
 
-import { useAuth } from '@/lib/auth';
+import {useAuth} from '@/lib/auth';
 
 const LoginButtons = () => {
   const auth = useAuth();

@@ -1,16 +1,16 @@
 import React from 'react';
-import { Box, Heading, Text, Divider, Icon, Flex, Code } from '@chakra-ui/react';
-import { format, parseISO } from 'date-fns';
+import {Box, Code, Divider, Flex, Heading, Icon, Text} from '@chakra-ui/react';
+import {format, parseISO} from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 
-import { useTheme } from '@/utils/useTheme';
+import {useTheme} from '@/utils/useTheme';
 import MDXComponents from './MDXComponents';
 
-const Feedback = ({ author, text, createdAt, provider, isLast, settings }) => {
-  const colorMode = useTheme();
-  const authorColor = {
-    light: 'gray.900',
-    dark: 'gray.200'
+const Feedback = ({author, text, createdAt, provider, isLast, settings}) => {
+    const colorMode = useTheme();
+    const authorColor = {
+        light: 'gray.900',
+        dark: 'gray.200'
   };
   const textColor = {
     light: 'gray.800',

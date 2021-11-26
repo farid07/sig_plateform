@@ -1,8 +1,8 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { Box, Button, Flex, Link, Avatar, Icon } from '@chakra-ui/react';
+import {Button, Flex, Icon, Link} from '@chakra-ui/react';
 
-import { useAuth } from '@/lib/auth';
+import {useAuth} from '@/lib/auth';
 
 const Navbar = ({ children }) => {
   const { user } = useAuth();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Flex, Text } from '@chakra-ui/react';
+import {Flex, Heading, Text} from '@chakra-ui/react';
 
 const FeedbackEmptyState = () => (
   <Flex

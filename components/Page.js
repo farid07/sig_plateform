@@ -1,5 +1,5 @@
 import React from 'react';
-import { NextSeo } from 'next-seo';
+import {NextSeo} from 'next-seo';
 
 const Page = ({ name, path, children }) => {
   const title = `Sig Platform – ${name}`;

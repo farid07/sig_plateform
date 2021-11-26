@@ -1,7 +1,6 @@
-import {Box, Button, Flex, Stack, Icon} from '@chakra-ui/react';
+import {Button, Flex, FormControl, FormHelperText, FormLabel, Input, Stack} from '@chakra-ui/react';
 import {useAuth} from '@/lib/auth';
 import Page from '@/components/Page';
-import {FormControl, FormLabel, FormErrorMessage, FormHelperText, Input } from "@chakra-ui/react"
 
 const Login = () => {
     const auth = useAuth();

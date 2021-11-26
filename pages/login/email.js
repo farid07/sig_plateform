@@ -1,19 +1,8 @@
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  Stack,
-  Icon,
-  useToast, HStack
-} from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
-import {useEffect, useState} from 'react';
+import {Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, Stack, useToast} from '@chakra-ui/react';
+import {useForm} from 'react-hook-form';
+import {useState} from 'react';
 
-import { useAuth } from '@/lib/auth';
+import {useAuth} from '@/lib/auth';
 import Page from '@/components/Page';
 import {getFirebaseErrors} from "@/utils/errors";
 import Router from "next/router";
@@ -21,7 +10,7 @@ import Router from "next/router";
 const Login = () => {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
-  const { authUser, signInWithEmailAndPassword } = useAuth();
+  const {authUser, signInWithEmailAndPassword} = useAuth();
   const {handleSubmit, register, formState: {errors,  isValid, isDirty}} = useForm({mode: "onChange"});
 
   if(authUser){
