@@ -68,8 +68,11 @@ const Operator = () => {
                         </AddOperatorModal>
                     )}
                 </ContentHeader>
-                <EmptyState button={<AddOperatorModal>Ajoutez un opérateur</AddOperatorModal>}
-                            helpText={"Aucun opérateur trouvé."} subHelpText={"Commençons"}/>
+                <EmptyState
+                    button={<AddOperatorModal>Ajoutez un opérateur</AddOperatorModal>}
+                    helpText={"Aucun opérateur trouvé."}
+                    subHelpText={"Commençons."}
+                />
             </Container>
         </DashboardShell>
     );
