@@ -34,7 +34,6 @@ return isSignedIn() && request.auth.uid == uid;
 }
 
 function isSignedIn() {
-console.log(request.auth)
 return request.auth.uid != null;
 }
 
