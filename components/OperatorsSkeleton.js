@@ -30,8 +30,8 @@ const SkeletonCard = () => (
         <Skeleton
             mt={6}
             height="35px"
-            w={"180px"}
-            rounded={"lg"}
+            w={"210px"}
+            rounded={"full"}
         />
     </Box>
 );
