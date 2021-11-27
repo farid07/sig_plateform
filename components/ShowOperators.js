@@ -1,62 +1,58 @@
 import React from 'react';
 import NextLink from 'next/link';
-import ContentHeader from "@/components/ContentHeader";
 import {Avatar, Box, Button, Heading, SimpleGrid, Stack} from "@chakra-ui/react";
 
 const ShowOperators = ({operators}) => {
     return (
-        <>
-            <ContentHeader title={"Operators"} isAdmin={true}/>
-            <SimpleGrid columns={[1, 1, 2, 3]} spacing="50px">
-                {operators.map((operator, index) => (
-                    <Box
-                        maxW={['180px', '310px', '420px']}
-                        bg={'white'}
-                        boxShadow={'xl'}
-                        rounded={'lg'}
-                        py={6}
-                        px={4}
-                        textAlign={'center'}
-                        key={operator.id}
-                    >
-                        <Avatar
-                            size={'xl'}
-                            src={
-                                `${operator.logo}`
-                            }
-                            alt={'Avatar Alt'}
-                            mb={6}
-                            pos={'relative'}
-                        />
-                        <Heading fontSize={['lg', 'xl']} fontFamily={'body'} mb={8}>
-                            {operator.name}
-                        </Heading>
+        <SimpleGrid columns={[1, 1, 2, 3]} spacing="50px">
+            {operators.map((operator, index) => (
+                <Box
+                    maxW={['180px', '310px', '420px']}
+                    bg={'white'}
+                    boxShadow={'xl'}
+                    rounded={'lg'}
+                    py={6}
+                    px={4}
+                    textAlign={'center'}
+                    key={operator.id}
+                >
+                    <Avatar
+                        size={'xl'}
+                        src={
+                            `${operator.logo}`
+                        }
+                        alt={'Avatar Alt'}
+                        mb={6}
+                        pos={'relative'}
+                    />
+                    <Heading fontSize={['lg', 'xl']} fontFamily={'body'} mb={8}>
+                        {operator.name}
+                    </Heading>
 
-                        <Stack mt={6} direction={'row'}>
-                            <NextLink
-                                href="/operators/[id]"
-                                as={`/operators/${operator.id}`}
-                                passHref
+                    <Stack mt={6} direction={'row'}>
+                        <NextLink
+                            href="/operators/[id]"
+                            as={`/operators/${operator.id}`}
+                            passHref
+                        >
+                            <Button
+                                flex={1}
+                                as={"a"}
+                                fontSize={'md'}
+                                w={"lg"}
+                                rounded={'lg'}
+                                colorScheme={'teal'}
+                                boxShadow={
+                                    '0px 1px 25px -5px rgb(66 153 225 / 38%), 0 10px 10px -5px rgb(66 153 225 / 33%)'
+                                }
                             >
-                                <Button
-                                    flex={1}
-                                    as={"a"}
-                                    fontSize={'md'}
-                                    w={"lg"}
-                                    rounded={'lg'}
-                                    colorScheme={'teal'}
-                                    boxShadow={
-                                        '0px 1px 25px -5px rgb(66 153 225 / 38%), 0 10px 10px -5px rgb(66 153 225 / 33%)'
-                                    }
-                                >
-                                    Voir informations
-                                </Button>
-                            </NextLink>
-                        </Stack>
-                    </Box>
-                ))}
-            </SimpleGrid>
-        </>
+                                Voir informations
+                            </Button>
+                        </NextLink>
+                    </Stack>
+                </Box>
+            ))}
+        </SimpleGrid>
     );
 };
 

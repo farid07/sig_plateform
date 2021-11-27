@@ -8,6 +8,10 @@ import Container from "@/components/Container";
 import DashboardShell from "@/layouts/DashboardShell";
 import React from "react";
 import ShowOperators from "@/components/ShowOperators";
+import EmptyState from "@/components/EmptyState";
+import AddOperatorModal from "@/components/AddOperatorModal";
+import ContentHeader from "@/components/ContentHeader";
+import OperatorsSkeleton from "@/components/OperatorsSkeleton";
 
 const Operator = () => {
     const {router} = useRouter();
@@ -24,7 +28,14 @@ const Operator = () => {
         return (
             <DashboardShell>
                 <Container>
-                    Chargement
+                    <ContentHeader title={"Opérateurs"}>
+                        {isAdmin && (
+                            <AddOperatorModal>
+                                Ajouter
+                            </AddOperatorModal>
+                        )}
+                    </ContentHeader>
+                    <OperatorsSkeleton/>
                 </Container>
             </DashboardShell>
         );
@@ -34,6 +45,13 @@ const Operator = () => {
         return (
             <DashboardShell>
                 <Container>
+                    <ContentHeader title={"Opérateurs"}>
+                        {isAdmin && (
+                            <AddOperatorModal>
+                                Ajouter
+                            </AddOperatorModal>
+                        )}
+                    </ContentHeader>
                     <ShowOperators operators={data.operators}/>
                 </Container>
             </DashboardShell>
@@ -43,7 +61,15 @@ const Operator = () => {
     return (
         <DashboardShell>
             <Container>
-                Aucun operateur disponible
+                <ContentHeader title={"Opérateurs"}>
+                    {isAdmin && (
+                        <AddOperatorModal>
+                            Ajouter
+                        </AddOperatorModal>
+                    )}
+                </ContentHeader>
+                <EmptyState button={<AddOperatorModal>Ajoutez un opérateur</AddOperatorModal>}
+                            helpText={"Aucun opérateur trouvé."} subHelpText={"Commençons"}/>
             </Container>
         </DashboardShell>
     );
