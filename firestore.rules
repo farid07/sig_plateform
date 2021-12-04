@@ -3,7 +3,7 @@ service cloud.firestore {
     match /databases/{database}/documents {
         match /users/{uid} {
             allow read, write: if isSignedIn();
-            allow delete: if isOwner() || isAdmin();
+            allow delete: if isOwner() || isAdmin() || isUser();
             allow update: if isOwner() && willBeOwner() || isAdmin();
             allow create: if willBeOwner();
         }
@@ -29,7 +29,7 @@ return isSignedIn() && request.auth.uid == uid;
 }
 
 function isSignedIn() {
-return request.auth.uid != null;
+return request.auth != = null;
 }
 
 function isOwner(){
