@@ -8,7 +8,7 @@ service cloud.firestore {
             allow create: if willBeOwner();
         }
 
-        match /equipments {
+        match /equipments/{uid} {
             allow read, write: if isSignedIn();
             allow delete: if isOwner() && isOperator() || isAdmin();
             allow update: if isOwner() && isOperator() || isAdmin();
