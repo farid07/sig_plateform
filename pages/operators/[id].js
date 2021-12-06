@@ -6,30 +6,36 @@ import Page from '@/components/Page';
 import {useRouter} from "next/router";
 import Container from "@/components/Container";
 import DashboardShell from "@/layouts/DashboardShell";
-import React from "react";
-import ShowOperators from "@/components/ShowOperators";
+import React, {useEffect} from "react";
+import ShowOperator from "@/components/ShowOperator";
 import EmptyState from "@/components/EmptyState";
 import AddOperatorModal from "@/components/AddOperatorModal";
 import ContentHeader from "@/components/ContentHeader";
 import OperatorsSkeleton from "@/components/OperatorsSkeleton";
 
-const Operator = () => {
-    const {router} = useRouter();
+const OperatorDetail = () => {
+    const router = useRouter()
+    const operator_id = router?.query?.id
     const {authUser} = useAuth();
-    const {data} = useSWR(authUser ? ['/api/operators/', authUser?.token] : null, fetcher);
+    const {data} = useSWR(authUser && operator_id ? [`/api/operators/${operator_id}`, authUser?.token] : null, fetcher);
     const isAdmin = authUser?.accountType !== 'operator';
-    if (!authUser) {
-        router?.push("/login/email");
-    }
+
+    useEffect(
+        () => {
+            if (!authUser) {
+                router?.push("/login/email");
+            }
+        }, []
+    )
 
     if (!data) {
         return (
             <DashboardShell>
                 <Container>
-                    <ContentHeader title={"Opérateurs"}>
+                    <ContentHeader title={"Détails Opérateurs"}>
                         {isAdmin && (
                             <AddOperatorModal>
-                                Ajouter
+                                Mettre à jour
                             </AddOperatorModal>
                         )}
                     </ContentHeader>
@@ -39,18 +45,18 @@ const Operator = () => {
         );
     }
 
-    if (data?.operators?.length) {
+    if (data?.operator) {
         return (
             <DashboardShell>
                 <Container>
-                    <ContentHeader title={"Opérateurs"}>
+                    <ContentHeader title={"Détails Opérateurs"}>
                         {isAdmin && (
                             <AddOperatorModal>
-                                Ajouter
+                                Mettre à jour
                             </AddOperatorModal>
                         )}
                     </ContentHeader>
-                    <ShowOperators operators={data.operators}/>
+                    <ShowOperator operator={data.operator}/>
                 </Container>
             </DashboardShell>
         );
@@ -59,27 +65,26 @@ const Operator = () => {
     return (
         <DashboardShell>
             <Container>
-                <ContentHeader title={"Opérateurs"}>
+                <ContentHeader title={"Détails Opérateurs"}>
                     {isAdmin && (
                         <AddOperatorModal>
-                            Ajouter
+                            Mettre à jour
                         </AddOperatorModal>
                     )}
                 </ContentHeader>
                 <EmptyState
-                    button={<AddOperatorModal>Ajoutez un opérateur</AddOperatorModal>}
-                    helpText={"Aucun opérateur trouvé."}
-                    subHelpText={"Commençons."}
+                    button={<AddOperatorModal>Mettre à jour</AddOperatorModal>}
+                    helpText={"Aucune information à afficher."}
                 />
             </Container>
         </DashboardShell>
     );
 };
 
-const OperatorPage = () => (
-    <Page name="Operator" path="/operator">
-        <Operator/>
+const OperatorDetailPage = () => (
+    <Page name="OperatorDetail" path="/operators/[id]">
+        <OperatorDetail/>
     </Page>
 );
 
-export default OperatorPage;
+export default OperatorDetailPage;
