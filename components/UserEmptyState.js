@@ -3,7 +3,7 @@ import {Flex, Heading, Text} from '@chakra-ui/react';
 
 import AddUserModal from './AddUserModal';
 
-const EmptyState = () => (
+const EmptyState = ({mutate}) => (
     <Flex
         width="100%"
         backgroundColor="white"
@@ -13,11 +13,11 @@ const EmptyState = () => (
         align="center"
         direction="column"
     >
-      <Heading size="lg" mb={2}>
+        <Heading size="lg" mb={2}>
         Aucun utilisateur trouvé.
       </Heading>
-      <Text mb={4}>Commençons.</Text>
-      <AddUserModal>Ajoutez un utilisateur</AddUserModal>
+        <Text mb={4}>Commençons.</Text>
+        <AddUserModal mutate={mutate}>Ajoutez un utilisateur</AddUserModal>
     </Flex>
 );
 

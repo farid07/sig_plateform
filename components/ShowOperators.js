@@ -1,6 +1,7 @@
 import React from 'react';
 import NextLink from 'next/link';
 import {Avatar, Box, Button, Heading, SimpleGrid, Stack} from "@chakra-ui/react";
+import DeleteOperatorButton from "@/components/DeleteOperatorButton";
 
 const ShowOperators = ({operators}) => {
     return (
@@ -49,25 +50,7 @@ const ShowOperators = ({operators}) => {
                                 Voir informations
                             </Button>
                         </NextLink>
-                        <NextLink
-                            href="/operators/[id]"
-                            as={`/operators/${operator.id}`}
-                            passHref
-                        >
-                            <Button
-                                flex={1}
-                                as={"a"}
-                                fontSize={'sm'}
-                                w={"lg"}
-                                rounded={'lg'}
-                                colorScheme={'red'}
-                                boxShadow={
-                                    '0px 1px 25px -5px rgb(66 153 225 / 38%), 0 10px 10px -5px rgb(66 153 225 / 33%)'
-                                }
-                            >
-                                Supprimer
-                            </Button>
-                        </NextLink>
+                        <DeleteOperatorButton operatorId={operator.id}/>
                     </Stack>
                 </Box>
             ))}

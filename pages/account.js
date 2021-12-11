@@ -76,7 +76,6 @@ const SettingsTable = ({userRole, children}) => (
 const Account = () => {
     const {authUser, signOut} = useAuth();
     const [isBillingLoading, setBillingLoading] = useState(false);
-
     return (
         <DashboardShell>
             <Flex

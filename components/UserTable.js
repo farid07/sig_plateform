@@ -6,7 +6,7 @@ import {format, parseISO} from 'date-fns';
 import {Table, Td, Th, Tr} from './Table';
 import DeleteUserButton from './DeleteUserButton';
 
-const UserTable = ({users}) => {
+const UserTable = ({users, mutate}) => {
   return (
       <Box overflowX="scroll">
         <Table w="full">
@@ -58,10 +58,10 @@ const UserTable = ({users}) => {
                 </Td>
                 <Td>
                   <Text id={`user-table-link-${index}`} fontWeight="medium">
-                    {user.account_type}
+                    {user.accountType}
                   </Text>
                 </Td>
-                <Td>{format(parseISO(user.createdAt), 'PPpp')}</Td>
+                <Td>{format(parseISO(user?.createdAt), 'PPpp')}</Td>
                 <Td>
                   <DeleteUserButton userId={user.id}/>
                 </Td>

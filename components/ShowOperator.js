@@ -3,7 +3,6 @@ import {Avatar, Flex, Heading, Text} from "@chakra-ui/react";
 
 const ShowOperator = ({operator}) => {
 
-    console.log(operator)
     return (
         <Flex direction="column" align={['left', 'center']} ml={4}>
             <Avatar

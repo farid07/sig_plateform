@@ -7,27 +7,26 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogOverlay,
-    Button,
-    IconButton
+    Button
 } from '@chakra-ui/react';
 
-import {deleteUser} from '@/lib/db';
+import {deleteOperator} from '@/lib/db';
 import {useAuth} from '@/lib/auth';
 import {IoTrash} from "react-icons/io5";
 
-const DeleteUserButton = ({userId}) => {
+const DeleteOperatorButton = ({operatorId}) => {
     const [isOpen, setIsOpen] = useState();
     const cancelRef = useRef();
     const auth = useAuth();
 
     const onClose = () => setIsOpen(false);
-    const onDelete = () => {
-        deleteUser(userId);
+    const onDelete = async () => {
+        deleteOperator(operatorId);
         mutate(
-            ['/api/users', auth.authUser.token],
+            ['/api/operators', auth.authUser.token],
             async (data) => {
                 return {
-                    users: data.users.filter((user) => user.id !== userId)
+                    operators: data?.operators.filter((operator) => operator.id !== operatorId)
                 };
             },
             false
@@ -37,12 +36,22 @@ const DeleteUserButton = ({userId}) => {
 
     return (
         <>
-            <IconButton
-                aria-label="Delete user"
-                icon={<IoTrash/>}
-                variant="ghost"
+            <Button
+                flex={1}
+                as={"a"}
+                fontSize={'sm'}
+                leftIcon={<IoTrash size={"18px"}/>}
+                w={"lg"}
+                rounded={'lg'}
+                cursor={"pointer"}
+                colorScheme={'red'}
                 onClick={() => setIsOpen(true)}
-            />
+                boxShadow={
+                    '0px 1px 25px -5px rgb(66 153 225 / 38%), 0 10px 10px -5px rgb(66 153 225 / 33%)'
+                }
+            >
+                Supprimer
+            </Button>
             <AlertDialog
                 isOpen={isOpen}
                 leastDestructiveRef={cancelRef}
@@ -51,10 +60,10 @@ const DeleteUserButton = ({userId}) => {
                 <AlertDialogOverlay/>
                 <AlertDialogContent>
                     <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                        Supprimer utilisateur
+                        Supprimer operateur
                     </AlertDialogHeader>
                     <AlertDialogBody>
-                        Êtes vous sur? Cette action supprimera aussi le compte opérateur créé par l'utilisateur.
+                        Êtes vous sur? Cette action supprimera aussi le compte opérateur créé par l'operateur.
                         Vous ne pourrez plus faire de retour arrière.
                     </AlertDialogBody>
                     <AlertDialogFooter>
@@ -77,4 +86,4 @@ const DeleteUserButton = ({userId}) => {
     );
 };
 
-export default DeleteUserButton;
+export default DeleteOperatorButton;

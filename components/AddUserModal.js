@@ -1,5 +1,4 @@
 import {useForm} from 'react-hook-form';
-import {mutate} from 'swr';
 import {
     Box,
     Button,
@@ -22,13 +21,11 @@ import {
 } from '@chakra-ui/react';
 
 import {MdAdd} from "react-icons/md";
-import {createUser} from '@/lib/db';
 import {useAuth} from '@/lib/auth';
 import {useRef, useState} from "react";
 
 function RadioCard(props) {
     const {getInputProps, getCheckboxProps} = useRadio(props)
-
     const input = getInputProps()
     const checkbox = getCheckboxProps()
 
@@ -58,25 +55,26 @@ function RadioCard(props) {
     )
 }
 
-const AddUserModal = ({children}) => {
+const AddUserModal = ({children, mutate}) => {
     const initialRef = useRef(null);
     const toast = useToast();
     const auth = useAuth();
-    const [type, setType] = useState("opérateur")
+    const [accountType, setAccountType] = useState("operateur")
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
 
-    const options = ["admin", "collaborateur", "opérateur"]
+    const options = ["admin", "operateur"]
 
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "account_type",
-        defaultValue: "opérateur",
-        onChange: setType
+        required: true,
+        defaultValue: "operateur",
+        onChange: setAccountType
     })
 
     const group = getRootProps()
 
-    const onCreateUser = ({first_name, last_name, email, password}) => {
+    const onCreateUser = async ({first_name, last_name, email, password}) => {
         const newUser = {
             createdBy: auth.authUser.uid,
             createdAt: new Date().toISOString(),
@@ -84,9 +82,11 @@ const AddUserModal = ({children}) => {
             last_name,
             password,
             email,
-            account_type: type
+            account_type: accountType
         };
-        const {id} = createUser(newUser);
+        auth.createUserWithEmailAndPassword(newUser);
+        mutate();
+        onClose();
         toast({
             title: 'Succès!',
             description: "Le compte utilisateur a été bien ajouté.",
@@ -94,10 +94,6 @@ const AddUserModal = ({children}) => {
             duration: 5000,
             isClosable: true
         });
-        mutate(
-            ['/api/users'],
-        );
-        onClose();
     };
 
     return (
@@ -201,14 +197,11 @@ const AddUserModal = ({children}) => {
                             <FormLabel>Type de compte</FormLabel>
                             <HStack
                                 {...group}
-                                {...register("account_type", {
-                                    required: 'Required',
-                                })}
                             >
                                 {options.map((value) => {
                                     const radio = getRadioProps({value})
                                     return (
-                                        <RadioCard key={value} {...radio}>
+                                        <RadioCard key={value} {...radio} >
                                             {value.charAt(0).toUpperCase() + value.slice(1)}
                                         </RadioCard>
                                     )

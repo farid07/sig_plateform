@@ -15,14 +15,12 @@ import UserTable from "@/components/UserTable";
 const Users = () => {
     const {router} = useRouter();
     const {authUser} = useAuth();
-    const {data} = useSWR(authUser ? ['/api/users', authUser.token] : null, fetcher);
+    const {data, mutate} = useSWR(authUser ? ['/api/users', authUser.token] : null, fetcher);
     const isAdmin = authUser?.accountType !== 'operator';
 
     if (!authUser) {
         router?.push("/login/email");
     }
-
-    console.log(data)
 
     if (!data) {
         return (
@@ -40,7 +38,7 @@ const Users = () => {
             <DashboardShell>
                 <Container>
                     <UsersHeader isAdmin={isAdmin} title={"Utilisateurs"}/>
-                    <UserTable users={data.users}/>
+                    <UserTable users={data.users} mutate={mutate}/>
                 </Container>
             </DashboardShell>
         );
@@ -50,7 +48,7 @@ const Users = () => {
         <DashboardShell>
             <Container>
                 <UsersHeader isAdmin={isAdmin} title={"Utilisateurs"}/>
-                <UserEmptyState/>
+                <UserEmptyState mutate={mutate}/>
             </Container>
         </DashboardShell>
     );
