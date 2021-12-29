@@ -40,6 +40,7 @@ const DeleteUserButton = ({userId}) => {
             <IconButton
                 aria-label="Delete user"
                 icon={<IoTrash/>}
+                color={"red.500"}
                 variant="ghost"
                 onClick={() => setIsOpen(true)}
             />

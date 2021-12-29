@@ -7,11 +7,13 @@ import {useRouter} from "next/router";
 import Container from "@/components/Container";
 import DashboardShell from "@/layouts/DashboardShell";
 import React from "react";
-{/*import ShowOperators from "@/components/ShowOperators";*/}
 import EmptyState from "@/components/EmptyState";
 import AddOperatorModal from "@/components/AddOperatorModal";
 import ContentHeader from "@/components/ContentHeader";
 import OperatorsSkeleton from "@/components/OperatorsSkeleton";
+
+{/*import ShowOperators from "@/components/ShowOperators";*/
+}
 
 const Equipment = () => {
     const {router} = useRouter();
@@ -22,7 +24,6 @@ const Equipment = () => {
         router?.push("/login/email");
     }
 
-    console.log(data)
 
     if (!data) {
         return (

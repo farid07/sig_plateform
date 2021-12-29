@@ -5,6 +5,7 @@ import {format, parseISO} from 'date-fns';
 
 import {Table, Td, Th, Tr} from './Table';
 import DeleteUserButton from './DeleteUserButton';
+import UpdateUserModal from "@/components/UpateUserModal";
 
 const UserTable = ({users, mutate}) => {
   return (
@@ -62,7 +63,8 @@ const UserTable = ({users, mutate}) => {
                   </Text>
                 </Td>
                 <Td>{format(parseISO(user?.createdAt), 'PPpp')}</Td>
-                <Td>
+                <Td display={"flex"}>
+                  <UpdateUserModal user={user} mutate={mutate}/>
                   <DeleteUserButton userId={user.id}/>
                 </Td>
               </Box>
