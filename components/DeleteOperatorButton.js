@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react';
-import {mutate} from 'swr';
 import {
     AlertDialog,
     AlertDialogBody,
@@ -14,7 +13,7 @@ import {deleteOperator} from '@/lib/db';
 import {useAuth} from '@/lib/auth';
 import {IoTrash} from "react-icons/io5";
 
-const DeleteOperatorButton = ({operatorId}) => {
+const DeleteOperatorButton = ({mutate, operatorId}) => {
     const [isOpen, setIsOpen] = useState();
     const cancelRef = useRef();
     const auth = useAuth();
@@ -22,15 +21,7 @@ const DeleteOperatorButton = ({operatorId}) => {
     const onClose = () => setIsOpen(false);
     const onDelete = async () => {
         deleteOperator(operatorId);
-        mutate(
-            ['/api/operators', auth.authUser.token],
-            async (data) => {
-                return {
-                    operators: data?.operators.filter((operator) => operator.id !== operatorId)
-                };
-            },
-            false
-        );
+        mutate('/api/operators/');
         onClose();
     };
 
@@ -60,7 +51,7 @@ const DeleteOperatorButton = ({operatorId}) => {
                 <AlertDialogOverlay/>
                 <AlertDialogContent>
                     <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                        Supprimer operateur
+                        Supprimer Operateur
                     </AlertDialogHeader>
                     <AlertDialogBody>
                         Êtes vous sur? Cette action supprimera aussi le compte opérateur créé par l'operateur.

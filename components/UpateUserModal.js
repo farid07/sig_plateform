@@ -6,6 +6,7 @@ import {
     FormErrorMessage,
     FormLabel,
     HStack,
+    IconButton,
     Input,
     Modal,
     ModalBody,
@@ -19,11 +20,9 @@ import {
     useRadioGroup,
     useToast
 } from '@chakra-ui/react';
-
-import {MdAdd} from "react-icons/md";
 import {useAuth} from '@/lib/auth';
-import {useRef, useState} from "react";
-import {useRouter} from "next/router";
+import React, {useRef, useState} from "react";
+import {AiFillEdit} from "react-icons/ai";
 
 function RadioCard(props) {
     const {getInputProps, getCheckboxProps} = useRadio(props)
@@ -56,12 +55,11 @@ function RadioCard(props) {
     )
 }
 
-const AddUserModal = ({children, mutate}) => {
+const UpdateUserModal = ({user, mutate}) => {
     const initialRef = useRef(null);
-    const router = useRouter();
     const toast = useToast();
     const auth = useAuth();
-    const [accountType, setAccountType] = useState("operateur")
+    const [accountType, setAccountType] = useState(user?.accountType)
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -70,7 +68,7 @@ const AddUserModal = ({children, mutate}) => {
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "account_type",
         required: true,
-        defaultValue: "operateur",
+        defaultValue: user?.accountType,
         onChange: setAccountType
     })
 
@@ -86,12 +84,12 @@ const AddUserModal = ({children, mutate}) => {
             email,
             account_type: accountType
         };
-        auth.createUserWithEmailAndPassword(newUser);
+        auth.updateFullUserProfile(newUser);
         onClose()
         mutate('/api/users')
         toast({
             title: 'Succès!',
-            description: "Le compte utilisateur a été bien ajouté.",
+            description: "Le compte utilisateur a été bien modifié.",
             status: 'success',
             duration: 5000,
             isClosable: true
@@ -100,25 +98,17 @@ const AddUserModal = ({children, mutate}) => {
 
     return (
         <>
-            <Button
-                id="add-user-modal-button"
+            <IconButton
+                aria-label="Delete user"
+                icon={<AiFillEdit/>}
+                color={"green.500"}
+                variant="ghost"
                 onClick={onOpen}
-                backgroundColor="teal.500"
-                color="white"
-                leftIcon={<MdAdd/>}
-                fontWeight="medium"
-                _hover={{bg: 'gray.700'}}
-                _active={{
-                    bg: 'gray.800',
-                    transform: 'scale(0.95)'
-                }}
-            >
-                {children}
-            </Button>
+            />
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
                 <ModalContent as="form" onSubmit={handleSubmit(onCreateUser)}>
-                    <ModalHeader fontWeight="bold">Ajouter Utilisateur</ModalHeader>
+                    <ModalHeader fontWeight="bold">Modifier Utilisateur</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
@@ -126,6 +116,7 @@ const AddUserModal = ({children, mutate}) => {
                             <Input
                                 ref={initialRef}
                                 id="first_name"
+                                value={user?.first_name}
                                 placeholder="Nom"
                                 name="first_name"
                                 type={"text"}
@@ -143,6 +134,7 @@ const AddUserModal = ({children, mutate}) => {
                             <Input
                                 ref={initialRef}
                                 id="last_name"
+                                value={user?.last_name}
                                 placeholder="Prénoms"
                                 name="last_name"
                                 type={"text"}
@@ -162,6 +154,7 @@ const AddUserModal = ({children, mutate}) => {
                                 ref={initialRef}
                                 placeholder="jonh.doe@site.com"
                                 name="email"
+                                value={user?.email}
                                 autoComplete={"false"}
                                 type={"email"}
                                 {...register("email", {
@@ -220,13 +213,13 @@ const AddUserModal = ({children, mutate}) => {
                             Annuler
                         </Button>
                         <Button
-                            id="create-site-button"
+                            id="update-user-button"
                             backgroundColor="#99FFFE"
                             color="#194D4C"
                             fontWeight="medium"
                             type="submit"
                         >
-                            Ajouter
+                            Modifier
                         </Button>
                     </ModalFooter>
                 </ModalContent>
@@ -235,4 +228,4 @@ const AddUserModal = ({children, mutate}) => {
     );
 };
 
-export default AddUserModal;
+export default UpdateUserModal;

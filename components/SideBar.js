@@ -1,9 +1,10 @@
 import React from 'react'
 import {Flex} from '@chakra-ui/react'
-import {FiCalendar, FiDollarSign, FiHome, FiSettings, FiUser} from 'react-icons/fi'
+import {FiCalendar, FiHome, FiSettings, FiUser} from 'react-icons/fi'
 import {IoPawOutline} from 'react-icons/io5'
 import NavItem from '@/components/NavItem'
 import {useRouter} from "next/router";
+import {FaNetworkWired} from "react-icons/fa";
 
 export default function Sidebar() {
     const router = useRouter()
@@ -37,7 +38,7 @@ export default function Sidebar() {
                 <NavItem path={"users"} icon={FiUser} title="Utilisateurs" active={router.pathname === "/users"}/>
                 <NavItem path={"equipments"} icon={IoPawOutline} title="Equipements"
                          active={router.pathname === "/equipments"}/>
-                <NavItem path={"networks"} icon={FiDollarSign} title="Réseaux"
+                <NavItem path={"networks"} icon={FaNetworkWired} title="Réseaux"
                          active={router.pathname === "/networks"}/>
                 <NavItem path={"account"} icon={FiSettings} title="Parametres" active={router.pathname === "/account"}/>
             </Flex>

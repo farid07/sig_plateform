@@ -1,5 +1,4 @@
 import {useForm} from 'react-hook-form';
-import {mutate} from 'swr';
 import {
     Alert,
     AlertDescription,
@@ -61,7 +60,7 @@ const useStore = create((set) => ({
     },
 }));
 
-const AddOperatorModal = ({children}) => {
+const AddOperatorModal = ({children, mutate}) => {
     const [replaceFile, setReplaceFile] = useState(initialState)
     const [operatorColor, setOperatorColor] = useState("#07A3BE");
     const initialRef = useRef(null);
@@ -120,13 +119,7 @@ const AddOperatorModal = ({children}) => {
             duration: 5000,
             isClosable: true
         });
-        mutate(
-            ['/api/operators'],
-            async (data) => ({
-                operators: [{id, ...newOperator}, ...data?.operators]
-            }),
-            false
-        );
+        mutate('/api/operators/');
         onClose();
     };
 

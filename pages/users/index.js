@@ -26,7 +26,7 @@ const Users = () => {
         return (
             <DashboardShell>
                 <Container>
-                    <UsersHeader isAdmin={isAdmin} title={"Utilisateurs"}/>
+                    <UsersHeader mutate={mutate} isAdmin={isAdmin} title={"Utilisateurs"}/>
                     <UserTableSkeleton/>
                 </Container>
             </DashboardShell>
@@ -37,7 +37,7 @@ const Users = () => {
         return (
             <DashboardShell>
                 <Container>
-                    <UsersHeader isAdmin={isAdmin} title={"Utilisateurs"}/>
+                    <UsersHeader mutate={mutate} isAdmin={isAdmin} title={"Utilisateurs"}/>
                     <UserTable users={data.users} mutate={mutate}/>
                 </Container>
             </DashboardShell>
@@ -47,7 +47,7 @@ const Users = () => {
     return (
         <DashboardShell>
             <Container>
-                <UsersHeader isAdmin={isAdmin} title={"Utilisateurs"}/>
+                <UsersHeader mutate={mutate} isAdmin={isAdmin} title={"Utilisateurs"}/>
                 <UserEmptyState mutate={mutate}/>
             </Container>
         </DashboardShell>
