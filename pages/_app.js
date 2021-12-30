@@ -17,6 +17,8 @@ const App = ({Component, pageProps}) => {
         <ChakraProvider theme={customTheme}>
             <Head>
                 <meta content="width=device-width, initial-scale=1" name="viewport"/>
+                <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+
             </Head>
             <AuthProvider>
                 {/* <DefaultSeo {...SEO} /> */}

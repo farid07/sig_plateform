@@ -19,7 +19,7 @@
     "framer-motion": "^4",
     "google-maps-react": "^2.0.6",
     "js-cookie": "^3.0.1",
-    "mapbox-gl": "^2.6.0",
+    "mapbox-gl": "^2.6.1",
     "next": "11.1.2",
     "next-seo": "^4.28.1",
     "pino": "^7.2.0",
@@ -29,6 +29,8 @@
     "react-dropzone": "^11.4.2",
     "react-hook-form": "^7.18.0",
     "react-icons": "^4.3.1",
+    "react-map-gl": "^6.1.18",
+    "react-mapbox-gl": "^5.1.1",
     "reactstrap": "^9.0.0",
     "swr": "^1.0.1",
     "zustand": "^3.6.5"
