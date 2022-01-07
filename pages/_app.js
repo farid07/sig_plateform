@@ -2,6 +2,9 @@ import {ChakraProvider} from '@chakra-ui/react';
 import Head from 'next/head';
 import "@/styles/styles.css";
 
+import React from 'react';
+
+
 import {AuthProvider} from '@/lib/auth';
 import customTheme from '@/styles/theme';
 
