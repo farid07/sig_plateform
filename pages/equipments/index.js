@@ -8,17 +8,15 @@ import Container from "@/components/Container";
 import DashboardShell from "@/layouts/DashboardShell";
 import React from "react";
 import EmptyState from "@/components/EmptyState";
-import AddOperatorModal from "@/components/AddOperatorModal";
+import AddEquipmentModal from "@/components/equipment/AddEquipmentModal";
 import ContentHeader from "@/components/ContentHeader";
-import OperatorsSkeleton from "@/components/OperatorsSkeleton";
-
-{/*import ShowOperators from "@/components/ShowOperators";*/
-}
+import EquipmentsSkeleton from "@/components/equipment/EquipmentsSkeleton";
+import EquipmentTable from "@/components/equipment/EquipmentTable"
 
 const Equipment = () => {
     const {router} = useRouter();
     const {authUser} = useAuth();
-    const {data} = useSWR(authUser ? ['/api/equipments', authUser.token] : null, fetcher);
+    const {data, mutate} = useSWR(authUser ? ['/api/equipments', authUser.token] : null, fetcher);
     const isAdmin = authUser?.accountType !== 'operator';
     if (!authUser) {
         router?.push("/login/email");
@@ -31,29 +29,29 @@ const Equipment = () => {
                 <Container>
                     <ContentHeader title={"Equipements"}>
                         {isAdmin && (
-                            <AddOperatorModal>
+                            <AddEquipmentModal mutate={mutate}>
                                 Ajouter
-                            </AddOperatorModal>
+                            </AddEquipmentModal>
                         )}
                     </ContentHeader>
-                    <OperatorsSkeleton/>
+                    <EquipmentsSkeleton/>
                 </Container>
             </DashboardShell>
         );
     }
 
-    if (data?.operators?.length) {
+    if (data?.equipments?.length) {
         return (
             <DashboardShell>
                 <Container>
                     <ContentHeader title={"Equipements"}>
                         {isAdmin && (
-                            <AddOperatorModal>
+                            <AddEquipmentModal mutate={mutate}>
                                 Ajouter
-                            </AddOperatorModal>
+                            </AddEquipmentModal>
                         )}
                     </ContentHeader>
-                    <ShowOperators operators={data.operators}/>
+                    <EquipmentTable equipments={data.equipments}/>
                 </Container>
             </DashboardShell>
         );
@@ -64,13 +62,13 @@ const Equipment = () => {
             <Container>
                 <ContentHeader title={"Equipements"}>
                     {isAdmin && (
-                        <AddOperatorModal>
+                        <AddEquipmentModal mutate={mutate}>
                             Ajouter
-                        </AddOperatorModal>
+                        </AddEquipmentModal>
                     )}
                 </ContentHeader>
                 <EmptyState
-                    button={<AddOperatorModal>Ajoutez un équipement</AddOperatorModal>}
+                    button={<AddEquipmentModal mutate={mutate}>Ajoutez un équipement</AddEquipmentModal>}
                     helpText={"Aucun équipement trouvé."}
                     subHelpText={"Commençons."}
                 />
@@ -80,7 +78,7 @@ const Equipment = () => {
 };
 
 const EquipmentPage = () => (
-    <Page name="Operator" path="/operator">
+    <Page name="Equipment" path="/equipments">
         <Equipment/>
     </Page>
 );

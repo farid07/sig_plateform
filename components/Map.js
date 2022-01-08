@@ -1,26 +1,40 @@
-
 import {Component} from 'react';
-import ReactMapGL from 'react-map-gl';
+import ReactMapGL, {GeolocateControl} from 'react-map-gl';
 
 class Map extends Component {
     state = {
         viewport: {
-            width: '100vw',
-            height: '100vh',
-            latitude: 41.5868,
-            longitude: -93.625,
-            zoom: 13
+            width: '1250px',
+            height: '690px',
+            latitude: 6.366667,
+            longitude: 2.433333,
+            zoom: 14
+        },
+        geoLocateControlStyle: {
+            right: 10,
+            top: 10
+        },
+        fullScreenControlStyle: {
+            right: 10,
+            top: 50
         }
     };
 
     render() {
         return (
             <ReactMapGL
-                mapStyle="mapbox://styles/mapbox/streets-v9"
-                mapboxApiAccessToken="pk.eyJ1IjoiZW1tYW51ZWxkYWR5MDA3IiwiYSI6ImNreGJ5eTBnZzJ6YWkydW8xNmN5YTc3OTEifQ.lS0GtZMN60Htzgixun_Thg"
+                mapStyle="mapbox://styles/mapbox/streets-v10"
+                mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
                 {...this.state.viewport}
                 onViewportChange={(viewport) => this.setState({viewport})}
-            />
+            >
+                <GeolocateControl
+                    style={this.state.geoLocateControlStyle}
+                    positionOptions={{enableHighAccuracy: true}}
+                    trackUserLocation={true}
+                />
+                {/*<FullscreenControl style={this.state.fullScreenControlStyle} />*/}
+            </ReactMapGL>
         );
     }
 }

@@ -55,41 +55,42 @@ function RadioCard(props) {
     )
 }
 
-const UpdateUserModal = ({user, mutate}) => {
+const UpdateEquipmentModal = ({equipment, mutate}) => {
     const initialRef = useRef(null);
     const toast = useToast();
     const auth = useAuth();
-    const [accountType, setAccountType] = useState(user?.accountType)
+    const [equipmentType, setEquipmentType] = useState(equipment?.type)
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
 
-    const options = ["admin", "operateur"]
+    const options = ["non-optique", "optique"]
 
     const {getRootProps, getRadioProps} = useRadioGroup({
-        name: "account_type",
+        name: "equipmentType",
         required: true,
-        defaultValue: user?.accountType,
-        onChange: setAccountType
+        defaultValue: equipment?.type,
+        onChange: setEquipmentType
     })
 
     const group = getRootProps()
 
-    const onUpdateUser = async ({first_name, last_name, email, password}) => {
-        const newUser = {
+    const onUpdateEquipment = async ({name, mark, equipmentType, email, password}) => {
+        const newEquipment = {
             createdBy: auth.authUser.uid,
             createdAt: new Date().toISOString(),
-            first_name,
-            last_name,
+            name,
+            mark,
+            equipmentType,
             password,
             email,
-            account_type: accountType
+            type: equipmentType
         };
-        await auth.updateFullUserProfile(user?.uid, newUser);
+        auth.updateFullUserProfile(newEquipment);
         onClose()
-        mutate('/api/users')
+        mutate('/api/equipments')
         toast({
             title: 'Succès!',
-            description: "Le compte utilisateur a été bien modifié.",
+            description: "Les informations de l'équipement ont été bien modifiées.",
             status: 'success',
             duration: 5000,
             isClosable: true
@@ -99,7 +100,7 @@ const UpdateUserModal = ({user, mutate}) => {
     return (
         <>
             <IconButton
-                aria-label="Delete user"
+                aria-label="Delete equipment"
                 icon={<AiFillEdit/>}
                 color={"green.500"}
                 variant="ghost"
@@ -107,44 +108,44 @@ const UpdateUserModal = ({user, mutate}) => {
             />
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onUpdateUser)}>
-                    <ModalHeader fontWeight="bold">Modifier Utilisateur</ModalHeader>
+                <ModalContent as="form" onSubmit={handleSubmit(onUpdateEquipment)}>
+                    <ModalHeader fontWeight="bold">Modifier Equipement</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
                             <FormLabel>Nom</FormLabel>
                             <Input
                                 ref={initialRef}
-                                id="first_name"
-                                defaultValue={user?.first_name}
+                                id="name"
+                                value={equipment?.name}
                                 placeholder="Nom"
-                                name="first_name"
+                                name="name"
                                 type={"text"}
-                                {...register("first_name", {
+                                {...register("name", {
                                     required: 'Required',
                                     validate: true
                                 })}
                             />
                             <FormErrorMessage>
-                                {errors?.first_name && errors?.first_name.message}
+                                {errors?.name && errors?.name.message}
                             </FormErrorMessage>
                         </FormControl>
                         <FormControl isRequired mt={4}>
-                            <FormLabel>Prénoms</FormLabel>
+                            <FormLabel>Marque</FormLabel>
                             <Input
                                 ref={initialRef}
-                                id="last_name"
-                                defaultValue={user?.last_name}
-                                placeholder="Prénoms"
-                                name="last_name"
+                                id="mark"
+                                value={equipment?.mark}
+                                placeholder="Marque"
+                                name="mark"
                                 type={"text"}
-                                {...register("last_name", {
+                                {...register("mark", {
                                     required: 'Required',
                                     validate: true
                                 })}
                             />
                             <FormErrorMessage>
-                                {errors?.last_name && errors?.last_name.message}
+                                {errors?.mark && errors?.mark.message}
                             </FormErrorMessage>
                         </FormControl>
                         <FormControl mt={4} isRequired>
@@ -154,7 +155,7 @@ const UpdateUserModal = ({user, mutate}) => {
                                 ref={initialRef}
                                 placeholder="jonh.doe@site.com"
                                 name="email"
-                                defaultValue={user?.email}
+                                value={equipment?.email}
                                 autoComplete={"false"}
                                 type={"email"}
                                 {...register("email", {
@@ -189,7 +190,7 @@ const UpdateUserModal = ({user, mutate}) => {
                         </FormControl>
 
                         <FormControl mt={4} isRequired>
-                            <FormLabel>Type de compte</FormLabel>
+                            <FormLabel>Type</FormLabel>
                             <HStack
                                 {...group}
                             >
@@ -203,7 +204,7 @@ const UpdateUserModal = ({user, mutate}) => {
                                 })}
                             </HStack>
                             <FormErrorMessage>
-                                {errors?.account_type && errors?.account_type.message}
+                                {errors?.equipmentType && errors?.equipmentType.message}
                             </FormErrorMessage>
                         </FormControl>
                     </ModalBody>
@@ -213,7 +214,7 @@ const UpdateUserModal = ({user, mutate}) => {
                             Annuler
                         </Button>
                         <Button
-                            id="update-user-button"
+                            id="update-equipment-button"
                             backgroundColor="#99FFFE"
                             color="#194D4C"
                             fontWeight="medium"
@@ -228,4 +229,4 @@ const UpdateUserModal = ({user, mutate}) => {
     );
 };
 
-export default UpdateUserModal;
+export default UpdateEquipmentModal;

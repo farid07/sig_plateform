@@ -5,8 +5,11 @@ import {IoPawOutline} from 'react-icons/io5'
 import NavItem from '@/components/NavItem'
 import {useRouter} from "next/router";
 import {FaNetworkWired} from "react-icons/fa";
+import {useAuth} from "@/lib/auth";
 
 export default function Sidebar() {
+    const {authUser} = useAuth();
+    const isAdmin = authUser?.accountType === 'admin';
     const router = useRouter()
     return (
         <Flex
@@ -35,7 +38,8 @@ export default function Sidebar() {
                          active={router.pathname === "/dashboard"}/>
                 <NavItem path={"operators"} icon={FiCalendar} title="Operateurs"
                          active={router.pathname === "/operators"}/>
-                <NavItem path={"users"} icon={FiUser} title="Utilisateurs" active={router.pathname === "/users"}/>
+                {isAdmin &&
+                <NavItem path={"users"} icon={FiUser} title="Utilisateurs" active={router.pathname === "/users"}/>}
                 <NavItem path={"equipments"} icon={IoPawOutline} title="Equipements"
                          active={router.pathname === "/equipments"}/>
                 <NavItem path={"networks"} icon={FaNetworkWired} title="Réseaux"
