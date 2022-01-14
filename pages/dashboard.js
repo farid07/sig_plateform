@@ -1,11 +1,9 @@
 import {useAuth} from '@/lib/auth';
 import Page from '@/components/Page';
-// import DashboardShell from '@/layouts/DashboardShell';
 import {useRouter} from "next/router";
 import Container from "@/components/Container";
 import DashboardShell from "@/layouts/DashboardShell";
 import dynamic from 'next/dynamic';
-
 
 const DynamicComponentWithNoSSR = dynamic(() => import('../components/Map'), {
     ssr: false

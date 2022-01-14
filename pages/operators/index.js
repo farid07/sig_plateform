@@ -18,7 +18,7 @@ const Operator = () => {
     const {authUser} = useAuth();
     const {data, mutate} = useSWR(authUser ? ['/api/operators/', authUser?.token] : null, fetcher);
     console.log(authUser)
-    const isAdmin = authUser?.accountType === 'admin';
+    const isAdmin = authUser?.accountType != 'operator';
     if (!authUser) {
         router?.push("/login/email");
     }

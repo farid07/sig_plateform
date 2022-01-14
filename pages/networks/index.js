@@ -1,59 +1,38 @@
-import useSWR from 'swr';
-
 import {useAuth} from '@/lib/auth';
-import fetcher from '@/utils/fetcher';
 import Page from '@/components/Page';
 import {useRouter} from "next/router";
 import Container from "@/components/Container";
 import DashboardShell from "@/layouts/DashboardShell";
-import React from "react";
-{/*import ShowOperators from "@/components/ShowOperators";*/}
-import EmptyState from "@/components/EmptyState";
-import AddOperatorModal from "@/components/AddOperatorModal";
-import ContentHeader from "@/components/ContentHeader";
-import OperatorsSkeleton from "@/components/OperatorsSkeleton";
+import dynamic from 'next/dynamic';
 
-const Network = () => {
-    const {router} = useRouter();
-    const {authUser} = useAuth();
-    const {data} = useSWR(authUser ? ['/api/networks', authUser.token] : null, fetcher);
-    const isAdmin = authUser?.accountType !== 'operator';
-    if (!authUser) {
+const DynamicComponentWithNoSSR = dynamic(() => import('/components/Map'), {
+    ssr: false
+});
+
+
+const Dashboard = () => {
+    const { authUser } = useAuth();
+    const { router } = useRouter();
+    const data = {}
+
+
+    if(!authUser){
         router?.push("/login/email");
     }
-
-    console.log(data)
 
     if (!data) {
         return (
             <DashboardShell>
-                <Container>
-                    <ContentHeader title={" "}>
-                        {isAdmin && (
-                            <AddOperatorModal>
-                                Ajouter
-                            </AddOperatorModal>
-                        )}
-                    </ContentHeader>
-                    <OperatorsSkeleton/>
-                </Container>
+                <Container/>
             </DashboardShell>
         );
     }
 
-    if (data?.operators?.length) {
+    if (data?.sites?.length) {
         return (
             <DashboardShell>
-                <Container>
-                    <ContentHeader title={"Networks"}>
-                        {isAdmin && (
-                            <AddOperatorModal>
-                                Ajouter
-                            </AddOperatorModal>
-                        )}
-                    </ContentHeader>
-                    <ShowOperators operators={data.operators}/>
-                </Container>
+                <Container/>
+
             </DashboardShell>
         );
     }
@@ -61,27 +40,49 @@ const Network = () => {
     return (
         <DashboardShell>
             <Container>
-                <ContentHeader title={"Equipements"}>
-                    {isAdmin && (
-                        <AddOperatorModal>
-                            Ajouter
-                        </AddOperatorModal>
-                    )}
-                </ContentHeader>
-                <EmptyState
-                    button={<AddOperatorModal>Ajoutez un réseau</AddOperatorModal>}
-                    helpText={"Aucun réseau trouvé."}
-                    subHelpText={"Commençons."}
-                />
+                <DynamicComponentWithNoSSR />
             </Container>
         </DashboardShell>
     );
 };
 
 const NetworkPage = () => (
-    <Page name="Network" path="/network">
-        <Network/>
+    <Page name="Network" path="/pages/networks/index">
+        <Dashboard />
     </Page>
 );
 
 export default NetworkPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

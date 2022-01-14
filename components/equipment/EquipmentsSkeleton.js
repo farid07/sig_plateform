@@ -31,8 +31,7 @@ const EquipmentsSkeleton = () => {
             <thead>
             <Tr>
                 <Th>Nom</Th>
-                <Th>Prénoms</Th>
-                <Th>Email</Th>
+                <Th>Marque</Th>
                 <Th>Type</Th>
                 <Th>Ajouté le</Th>
                 <Th>{''}</Th>

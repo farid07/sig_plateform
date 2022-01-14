@@ -61,11 +61,11 @@ const AddUserModal = ({children, mutate}) => {
     const router = useRouter();
     const toast = useToast();
     const auth = useAuth();
-    const [accountType, setAccountType] = useState("operateur")
+    const [accountType, setAccountType] = useState("operator")
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
 
-    const options = ["admin", "operateur"]
+    const options = ["admin", "operator"]
 
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "account_type",

@@ -7,18 +7,18 @@ import {useRouter} from "next/router";
 import Container from "@/components/Container";
 import DashboardShell from "@/layouts/DashboardShell";
 import React, {useEffect} from "react";
-// import ShowOperator from "@/components/ShowOperator";
+import ShowEquipment from "@/components/equipment/ShowEquipment";
 import EmptyState from "@/components/EmptyState";
 import AddEquipmentModal from "@/components/equipment/AddEquipmentModal";
 import ContentHeader from "@/components/ContentHeader";
-// import OperatorsSkeleton from "@/components/OperatorsSkeleton";
+import OperatorsSkeleton from "@/components/equipment/EquipmentsSkeleton";
 
 const EquipmentDetail = () => {
     const router = useRouter()
     const equipment_id = router?.query?.id
     const {authUser} = useAuth();
     const {data} = useSWR(authUser && equipment_id ? [`/api/equipments/${equipment_id}`, authUser?.token] : null, fetcher);
-    const isAdmin = authUser?.accountType !== 'operator';
+    const isAdmin = authUser?.accountType === 'admin';
 
     useEffect(
         () => {
@@ -39,24 +39,24 @@ const EquipmentDetail = () => {
                             </AddEquipmentModal>
                         )}
                     </ContentHeader>
-                    <OperatorsSkeleton/>
+                    <EquipmentsSkeleton/>
                 </Container>
             </DashboardShell>
         );
     }
 
-    if (data?.operator) {
+    if (data?.equipment) {
         return (
             <DashboardShell>
                 <Container>
-                    <ContentHeader title={"Détails Opérateurs"}>
+                    <ContentHeader title={"Détails Equipements"}>
                         {isAdmin && (
-                            <AddOperatorModal>
+                            <AddEquipmentModal>
                                 Mettre à jour
-                            </AddOperatorModal>
+                            </AddEquipmentModal>
                         )}
                     </ContentHeader>
-                    <ShowOperator operator={data.operator}/>
+                    <ShowEquipment equipment={data.equipment}/>
                 </Container>
             </DashboardShell>
         );
@@ -65,15 +65,15 @@ const EquipmentDetail = () => {
     return (
         <DashboardShell>
             <Container>
-                <ContentHeader title={"Détails Opérateurs"}>
+                <ContentHeader title={"Détails Equipements"}>
                     {isAdmin && (
-                        <AddOperatorModal>
+                        <AddEquipmentModal>
                             Mettre à jour
-                        </AddOperatorModal>
+                        </AddEquipmentModal>
                     )}
                 </ContentHeader>
                 <EmptyState
-                    button={<AddOperatorModal>Mettre à jour</AddOperatorModal>}
+                    button={<AddEquipmentModal>Mettre à jour</AddEquipmentModal>}
                     helpText={"Aucune information à afficher."}
                 />
             </Container>
@@ -81,10 +81,10 @@ const EquipmentDetail = () => {
     );
 };
 
-const OperatorDetailPage = () => (
-    <Page name="OperatorDetail" path="/operators/[id]">
+const EquipmentDetailPage = () => (
+    <Page name="EquipmentDetail" path="/equipments/[id]">
         <OperatorDetail/>
     </Page>
 );
 
-export default OperatorDetailPage;
+export default EquipmentDetailPage;

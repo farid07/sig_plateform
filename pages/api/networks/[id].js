@@ -1,13 +1,13 @@
 // import { auth } from '@/lib/firebase-admin';
-import {getNetworks} from '@/lib/db-admin';
+import {getNetwork} from '@/lib/db-admin';
 import {formatObjectKeys, logger} from '@/utils/logger';
 
 export default async (req, res) => {
     try {
         // const { uid } = await auth.verifyIdToken(req.headers.token);
-        const {networks} = await getNetworks();
+        const {network} = await getNetwork();
 
-        res.status(200).json({networks});
+        res.status(200).json({network});
     } catch (error) {
         logger.error(
             {

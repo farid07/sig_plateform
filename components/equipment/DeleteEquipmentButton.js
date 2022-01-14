@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import {useAuth} from '@/lib/auth';
 import {IoTrash} from "react-icons/io5";
+import {deleteEquipment} from "@/lib/db";
 
 const DeleteEquipmentButton = ({equipmentId}) => {
     const [isOpen, setIsOpen] = useState();

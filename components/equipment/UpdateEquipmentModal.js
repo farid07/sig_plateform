@@ -14,7 +14,7 @@ import {
     ModalContent,
     ModalFooter,
     ModalHeader,
-    ModalOverlay,
+    ModalOverlay, Select,
     useDisclosure,
     useRadio,
     useRadioGroup,
@@ -23,6 +23,9 @@ import {
 import {useAuth} from '@/lib/auth';
 import React, {useRef, useState} from "react";
 import {AiFillEdit} from "react-icons/ai";
+import {updateEquipment} from "@/lib/db";
+import {MdAdd} from "react-icons/md";
+import {useRouter} from "next/router";
 
 function RadioCard(props) {
     const {getInputProps, getCheckboxProps} = useRadio(props)
@@ -60,8 +63,10 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
     const toast = useToast();
     const auth = useAuth();
     const [equipmentType, setEquipmentType] = useState(equipment?.type)
+    const [infrastructure, setInfrastructure] = useState("")
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
+    const element = '' ;
 
     const options = ["non-optique", "optique"]
 
@@ -74,18 +79,29 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
 
     const group = getRootProps()
 
-    const onUpdateEquipment = async ({name, mark, equipmentType, email, password}) => {
+    const handleChange = (event) => {
+        setInfrastructure(event.target.value);
+    };
+
+    const onUpdateEquipment = async ({infrastructureType, name, mark, longitude, latitude, ports, portsOccupees,
+                                         longitudeArrivee, latitudeArrivee, typeCable, taille}) => {
         const newEquipment = {
             createdBy: auth.authUser.uid,
             createdAt: new Date().toISOString(),
+            infrastructureType: infrastructureType ? infrastructureType : "",
             name,
-            mark,
-            equipmentType,
-            password,
-            email,
-            type: equipmentType
+            mark: mark ? mark : "",
+            type: equipmentType,
+            longitude: longitude ? longitude : "",
+            latitude: latitude ? latitude : "",
+            ports: ports ? ports : 0,
+            portsOccupees: portsOccupees ? portsOccupees : 0,
+            longitudeArrivee: longitudeArrivee ? longitudeArrivee : "",
+            latitudeArrivee: latitudeArrivee ? latitudeArrivee : "",
+            typeCable: typeCable ? typeCable : "",
+            taille: taille ? taille : "",
         };
-        auth.updateFullUserProfile(newEquipment);
+        updateEquipment(equipment?.uid, newEquipment);
         onClose()
         mutate('/api/equipments')
         toast({
@@ -100,7 +116,7 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
     return (
         <>
             <IconButton
-                aria-label="Delete equipment"
+                aria-label="Update user"
                 icon={<AiFillEdit/>}
                 color={"green.500"}
                 variant="ghost"
@@ -109,15 +125,37 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
                 <ModalContent as="form" onSubmit={handleSubmit(onUpdateEquipment)}>
-                    <ModalHeader fontWeight="bold">Modifier Equipement</ModalHeader>
+                    <ModalHeader fontWeight="bold">Ajouter Equipement</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
+                            <FormLabel>{"Selectionnez l'infrastructure"}</FormLabel>
+                            <Select
+                                ref={initialRef}
+                                id="infrastructureType"
+                                onChange={handleChange}
+                                name={"infrastructureType"}
+                                mb={4}
+                                type={"text"}
+                                placeholder="Selectionnez l'infrastructure"
+                                element={document.getElementById("infrastructureType")}
+                            >
+                                <option key={"nro"} value='nro'>NRO</option>
+                                <option key={"bpeo"} value='bpeo'>BPEO</option>
+                                <option key={"sro"} value='sro'>SRO</option>
+                                <option key={"pbo"} value='pbo'>PBO</option>
+                                <option key={"pto"} value='pto'>PTO</option>
+                                <option key={"cable"} value='cable'>CABLE</option>
+                                <option key={"conduit"} value='conduit'>CONDUIT SOUTERRAIN</option>
+                                <option key={"poteau"} value='poteau'  >POTEAU</option>
+                            </Select>
+                        </FormControl>
+                        <FormControl>
                             <FormLabel>Nom</FormLabel>
                             <Input
                                 ref={initialRef}
                                 id="name"
-                                value={equipment?.name}
+                                defaultValue={equipment?.name}
                                 placeholder="Nom"
                                 name="name"
                                 type={"text"}
@@ -130,65 +168,6 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
                                 {errors?.name && errors?.name.message}
                             </FormErrorMessage>
                         </FormControl>
-                        <FormControl isRequired mt={4}>
-                            <FormLabel>Marque</FormLabel>
-                            <Input
-                                ref={initialRef}
-                                id="mark"
-                                value={equipment?.mark}
-                                placeholder="Marque"
-                                name="mark"
-                                type={"text"}
-                                {...register("mark", {
-                                    required: 'Required',
-                                    validate: true
-                                })}
-                            />
-                            <FormErrorMessage>
-                                {errors?.mark && errors?.mark.message}
-                            </FormErrorMessage>
-                        </FormControl>
-                        <FormControl mt={4} isRequired>
-                            <FormLabel>Email</FormLabel>
-                            <Input
-                                id="email"
-                                ref={initialRef}
-                                placeholder="jonh.doe@site.com"
-                                name="email"
-                                value={equipment?.email}
-                                autoComplete={"false"}
-                                type={"email"}
-                                {...register("email", {
-                                    required: 'Required',
-                                    validate: true
-                                })}
-                            />
-                            <FormErrorMessage>
-                                {errors?.email && errors?.email.message}
-                            </FormErrorMessage>
-                        </FormControl>
-                        <FormControl mt={4} isRequired>
-                            <FormLabel>Mot de passe</FormLabel>
-                            <Input
-                                id="password"
-                                ref={initialRef}
-                                placeholder="Mot de passe"
-                                autoComplete={"false"}
-                                name="password"
-                                type={"password"}
-                                {...register("password", {
-                                    required: 'Required',
-                                    minLength: {
-                                        value: 8,
-                                        message: "Le mot de passe doit être de 8 caractères minimum !"
-                                    }
-                                })}
-                            />
-                            <FormErrorMessage>
-                                {errors?.password && errors?.password.message}
-                            </FormErrorMessage>
-                        </FormControl>
-
                         <FormControl mt={4} isRequired>
                             <FormLabel>Type</FormLabel>
                             <HStack
@@ -207,6 +186,201 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
                                 {errors?.equipmentType && errors?.equipmentType.message}
                             </FormErrorMessage>
                         </FormControl>
+                        {['poteau', 'conduit', 'cable'].includes(equipment) || (
+                            <FormControl isRequired mt={4}>
+                                <FormLabel>Marque</FormLabel>
+                                <Input
+                                    ref={initialRef}
+                                    id="mark"
+                                    defaultValue={equipment?.mark}
+                                    placeholder="Marque"
+                                    name="mark"
+                                    type={"text"}
+                                    {...register("mark", {
+                                        required: 'Required',
+                                        validate: true
+                                    })}
+                                />
+                                <FormErrorMessage>
+                                    {errors?.mark && errors?.mark.message}
+                                </FormErrorMessage>
+                            </FormControl>)
+                        }
+                        {['nro', 'bpeo', 'sro', 'pbo', 'pto', 'poteau', 'conduit', 'cable'].includes(equipment) && (
+                            <>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>Longitude</FormLabel>
+                                    <Input
+                                        id="longitude"
+                                        defaultValue={equipment?.longitude}
+                                        ref={initialRef}
+                                        placeholder="6.445244"
+                                        name="longitude"
+                                        autoComplete={"false"}
+                                        type={"decimal"}
+                                        {...register("longitude", {
+                                            required: 'Required',
+                                            validate: false
+                                        })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors?.longitude && errors?.longitude.message}
+                                    </FormErrorMessage>
+                                </FormControl>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>Latitude</FormLabel>
+                                    <Input
+                                        id="latitude"
+                                        defaultValue={equipment?.latitude}
+                                        ref={initialRef}
+                                        placeholder="-6.445244"
+                                        name="latitude"
+                                        autoComplete={"false"}
+                                        type={"decimal"}
+                                        {...register("latitude", {
+                                            required: 'Required',
+                                            validate: false
+                                        })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors?.latitude && errors?.latitude.message}
+                                    </FormErrorMessage>
+                                </FormControl>
+                            </>
+                        )}
+                        {['sro', 'pbo', 'pto'].includes(equipment) && (
+                            <>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>Total ports</FormLabel>
+                                    <Input
+                                        id="ports"
+                                        defaultValue={equipment?.ports}
+                                        ref={initialRef}
+                                        placeholder="55"
+                                        name="ports"
+                                        autoComplete={"false"}
+                                        type={"number"}
+                                        {...register("ports", {
+                                            required: 'Required',
+                                            validate: true
+                                        })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors?.ports && errors?.ports.message}
+                                    </FormErrorMessage>
+                                </FormControl>
+                            </>
+                        )}
+                        {['pbo'].includes(equipment) && (
+                            <>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>Ports occupés</FormLabel>
+                                    <Input
+                                        id="portsOccupes"
+                                        defaultValue={equipment?.portsOccupees}
+                                        ref={initialRef}
+                                        placeholder="50"
+                                        name="portsOccupes"
+                                        autoComplete={"false"}
+                                        type={"number"}
+                                        {...register("portsOccupes", {
+                                            required: 'Required',
+                                            validate: true
+                                        })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors?.portsOccupes && errors?.portsOccupes.message}
+                                    </FormErrorMessage>
+                                </FormControl>
+                            </>
+                        )}
+                        {['cable'].includes(equipment) && (
+                            <>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>Longitude arrivée</FormLabel>
+                                    <Input
+                                        id="longitudeArrivee"
+                                        defaultValue={equipment?.longitudeArrivee}
+                                        ref={initialRef}
+                                        placeholder="6.445244"
+                                        name="longitudeArrivee"
+                                        autoComplete={"false"}
+                                        type={"decimal"}
+                                        {...register("longitudeArrivee", {
+                                            required: 'Required',
+                                            validate: false
+                                        })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors?.longitudeArrivee && errors?.longitudeArrivee.message}
+                                    </FormErrorMessage>
+                                </FormControl>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>Latitude arrivée</FormLabel>
+                                    <Input
+                                        id="latitudeArrivee"
+                                        defaultValue={equipment?.latitudeArrivee}
+                                        ref={initialRef}
+                                        placeholder="-6.445244"
+                                        name="latitudeArrivee"
+                                        autoComplete={"false"}
+                                        type={"decimal"}
+                                        {...register("latitudeArrivee", {
+                                            required: 'Required',
+                                            validate: false
+                                        })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors?.latitudeArrivee && errors?.latitudeArrivee.message}
+                                    </FormErrorMessage>
+                                </FormControl>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>{"Type de cable"}</FormLabel>
+                                    <Select
+                                        id={"typeCable"}
+                                        defaultValue={equipment?.typeCable}
+                                        onChange={handleChange}
+                                        name={"typeCable"}
+                                        mb={4}
+                                        type={"text"}
+                                        {...register("typeCable", {
+                                            required: 'Required',
+                                            validate: true
+                                        })}
+                                    >
+                                        <option key={"transport"} value='transport'>Transport</option>
+                                        <option key={"distribution"} value='distribution'>Distribution</option>
+                                        <option key={"branchement"} value='branchement'>Branchement</option>
+                                    </Select>
+                                    <FormErrorMessage>
+                                        {errors?.typeCable && errors?.typeCable.message}
+                                    </FormErrorMessage>
+                                </FormControl>
+                            </>
+                        )}
+                        {['bpeo'].includes(equipment) && (
+                            <>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>Taille</FormLabel>
+                                    <Input
+                                        id="taille"
+                                        defaultValue={equipment?.taille}
+                                        ref={initialRef}
+                                        placeholder="T1"
+                                        name="taille"
+                                        autoComplete={"false"}
+                                        type={"text"}
+                                        {...register("taille", {
+                                            required: 'Required',
+                                            validate: true
+                                        })}
+                                    />
+                                    <FormErrorMessage>
+                                        {errors?.taille && errors?.taille.message}
+                                    </FormErrorMessage>
+                                </FormControl>
+                            </>
+                        )}
                     </ModalBody>
 
                     <ModalFooter>
@@ -214,13 +388,13 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
                             Annuler
                         </Button>
                         <Button
-                            id="update-equipment-button"
+                            id="create-site-button"
                             backgroundColor="#99FFFE"
                             color="#194D4C"
                             fontWeight="medium"
                             type="submit"
                         >
-                            Modifier
+                            Ajouter
                         </Button>
                     </ModalFooter>
                 </ModalContent>

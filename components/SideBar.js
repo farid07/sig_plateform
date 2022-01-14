@@ -9,7 +9,7 @@ import {useAuth} from "@/lib/auth";
 
 export default function Sidebar() {
     const {authUser} = useAuth();
-    const isAdmin = authUser?.accountType === 'admin';
+    const isAdmin = authUser?.accountType != 'operator';
     const router = useRouter()
     return (
         <Flex

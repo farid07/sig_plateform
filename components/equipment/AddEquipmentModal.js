@@ -84,12 +84,13 @@ const AddEquipmentModal = ({children, mutate}) => {
     };
 
     const onCreateEquipment = async ({
-                                         name, mark, longitude, latitude, ports, portsOccupees,
+                                         infrastructureType, name, mark, longitude, latitude, ports, portsOccupees,
                                          longitudeArrivee, latitudeArrivee, typeCable, taille
                                      }) => {
         const newEquipment = {
             createdBy: auth.authUser.uid,
             createdAt: new Date().toISOString(),
+            infrastructureType: infrastructureType ? infrastructureType : "",
             name,
             mark: mark ? mark : "",
             type: equipmentType,
@@ -141,9 +142,9 @@ const AddEquipmentModal = ({children, mutate}) => {
                         <FormControl isRequired>
                             <FormLabel>{"Selectionnez l'infrastructure"}</FormLabel>
                             <Select
-                                id={"equipment"}
+                                id={"infrastructureType"}
                                 onChange={handleChange}
-                                name={"equipment"}
+                                name={"infrastructureType"}
                                 mb={4}
                                 placeholder="Selectionnez l'infrastructure"
                             >
@@ -156,6 +157,8 @@ const AddEquipmentModal = ({children, mutate}) => {
                                 <option key={"conduit"} value='conduit'>CONDUIT SOUTERRAIN</option>
                                 <option key={"poteau"} value='poteau'>POTEAU</option>
                             </Select>
+                        </FormControl>
+                        <FormControl>
                             <FormLabel>Nom</FormLabel>
                             <Input
                                 ref={initialRef}
@@ -209,7 +212,7 @@ const AddEquipmentModal = ({children, mutate}) => {
                                 {errors?.equipmentType && errors?.equipmentType.message}
                             </FormErrorMessage>
                         </FormControl>
-                        {['nro', 'bpeo', 'sro', 'pbo', 'poteau', 'conduit', 'cable'].includes(equipment) && (
+                        {['nro', 'bpeo', 'sro', 'pbo', 'pto',  'poteau', 'conduit', 'cable'].includes(equipment) && (
                             <>
                                 <FormControl mt={4} isRequired>
                                     <FormLabel>Longitude</FormLabel>
@@ -348,6 +351,9 @@ const AddEquipmentModal = ({children, mutate}) => {
                                         <option key={"distribution"} value='distribution'>Distribution</option>
                                         <option key={"branchement"} value='branchement'>Branchement</option>
                                     </Select>
+                                    <FormErrorMessage>
+                                        {errors?.typeCable && errors?.typeCable.message}
+                                    </FormErrorMessage>
                                 </FormControl>
                             </>
                         )}

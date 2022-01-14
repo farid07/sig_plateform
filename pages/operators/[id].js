@@ -18,7 +18,7 @@ const OperatorDetail = () => {
     const operator_id = router?.query?.id
     const {authUser} = useAuth();
     const {data} = useSWR(authUser && operator_id ? [`/api/operators/${operator_id}`, authUser?.token] : null, fetcher);
-    const isAdmin = authUser?.accountType !== 'operator';
+    const isAdmin = authUser?.accountType != 'admin';
 
     useEffect(
         () => {
