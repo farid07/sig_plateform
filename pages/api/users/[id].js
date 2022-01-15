@@ -1,11 +1,11 @@
-import {getOperator} from '@/lib/db-admin';
+import {getUser} from '@/lib/db-admin';
 import {formatObjectKeys, logger} from '@/utils/logger';
 
 export default async (req, res) => {
     try {
-        // const { uid } = await auth.verifyIdToken(req.headers.token);
-        const operator = await getOperator(req?.query?.id);
-        res.status(200).json({operator});
+        const userId = req?.query?.id
+        const user = await getUser(userId);
+        res.status(200).json({user});
     } catch (error) {
         logger.error(
             {

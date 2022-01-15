@@ -84,13 +84,13 @@ const AddEquipmentModal = ({children, mutate}) => {
     };
 
     const onCreateEquipment = async ({
-                                         infrastructureType, name, mark, longitude, latitude, ports, portsOccupees,
+                                         name, mark, longitude, latitude, ports, portsOccupees,
                                          longitudeArrivee, latitudeArrivee, typeCable, taille
                                      }) => {
         const newEquipment = {
             createdBy: auth.authUser.uid,
             createdAt: new Date().toISOString(),
-            infrastructureType: infrastructureType ? infrastructureType : "",
+            infrastructureType: equipment,
             name,
             mark: mark ? mark : "",
             type: equipmentType,
@@ -105,8 +105,8 @@ const AddEquipmentModal = ({children, mutate}) => {
         };
         console.log(newEquipment)
         createNewEquipment(newEquipment);
+        mutate()
         onClose()
-        mutate('/api/equipments')
         toast({
             title: 'Succès!',
             description: "L'équipement a été bien ajouté.",

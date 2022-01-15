@@ -11,15 +11,16 @@ import ShowOperator from "@/components/ShowOperator";
 import EmptyState from "@/components/EmptyState";
 import AddOperatorModal from "@/components/AddOperatorModal";
 import ContentHeader from "@/components/ContentHeader";
-import OperatorsSkeleton from "@/components/OperatorsSkeleton";
 
 const OperatorDetail = () => {
     const router = useRouter()
     const operator_id = router?.query?.id
     const {authUser} = useAuth();
-    const {data} = useSWR(authUser && operator_id ? [`/api/operators/${operator_id}`, authUser?.token] : null, fetcher);
-    const isAdmin = authUser?.accountType != 'admin';
-
+    const {
+        data,
+        mutate
+    } = useSWR(authUser && operator_id ? [`/api/operators/${operator_id}`, authUser?.token] : null, fetcher);
+    const isAdmin = authUser?.accountType === 'admin';
     useEffect(
         () => {
             if (!authUser) {
@@ -39,7 +40,7 @@ const OperatorDetail = () => {
                             </AddOperatorModal>
                         )}
                     </ContentHeader>
-                    <OperatorsSkeleton/>
+                    {/*<OperatorsSkeleton/>*/}
                 </Container>
             </DashboardShell>
         );

@@ -4,6 +4,7 @@ import {useRouter} from "next/router";
 import Container from "@/components/Container";
 import DashboardShell from "@/layouts/DashboardShell";
 import dynamic from 'next/dynamic';
+import NetworkHeader from "@/components/networks/NetworkHeader";
 
 const DynamicComponentWithNoSSR = dynamic(() => import('/components/Map'), {
     ssr: false
@@ -40,7 +41,8 @@ const Dashboard = () => {
     return (
         <DashboardShell>
             <Container>
-                <DynamicComponentWithNoSSR />
+                <NetworkHeader title={"Réseaux"}/>
+                <DynamicComponentWithNoSSR/>
             </Container>
         </DashboardShell>
     );

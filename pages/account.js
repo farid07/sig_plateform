@@ -15,10 +15,10 @@ import {
 } from '@chakra-ui/react';
 
 import {useAuth} from '@/lib/auth';
-import Router from 'next/router'
 // import { goToBillingPortal } from '@/lib/db';
 import Page from '@/components/Page';
 import DashboardShell from '@/layouts/DashboardShell';
+import UpdateProfilModal from "@/components/UpdateProfilModal";
 
 const FeedbackUsage = () => (
     <StatGroup>
@@ -106,23 +106,7 @@ const Account = () => {
                         <Button variant="ghost" ml={4} onClick={() => signOut()}>
                             Déconnexion
                         </Button>
-                        <Button
-                            onClick={() => {
-                                Router.push('/dashboard');
-                            }}
-                            backgroundColor="gray.900"
-                            color="white"
-                            fontWeight="medium"
-                            ml={4}
-                            isLoading={isBillingLoading}
-                            _hover={{bg: 'gray.700'}}
-                            _active={{
-                                bg: 'gray.800',
-                                transform: 'scale(0.95)'
-                            }}
-                        >
-                            Modifier mot de passe
-                        </Button>
+                        <UpdateProfilModal user={authUser}/>
                     </Flex>
                 </SettingsTable>
             </Flex>

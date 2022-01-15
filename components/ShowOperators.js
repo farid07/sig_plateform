@@ -4,6 +4,7 @@ import {Avatar, Box, Button, Heading, SimpleGrid, Stack} from "@chakra-ui/react"
 import DeleteOperatorButton from "@/components/DeleteOperatorButton";
 
 const ShowOperators = ({mutate, operators, isAdmin}) => {
+    console.log(operators)
     return (
         <SimpleGrid columns={[1, 1, 2, 3]} spacing="50px">
             {operators.map((operator, index) => (

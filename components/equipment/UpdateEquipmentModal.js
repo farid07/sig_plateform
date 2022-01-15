@@ -14,7 +14,8 @@ import {
     ModalContent,
     ModalFooter,
     ModalHeader,
-    ModalOverlay, Select,
+    ModalOverlay,
+    Select,
     useDisclosure,
     useRadio,
     useRadioGroup,
@@ -24,8 +25,6 @@ import {useAuth} from '@/lib/auth';
 import React, {useRef, useState} from "react";
 import {AiFillEdit} from "react-icons/ai";
 import {updateEquipment} from "@/lib/db";
-import {MdAdd} from "react-icons/md";
-import {useRouter} from "next/router";
 
 function RadioCard(props) {
     const {getInputProps, getCheckboxProps} = useRadio(props)
@@ -63,13 +62,11 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
     const toast = useToast();
     const auth = useAuth();
     const [equipmentType, setEquipmentType] = useState(equipment?.type)
-    const [infrastructure, setInfrastructure] = useState("")
+    const [infrastructure, setInfrastructure] = useState(equipment?.infrastructureType)
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const element = '' ;
 
     const options = ["non-optique", "optique"]
-
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "equipmentType",
         required: true,
@@ -82,13 +79,14 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
     const handleChange = (event) => {
         setInfrastructure(event.target.value);
     };
-
-    const onUpdateEquipment = async ({infrastructureType, name, mark, longitude, latitude, ports, portsOccupees,
-                                         longitudeArrivee, latitudeArrivee, typeCable, taille}) => {
+    const onUpdateEquipment = async ({
+                                         name, mark, longitude, latitude, ports, portsOccupees,
+                                         longitudeArrivee, latitudeArrivee, typeCable, taille
+                                     }) => {
         const newEquipment = {
             createdBy: auth.authUser.uid,
             createdAt: new Date().toISOString(),
-            infrastructureType: infrastructureType ? infrastructureType : "",
+            infrastructureType: infrastructure,
             name,
             mark: mark ? mark : "",
             type: equipmentType,
@@ -101,9 +99,10 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
             typeCable: typeCable ? typeCable : "",
             taille: taille ? taille : "",
         };
-        updateEquipment(equipment?.uid, newEquipment);
+
+        updateEquipment(equipment?.id, newEquipment);
+        mutate()
         onClose()
-        mutate('/api/equipments')
         toast({
             title: 'Succès!',
             description: "Les informations de l'équipement ont été bien modifiées.",
@@ -125,7 +124,7 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
                 <ModalContent as="form" onSubmit={handleSubmit(onUpdateEquipment)}>
-                    <ModalHeader fontWeight="bold">Ajouter Equipement</ModalHeader>
+                    <ModalHeader fontWeight="bold">Modifier Equipement</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
@@ -138,7 +137,7 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
                                 mb={4}
                                 type={"text"}
                                 placeholder="Selectionnez l'infrastructure"
-                                element={document.getElementById("infrastructureType")}
+                                defaultValue={infrastructure}
                             >
                                 <option key={"nro"} value='nro'>NRO</option>
                                 <option key={"bpeo"} value='bpeo'>BPEO</option>
@@ -186,7 +185,7 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
                                 {errors?.equipmentType && errors?.equipmentType.message}
                             </FormErrorMessage>
                         </FormControl>
-                        {['poteau', 'conduit', 'cable'].includes(equipment) || (
+                        {['poteau', 'conduit', 'cable'].includes(infrastructure) || (
                             <FormControl isRequired mt={4}>
                                 <FormLabel>Marque</FormLabel>
                                 <Input
@@ -206,7 +205,7 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
                                 </FormErrorMessage>
                             </FormControl>)
                         }
-                        {['nro', 'bpeo', 'sro', 'pbo', 'pto', 'poteau', 'conduit', 'cable'].includes(equipment) && (
+                        {['nro', 'bpeo', 'sro', 'pbo', 'pto', 'poteau', 'conduit', 'cable'].includes(infrastructure) && (
                             <>
                                 <FormControl mt={4} isRequired>
                                     <FormLabel>Longitude</FormLabel>
@@ -248,7 +247,7 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
                                 </FormControl>
                             </>
                         )}
-                        {['sro', 'pbo', 'pto'].includes(equipment) && (
+                        {['sro', 'pbo', 'pto'].includes(infrastructure) && (
                             <>
                                 <FormControl mt={4} isRequired>
                                     <FormLabel>Total ports</FormLabel>
@@ -271,7 +270,7 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
                                 </FormControl>
                             </>
                         )}
-                        {['pbo'].includes(equipment) && (
+                        {['pbo'].includes(infrastructure) && (
                             <>
                                 <FormControl mt={4} isRequired>
                                     <FormLabel>Ports occupés</FormLabel>
@@ -294,7 +293,7 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
                                 </FormControl>
                             </>
                         )}
-                        {['cable'].includes(equipment) && (
+                        {['cable'].includes(infrastructure) && (
                             <>
                                 <FormControl mt={4} isRequired>
                                     <FormLabel>Longitude arrivée</FormLabel>
@@ -358,7 +357,7 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
                                 </FormControl>
                             </>
                         )}
-                        {['bpeo'].includes(equipment) && (
+                        {['bpeo'].includes(infrastructure) && (
                             <>
                                 <FormControl mt={4} isRequired>
                                     <FormLabel>Taille</FormLabel>
@@ -394,7 +393,7 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
                             fontWeight="medium"
                             type="submit"
                         >
-                            Ajouter
+                            Modifier
                         </Button>
                     </ModalFooter>
                 </ModalContent>

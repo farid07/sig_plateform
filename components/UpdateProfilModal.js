@@ -6,7 +6,6 @@ import {
     FormErrorMessage,
     FormLabel,
     HStack,
-    IconButton,
     Input,
     Modal,
     ModalBody,
@@ -22,7 +21,7 @@ import {
 } from '@chakra-ui/react';
 import {useAuth} from '@/lib/auth';
 import React, {useRef, useState} from "react";
-import {AiFillEdit} from "react-icons/ai";
+import {mutate} from "swr";
 
 function RadioCard(props) {
     const {getInputProps, getCheckboxProps} = useRadio(props)
@@ -55,7 +54,7 @@ function RadioCard(props) {
     )
 }
 
-const UpdateUserModal = ({user, size, mutate}) => {
+const UpdateProfilModal = ({user}) => {
     const initialRef = useRef(null);
     const toast = useToast();
     const auth = useAuth();
@@ -89,7 +88,7 @@ const UpdateUserModal = ({user, size, mutate}) => {
         mutate('/api/users')
         toast({
             title: 'Succès!',
-            description: "Le compte utilisateur a été bien modifié.",
+            description: "Le profil a été bien modifié.",
             status: 'success',
             duration: 5000,
             isClosable: true
@@ -98,18 +97,24 @@ const UpdateUserModal = ({user, size, mutate}) => {
 
     return (
         <>
-            <IconButton
-                size={size}
-                aria-label="Update user"
-                icon={<AiFillEdit size={size}/>}
-                color={"green.500"}
-                variant="ghost"
+            <Button
                 onClick={onOpen}
-            />
+                backgroundColor="gray.900"
+                color="white"
+                fontWeight="medium"
+                ml={4}
+                _hover={{bg: 'gray.700'}}
+                _active={{
+                    bg: 'gray.800',
+                    transform: 'scale(0.95)'
+                }}
+            >
+                Mettre à jour
+            </Button>
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
                 <ModalContent as="form" onSubmit={handleSubmit(onUpdateUser)}>
-                    <ModalHeader fontWeight="bold">Modifier Utilisateur</ModalHeader>
+                    <ModalHeader fontWeight="bold">Modifier Profil</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
@@ -229,4 +234,4 @@ const UpdateUserModal = ({user, size, mutate}) => {
     );
 };
 
-export default UpdateUserModal;
+export default UpdateProfilModal;

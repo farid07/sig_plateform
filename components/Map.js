@@ -24,7 +24,7 @@ class Map extends Component {
         return (
             <ReactMapGL
                 mapStyle="mapbox://styles/mapbox/streets-v10"
-                mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
+                mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
                 {...this.state.viewport}
                 onViewportChange={(viewport) => this.setState({viewport})}
             >

@@ -16,9 +16,9 @@ import OperatorsSkeleton from "@/components/OperatorsSkeleton";
 const Operator = () => {
     const {router} = useRouter();
     const {authUser} = useAuth();
-    const {data, mutate} = useSWR(authUser ? ['/api/operators/', authUser?.token] : null, fetcher);
     console.log(authUser)
-    const isAdmin = authUser?.accountType != 'operator';
+    const {data, mutate} = useSWR(authUser ? ['/api/operators/', authUser?.token] : null, fetcher);
+    const isAdmin = authUser?.accountType === 'admin';
     if (!authUser) {
         router?.push("/login/email");
     }

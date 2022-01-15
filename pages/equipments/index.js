@@ -51,7 +51,7 @@ const Equipment = () => {
                             </AddEquipmentModal>
                         )}
                     </ContentHeader>
-                    <EquipmentTable equipments={data.equipments}/>
+                    <EquipmentTable equipments={data.equipments} mutate={mutate}/>
                 </Container>
             </DashboardShell>
         );

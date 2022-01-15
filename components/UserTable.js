@@ -26,7 +26,7 @@ const UserTable = ({users, mutate}) => {
               <Box as="tr" key={user.id}>
                 <Td>
                   <NextLink
-                      href="/users/[userId]"
+                      href="/users/[id]"
                       as={`/users/${user.id}`}
                       passHref
                   >
@@ -37,7 +37,7 @@ const UserTable = ({users, mutate}) => {
                 </Td>
                 <Td>
                   <NextLink
-                      href="/users/[userId]"
+                      href="/users/[id]"
                       as={`/users/${user.id}`}
                       passHref
                   >
@@ -48,7 +48,7 @@ const UserTable = ({users, mutate}) => {
                 </Td>
                 <Td>
                   <NextLink
-                      href="/users/[userId]"
+                      href="/users/[id]"
                       as={`/users/${user.id}`}
                       passHref
                   >
