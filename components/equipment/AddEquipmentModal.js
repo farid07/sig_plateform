@@ -222,7 +222,10 @@ const AddEquipmentModal = ({children, mutate}) => {
                                         placeholder="6.445244"
                                         name="longitude"
                                         autoComplete={"false"}
-                                        type={"decimal"}
+                                        type={"number"}
+                                        min={"-180"}
+                                        max={"180"}
+                                        step="any"
                                         {...register("longitude", {
                                             required: 'Required',
                                             validate: false
@@ -240,7 +243,10 @@ const AddEquipmentModal = ({children, mutate}) => {
                                         placeholder="-6.445244"
                                         name="latitude"
                                         autoComplete={"false"}
-                                        type={"decimal"}
+                                        type={"number"}
+                                        min={"-90"}
+                                        max={"90"}
+                                        step="any"
                                         {...register("latitude", {
                                             required: 'Required',
                                             validate: false
