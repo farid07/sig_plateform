@@ -1,18 +1,65 @@
 import React from 'react';
-import {Avatar, Flex, Heading, Text} from "@chakra-ui/react";
+import {Avatar, Badge, Box, Center, Flex, Stack, Heading, Text} from "@chakra-ui/react";
 
-const ShowOperator = ({operator}) => {
+const ShowOperator = ({operator, mutate, isAdmin}) => {
     return (
-        <Flex direction="column" align={['left', 'center']} ml={4}>
-            <Avatar
-                w={['3rem', '6rem']}
-                h={['3rem', '6rem']}
-                mb={4}
-                src={operator?.logo}
-            />
-            <Heading as={"h1"} fontSize={"32px"} my={"4px"} letterSpacing="-1px">{operator?.name}</Heading>
-            <Text>{operator?.name}</Text>
-        </Flex>
+
+        <Center py={6}>
+            <Box
+                maxW={'320px'}
+                w={'full'}
+                bg={'white'}
+                boxShadow={'2xl'}
+                rounded={'lg'}
+                p={6}
+                textAlign={'center'}>
+                <Avatar
+                    size={'xl'}
+                    src={operator?.logo}
+                    alt={'Avatar Alt'}
+                    mb={4}
+                    pos={'relative'}
+                    _after={{
+                        content: '""',
+                        w: 4,
+                        h: 4,
+                        bg: 'green.300',
+                        border: '2px solid white',
+                        rounded: 'full',
+                        pos: 'absolute',
+                        bottom: 0,
+                        right: 3,
+                    }}
+                />
+                <Heading fontSize={'2xl'} fontFamily={'body'}>
+                    {operator?.name}
+                </Heading>
+
+                <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
+                    <Badge
+                        px={2}
+                        py={1}
+                        bg={'red.100'}
+                        fontWeight={'400'}>
+                        {operator?.email}
+                    </Badge>
+                    <Badge
+                        px={2}
+                        py={1}
+                        bg={'red.100'}
+                        fontWeight={'400'}>
+                        {operator?.url}
+                    </Badge>
+
+                </Stack>
+                {/*
+                <Center mt={8}>
+                    {isAdmin && (<UpdateUserModal mutate={mutate} user={user} size={"42px"}/>)}
+                </Center>
+                */}
+            </Box>
+        </Center>
+
     );
 };
 
