@@ -106,7 +106,7 @@ class Map extends Component {
                 ?.setPopup(new mapboxgl.Popup({offset: 30, closeButton: false, closeOnMove: true})
                     .setHTML('<div className="wrapper"><div className="productinfo"> <div className="grouptext"> <h3>Nom</h3> <p>' +
                         equipment?.name
-                        + '</p> </div> <div className="grouptext"> <h3>Marque</h3> <p>' + equipment?.mark + '</p> </div> <div className="grouptext"> <h3>Ports</h3> <p>' + equipment?.ports + '</p></div></div></div>'
+                        + '</p> </div><div className="grouptext"> <h3>Type</h3> <p>' + equipment?.type + '</p> </div> <div className="grouptext"> <h3>Marque</h3> <p>' + equipment?.mark + '</p> </div> <div className="grouptext"> <h3>Ports</h3> <p>' + equipment?.ports + '</p></div></div></div>'
                     ).setMaxWidth("300px")
                 )
                 ?.addTo(map)
