@@ -5,7 +5,7 @@ import {
     FormControl,
     FormErrorMessage,
     FormLabel,
-    HStack,
+    HStack, IconButton,
     Input,
     Modal,
     ModalBody,
@@ -13,7 +13,7 @@ import {
     ModalContent,
     ModalFooter,
     ModalHeader,
-    ModalOverlay,
+    ModalOverlay, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverTrigger,
     Select,
     useDisclosure,
     useRadio,
@@ -26,6 +26,7 @@ import {useAuth} from '@/lib/auth';
 import {useRef, useState} from "react";
 import {useRouter} from "next/router";
 import {createNewEquipment} from "@/lib/db";
+import {InfoOutlineIcon} from "@chakra-ui/icons";
 
 function RadioCard(props) {
     const {getInputProps, getCheckboxProps} = useRadio(props)
@@ -313,7 +314,10 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                                         placeholder="6.445244"
                                         name="longitudeArrivee"
                                         autoComplete={"false"}
-                                        type={"decimal"}
+                                        type={"number"}
+                                        max={'180'}
+                                        min={'-180'}
+                                        step={'any'}
                                         {...register("longitudeArrivee", {
                                             required: 'Required',
                                             validate: false
@@ -331,7 +335,10 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                                         placeholder="-6.445244"
                                         name="latitudeArrivee"
                                         autoComplete={"false"}
-                                        type={"decimal"}
+                                        type={"number"}
+                                        min={'-90'}
+                                        max={'90'}
+                                        step={'any'}
                                         {...register("latitudeArrivee", {
                                             required: 'Required',
                                             validate: false
