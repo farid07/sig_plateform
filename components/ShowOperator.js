@@ -35,7 +35,7 @@ const ShowOperator = ({operator, mutate, isAdmin}) => {
                     {operator?.name}
                 </Heading>
 
-                <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
+                <Flex alignItem={'center'} justifyContent={'space-between'} direction={'column'} mt={6}>
                     <Badge
                         px={2}
                         py={1}
@@ -46,12 +46,18 @@ const ShowOperator = ({operator, mutate, isAdmin}) => {
                     <Badge
                         px={2}
                         py={1}
+                        bg={'green.300'}
+                        fontWeight={'400'}>
+                        {operator?.url}
+                    </Badge>
+                    <Badge
+                        px={2}
+                        py={1}
                         bg={'red.100'}
                         fontWeight={'400'}>
                         {operator?.url}
                     </Badge>
-
-                </Stack>
+                </Flex>
                 {/*
                 <Center mt={8}>
                     {isAdmin && (<UpdateUserModal mutate={mutate} user={user} size={"42px"}/>)}
