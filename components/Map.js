@@ -6,7 +6,7 @@ import {Component} from 'react';
 //     NavigationControl,
 //     Popup,
 //     ScaleControl
-// } from 'react-map-gl';
+// } from 'react-map-gl'
 // import * as d3 from "d3-ease";
 import {Box, Icon} from "@chakra-ui/react";
 import mapboxgl from "mapbox-gl";
