@@ -58,7 +58,7 @@ function RadioCard(props) {
     )
 }
 
-const AddEquipmentModal = ({children, mutate}) => {
+const AddEquipmentModal = ({children, operator, mutate}) => {
     const initialRef = useRef(null);
     const router = useRouter();
     const toast = useToast();
@@ -91,9 +91,11 @@ const AddEquipmentModal = ({children, mutate}) => {
             createdBy: auth.authUser.uid,
             createdAt: new Date().toISOString(),
             infrastructureType: equipment,
+            userId: auth.authUser?.uid,
             name,
             mark: mark ? mark : "",
             type: equipmentType,
+            color: operator?.settings.color,
             longitude: longitude ? longitude : "",
             latitude: latitude ? latitude : "",
             ports: ports ? ports : 0,
@@ -103,7 +105,6 @@ const AddEquipmentModal = ({children, mutate}) => {
             typeCable: typeCable ? typeCable : "",
             taille: taille ? taille : "",
         };
-        console.log(newEquipment)
         createNewEquipment(newEquipment);
         mutate()
         onClose()

@@ -57,7 +57,7 @@ function RadioCard(props) {
     )
 }
 
-const UpdateEquipmentModal = ({equipment, mutate}) => {
+const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
     const initialRef = useRef(null);
     const toast = useToast();
     const auth = useAuth();
@@ -87,8 +87,10 @@ const UpdateEquipmentModal = ({equipment, mutate}) => {
             createdBy: auth.authUser.uid,
             createdAt: new Date().toISOString(),
             infrastructureType: infrastructure,
+            userId: auth.authUser?.uid,
             name,
             mark: mark ? mark : "",
+            color: operator?.settings.color,
             type: equipmentType,
             longitude: longitude ? longitude : "",
             latitude: latitude ? latitude : "",

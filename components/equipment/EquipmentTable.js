@@ -7,7 +7,7 @@ import {Table, Td, Th, Tr} from './../Table';
 import DeleteEquipmentButton from "@/components/equipment/DeleteEquipmentButton";
 import UpdateEquipmentModal from "@/components/equipment/UpdateEquipmentModal";
 
-const EquipmentTable = ({equipments, mutate}) => {
+const EquipmentTable = ({equipments, operator, mutate}) => {
     return (
         <Box overflowX="scroll">
             <Table w="full">
@@ -52,7 +52,7 @@ const EquipmentTable = ({equipments, mutate}) => {
                         </Td>
                         <Td>{format(parseISO(equipment?.createdAt), 'PPpp')}</Td>
                         <Td display={"flex"}>
-                            <UpdateEquipmentModal equipment={equipment} mutate={mutate}/>
+                            <UpdateEquipmentModal operator={operator} equipment={equipment} mutate={mutate}/>
                             <DeleteEquipmentButton equipmentId={equipment.id}/>
                         </Td>
                     </Box>

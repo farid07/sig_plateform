@@ -1,14 +1,6 @@
 import {Component} from 'react';
-// import ReactMapGL, {
-//     FlyToInterpolator,
-//     FullscreenControl,
-//     GeolocateControl, Marker,
-//     NavigationControl,
-//     Popup,
-//     ScaleControl
-// } from 'react-map-gl';
-// import * as d3 from "d3-ease";
-import {Box, Icon} from "@chakra-ui/react";
+import {Box, Icon, Popover, PopoverBody, PopoverContent, PopoverFooter, PopoverHeader} from "@chakra-ui/react";
+
 import mapboxgl from "mapbox-gl";
 
 const CircleIcon = (props) => (
@@ -19,6 +11,25 @@ const CircleIcon = (props) => (
         />
     </Icon>
 )
+
+const createMarker = ({equipment, map, ...props}) => {
+    const pop = <Popover>
+        <PopoverContent>
+            <PopoverHeader>This is the header</PopoverHeader>
+            <PopoverBody>
+                <Box>
+                    Hello. Nice to meet you! This is the body of the popover
+                </Box>
+            </PopoverBody>
+            <PopoverFooter>This is the footer</PopoverFooter>
+        </PopoverContent>
+    </Popover>
+    return new mapboxgl.Marker({color: equipment?.color, draggable: false})
+        // .setLngLat([this.state.lng, this.state.lat])
+        ?.setLngLat([2.485455, 6.366667])
+        ?.setPopup(new mapboxgl.Popup({offset: 30}).setHTML(pop))
+        ?.addTo(map)
+}
 
 // "mapbox://styles/carl97/cky5rnaek6k3j15pcyi6phi2f"
 //mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_KEY
@@ -57,11 +68,19 @@ class Map extends Component {
             lng: 2.485455,
             zoom: 12,
             accessToken: process.env.NEXT_PUBLIC_MAPBOX_KEY,
+            data: {}
         }
     }
 
-    componentDidMount() {
-        // const data = fetch("")
+    async componentDidMount() {
+        // récuperation de la liste des equipements
+        const data = await fetch("/api/equipments", {
+            method: 'GET',
+            headers: new Headers({'Content-Type': 'application/json'}),
+            credentials: 'same-origin'
+        })
+        const d = await data.json()
+        this.state.data = d.equipments
         const map = new mapboxgl.Map({
             accessToken: this.state.accessToken,
             container: this.mapContainer,
@@ -69,12 +88,35 @@ class Map extends Component {
             center: [this.state.lng, this.state.lat],
             zoom: this.state.zoom,
         });
+        this.state.data?.map((equipment) => {
+            const pop = <Popover>
+                <PopoverContent>
+                    <PopoverHeader>{equipment?.name}</PopoverHeader>
+                    <PopoverBody>
+                        <Box>
+                            Hello. Nice to meet you! This is the body of the popover
+                        </Box>
+                    </PopoverBody>
+                    <PopoverFooter>This is the footer</PopoverFooter>
+                </PopoverContent>
+            </Popover>
+            let marker = new mapboxgl.Marker({color: equipment?.color, draggable: false})
+                // .setLngLat([this.state.lng, this.state.lat])
+                ?.setLngLat([equipment?.longitude, equipment?.latitude])
+                ?.setPopup(new mapboxgl.Popup({offset: 30, closeButton: false, closeOnMove: true})
+                    .setHTML('<div className="wrapper"><div className="productinfo"> <div className="grouptext"> <h3>Nom</h3> <p>' +
+                        equipment?.name
+                        + '</p> </div> <div className="grouptext"> <h3>Marque</h3> <p>' + equipment?.mark + '</p> </div> <div className="grouptext"> <h3>Ports</h3> <p>' + equipment?.ports + '</p></div></div></div>'
+                    ).setMaxWidth("300px")
+                )
+                ?.addTo(map)
+        })
 
-        let marker = new mapboxgl.Marker({color: "#f1072a", draggable: true})
-            .setLngLat([this.state.lng, this.state.lat])
-            .setPopup(new mapboxgl.Popup({offset: 30}).setHTML('<h4>' + 'Akpakpa' + '</h4>'))
-            // .setHTML('<h4>'+'Akpakpa'+'</h4>')
-            .addTo(map);
+        // let marker = new mapboxgl.Marker({color: "#f1072a", draggable: true})
+        //     .setLngLat([this.state.lng, this.state.lat])
+        //     .setPopup(new mapboxgl.Popup({offset: 30}).setHTML('<h4>' + 'Akpakpa' + '</h4>'))
+        //     // .setHTML('<h4>'+'Akpakpa'+'</h4>')
+        //     .addTo(map);
     }
 
     render() {

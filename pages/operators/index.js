@@ -19,6 +19,7 @@ const Operator = () => {
     console.log(authUser)
     const {data, mutate} = useSWR(authUser ? ['/api/operators/', authUser?.token] : null, fetcher);
     const isAdmin = authUser?.accountType === 'admin';
+    const isOperator = authUser?.accountType === 'operator';
     if (!authUser) {
         router?.push("/login/email");
     }
@@ -28,7 +29,7 @@ const Operator = () => {
             <DashboardShell>
                 <Container>
                     <ContentHeader title={"Opérateurs"}>
-                        {isAdmin && (
+                        {isOperator && (
                             <AddOperatorModal mutate={mutate}>
                                 Ajouter
                             </AddOperatorModal>
@@ -45,13 +46,13 @@ const Operator = () => {
             <DashboardShell>
                 <Container>
                     <ContentHeader title={"Opérateurs"}>
-                        {isAdmin && (
+                        {isOperator && (
                             <AddOperatorModal mutate={mutate}>
                                 Ajouter
                             </AddOperatorModal>
                         )}
                     </ContentHeader>
-                    <ShowOperators isAdmin={isAdmin} mutate={mutate} operators={data.operators}/>
+                    <ShowOperators isOperator={isOperator} mutate={mutate} operators={data.operators}/>
                 </Container>
             </DashboardShell>
         );
@@ -61,7 +62,7 @@ const Operator = () => {
         <DashboardShell>
             <Container>
                 <ContentHeader title={"Opérateurs"}>
-                    {isAdmin && (
+                    {isOperator && (
                         <AddOperatorModal mutate={mutate}>
                             Ajouter
                         </AddOperatorModal>

@@ -33,6 +33,7 @@
     "react-map-gl": "^6.1.18",
     "react-map-gl-draw": "^1.0.2-alpha.0",
     "reactstrap": "^9.0.0",
+    "sass": "^1.49.0",
     "styled-components": "^5.3.3",
     "swr": "^1.0.1",
     "zustand": "^3.6.5"
