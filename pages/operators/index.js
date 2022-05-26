@@ -52,7 +52,7 @@ const Operator = () => {
                             </AddOperatorModal>
                         )}
                     </ContentHeader>
-                    <ShowOperators isOperator={isOperator} mutate={mutate} operators={data.operators}/>
+                    <ShowOperators isAdmin={isAdmin} isOperator={isOperator} mutate={mutate} operators={data.operators}/>
                 </Container>
             </DashboardShell>
         );

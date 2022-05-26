@@ -39,21 +39,21 @@ const ShowOperator = ({operator, mutate, isAdmin}) => {
                     <Badge
                         px={2}
                         py={1}
-                        bg={'red.100'}
+                        bg={'blue.100'}
                         fontWeight={'400'}>
                         {operator?.email}
                     </Badge>
                     <Badge
                         px={2}
                         py={1}
-                        bg={'green.300'}
+                        bg={'blue.100'}
                         fontWeight={'400'}>
                         {operator?.url}
                     </Badge>
                     <Badge
                         px={2}
                         py={1}
-                        bg={'red.100'}
+                        bg={'blue.100'}
                         fontWeight={'400'}>
                         {operator?.url}
                     </Badge>

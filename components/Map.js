@@ -33,6 +33,7 @@ const createMarker = ({equipment, map, ...props}) => {
 
 // "mapbox://styles/carl97/cky5rnaek6k3j15pcyi6phi2f"
 //mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_KEY
+
 // viewport: {
 //     width: "1050px",
 //         height: "650px",
@@ -101,7 +102,6 @@ class Map extends Component {
                 </PopoverContent>
             </Popover>
             let marker = new mapboxgl.Marker({color: equipment?.color, draggable: false})
-                // .setLngLat([this.state.lng, this.state.lat])
                 ?.setLngLat([equipment?.longitude, equipment?.latitude])
                 ?.setPopup(new mapboxgl.Popup({offset: 30, closeButton: false, closeOnMove: true})
                     .setHTML('<div className="wrapper"><div className="productinfo"> <div className="grouptext"> <h3>Nom</h3> <p>' +

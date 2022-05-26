@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 import {Avatar, Box, Button, Heading, SimpleGrid, Stack} from "@chakra-ui/react";
 import DeleteOperatorButton from "@/components/DeleteOperatorButton";
 
-const ShowOperators = ({mutate, operators, isAdmin}) => {
+const ShowOperators = ({mutate, operators, isAdmin,}) => {
     console.log(operators)
     return (
         <SimpleGrid columns={[1, 1, 2, 3]} spacing="50px">
@@ -51,7 +51,8 @@ const ShowOperators = ({mutate, operators, isAdmin}) => {
                                 Voir informations
                             </Button>
                         </NextLink>
-                        {isAdmin && <DeleteOperatorButton mutate={mutate} operatorId={operator.id}/>}
+                        {isAdmin && (
+                            <DeleteOperatorButton mutate={mutate} operatorId={operator.id}/>)}
                     </Stack>
                 </Box>
             ))}

@@ -9,7 +9,9 @@ import {useAuth} from "@/lib/auth";
 
 export default function Sidebar() {
     const {authUser} = useAuth();
-    const isAdmin = authUser?.accountType != 'operator';
+    const isAdmin = authUser?.accountType !== 'operator';
+    const isOperator = authUser?.accountType === 'operator';
+
     const router = useRouter()
     return (
         <Flex
@@ -40,10 +42,9 @@ export default function Sidebar() {
                          active={router.pathname === "/operators"}/>
                 {isAdmin &&
                 <NavItem path={"users"} icon={FiUser} title="Utilisateurs" active={router.pathname === "/users"}/>}
-                <NavItem path={"equipments"} icon={IoPawOutline} title="Equipements"
-                         active={router.pathname === "/equipments"}/>
-                <NavItem path={"networks"} icon={FaNetworkWired} title="Réseaux"
-                         active={router.pathname === "/networks"}/>
+                {isOperator &&
+                <NavItem path={"equipments"} icon={IoPawOutline} title="Equipements" active={router.pathname === "/equipments"}/>}
+                <NavItem path={"networks"} icon={FaNetworkWired} title="Réseaux" active={router.pathname === "/networks"}/>
                 <NavItem path={"account"} icon={FiSettings} title="Parametres" active={router.pathname === "/account"}/>
             </Flex>
         </Flex>
