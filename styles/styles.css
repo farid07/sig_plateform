@@ -1,0 +1,22 @@
+html {
+    scroll-behavior: smooth;
+}
+
+#__next {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#radioGroup {
+    background-color: grey;
+    width: 82%;
+    height: 80%;
+    margin: 5% 0 0 18%;
+}
+
+.mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
