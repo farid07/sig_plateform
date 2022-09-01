@@ -13,7 +13,7 @@ import {
     ModalContent,
     ModalFooter,
     ModalHeader,
-    ModalOverlay, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverTrigger,
+    ModalOverlay,
     Select,
     useDisclosure,
     useRadio,
@@ -84,7 +84,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
     };
 
     const onCreateEquipment = async ({
-                                         name, mark, longitude, latitude, ports, portsOccupees,
+                                         name, mark, longitude, latitude, ports, portsOccupes,
                                          longitudeArrivee, latitudeArrivee, typeCable, taille
                                      }) => {
         const newEquipment = {
@@ -99,7 +99,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
             longitude: longitude ? longitude : "",
             latitude: latitude ? latitude : "",
             ports: ports ? ports : 0,
-            portsOccupees: portsOccupees ? portsOccupees : 0,
+            portsOccupes: portsOccupes ? portsOccupes : 0,
             longitudeArrivee: longitudeArrivee ? longitudeArrivee : "",
             latitudeArrivee: latitudeArrivee ? latitudeArrivee : "",
             typeCable: typeCable ? typeCable : "",
@@ -155,7 +155,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                                 <option key={"pbo"} value='pbo'>PBO</option>
                                 <option key={"pto"} value='pto'>PTO</option>
                                 <option key={"cable"} value='cable'>CABLE</option>
-                                <option key={"conduit"} value='conduit'>CONDUIT SOUTERRAIN</option>
+                                <option key={"conduit"} value='conduit'>CHAMBRE SOUTERRAINE</option>
                                 <option key={"poteau"} value='poteau'>POTEAU</option>
                             </Select>
                         </FormControl>
@@ -281,7 +281,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                                 </FormControl>
                             </>
                         )}
-                        {['pbo'].includes(equipment) && (
+                        {['pbo', 'sro'].includes(equipment) && (
                             <>
                                 <FormControl mt={4} isRequired>
                                     <FormLabel>Ports occupés</FormLabel>

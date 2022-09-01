@@ -1,4 +1,5 @@
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import {ChakraProvider} from '@chakra-ui/react';
 import Head from 'next/head';
 import "@/styles/styles.css";

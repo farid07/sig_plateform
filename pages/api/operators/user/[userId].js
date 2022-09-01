@@ -5,9 +5,7 @@ export default async (req, res) => {
     try {
         // const { uid } = await auth.verifyIdToken(req.headers.token);
         const operator = await getUserOperators(req?.query?.userId);
-        res.status(200).json({
-            operator
-        });
+        res.status(200).json({operator});
 
     } catch (error) {
         logger.error(

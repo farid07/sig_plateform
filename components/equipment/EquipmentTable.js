@@ -25,18 +25,16 @@ const EquipmentTable = ({equipments, operator, mutate}) => {
                     <Box as="tr" key={equipment.id}>
                         <Td>
                             <NextLink
-                                href="/equipments/[equipmentId]"
+                                href="/equipments/[id]"
                                 as={`/equipments/${equipment.id}`}
                                 passHref
                             >
-                                <Link id={`equipment-table-link-${index}`} fontWeight="medium">
-                                    {equipment.name}
-                                </Link>
+                                {equipment.name}1
                             </NextLink>
                         </Td>
                         <Td>
                             <NextLink
-                                href="/equipments/[equipmentId]"
+                                href="/equipments/[id]"
                                 as={`/equipments/${equipment.id}`}
                                 passHref
                             >

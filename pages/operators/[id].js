@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-
 import {useAuth} from '@/lib/auth';
 import fetcher from '@/utils/fetcher';
 import Page from '@/components/Page';
@@ -11,7 +10,6 @@ import ShowOperator from "@/components/operators/ShowOperator";
 import EmptyState from "@/components/EmptyState";
 import AddOperatorModal from "@/components/operators/AddOperatorModal";
 import ContentHeader from "@/components/ContentHeader";
-import ShowUser from "@/components/ShowUser";
 
 const OperatorDetail = () => {
     const router = useRouter()
@@ -22,6 +20,7 @@ const OperatorDetail = () => {
         mutate
     } = useSWR(authUser && operator_id ? [`/api/operators/${operator_id}`, authUser?.token] : null, fetcher);
     const isAdmin = authUser?.accountType === 'admin';
+
     useEffect(
         () => {
             if (!authUser) {
@@ -63,7 +62,6 @@ const OperatorDetail = () => {
             </DashboardShell>
         );
     }
-
     return (
         <DashboardShell>
             <Container>

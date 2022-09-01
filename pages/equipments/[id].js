@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-
 import {useAuth} from '@/lib/auth';
 import fetcher from '@/utils/fetcher';
 import Page from '@/components/Page';
@@ -11,13 +10,16 @@ import ShowEquipment from "@/components/equipment/ShowEquipment";
 import EmptyState from "@/components/EmptyState";
 import AddEquipmentModal from "@/components/equipment/AddEquipmentModal";
 import ContentHeader from "@/components/ContentHeader";
-import OperatorsSkeleton from "@/components/equipment/EquipmentsSkeleton";
+import EquipmentsSkeleton from "@/components/equipment/EquipmentsSkeleton";
 
 const EquipmentDetail = () => {
     const router = useRouter()
     const equipment_id = router?.query?.id
     const {authUser} = useAuth();
-    const {data} = useSWR(authUser && equipment_id ? [`/api/equipments/${equipment_id}`, authUser?.token] : null, fetcher);
+    const {
+        data,
+        mutate
+    } = useSWR(authUser && equipment_id ? [`/api/equipments/${equipment_id}`, authUser?.token] : null, fetcher);
     const isAdmin = authUser?.accountType === 'admin';
 
     useEffect(
@@ -50,13 +52,13 @@ const EquipmentDetail = () => {
             <DashboardShell>
                 <Container>
                     <ContentHeader title={"Détails Equipements"}>
+                        <ShowEquipment equipment={data.equipment} mutate={mutate} isAdmin={isAdmin}/>
                         {isAdmin && (
                             <AddEquipmentModal>
                                 Mettre à jour
                             </AddEquipmentModal>
                         )}
                     </ContentHeader>
-                    <ShowEquipment equipment={data.equipment}/>
                 </Container>
             </DashboardShell>
         );
@@ -83,7 +85,7 @@ const EquipmentDetail = () => {
 
 const EquipmentDetailPage = () => (
     <Page name="EquipmentDetail" path="/equipments/[id]">
-        <OperatorDetail/>
+        <EquipmentDetail/>
     </Page>
 );
 

@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-
 import {useAuth} from '@/lib/auth';
 import fetcher from '@/utils/fetcher';
 import Page from '@/components/Page';

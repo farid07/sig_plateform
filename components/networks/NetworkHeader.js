@@ -6,16 +6,15 @@ const NetworkHeader = ({isAdmin, mutate, operators, title}) => {
         <Box>
             <Flex justifyContent="space-between" mb={2}>
                 <Heading as={"h2"} fontSize={'18px'} mb={8}>{title || '-'}</Heading>
-                <HStack spacing={4}>
-                    <Select placeholder="Type d'infrastructurecher">
+                <HStack spacing={3}>
+                    <Select placeholder="Type d'infrastructure">
                         <option>Optique</option>
                         <option>Non optique</option>
                     </Select>
-                    <Select placeholder="Selectionner l'opérateur">
-                        <option>
-                        </option>
-                        <option>ISOCEL</option>
-                    </Select>
+                    {/*<Select placeholder="Selectionner l'opérateur">*/}
+                    {/*    <option> </option>*/}
+                    {/*    <option> </option>*/}
+                    {/*</Select>*/}
                 </HStack>
             </Flex>
         </Box>

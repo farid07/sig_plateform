@@ -5,7 +5,6 @@ export default async (req, res) => {
     try {
         // const { uid } = await auth.verifyIdToken(req.headers.token);
         const {equipment} = await getEquipment();
-
         res.status(200).json({equipment});
     } catch (error) {
         logger.error(

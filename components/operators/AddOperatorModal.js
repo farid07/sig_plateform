@@ -35,7 +35,6 @@ import DropZone from "@/components/DropZone";
 import {convertToBase64} from "@/utils/parser";
 import {InfoOutlineIcon} from "@chakra-ui/icons";
 
-
 const initialState = {
     file: ''
 };

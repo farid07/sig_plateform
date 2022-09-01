@@ -1,7 +1,8 @@
 import {Component} from 'react';
-import {Box} from "@chakra-ui/react";
+import {Box, FormControl, FormErrorMessage, FormLabel, Input, position} from "@chakra-ui/react";
 import mapboxgl from "mapbox-gl";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import {useAuth} from "@/lib/auth";
 
 // const CircleIcon = (props) => (
@@ -12,6 +13,7 @@ import {useAuth} from "@/lib/auth";
 //         />
 //     </Icon>
 // );
+
 
 const Map = (props) => {
     const {authUser} = useAuth();
@@ -25,9 +27,9 @@ class MapClass extends Component {
         super(props);
         this.state = {
             mapStyle: "mapbox://styles/carl97/cky5rnaek6k3j15pcyi6phi2f",
-            lat: 6.366667,
-            lng: 2.485455,
-            zoom: 12,
+            lat: 6.409846,
+            lng: 2.328328,
+            zoom: 14,
             accessToken: process.env.NEXT_PUBLIC_MAPBOX_KEY,
             data: {},
         }
@@ -51,15 +53,12 @@ class MapClass extends Component {
             this.state.data = d.equipments;
         } else {
             this.state.data = d.equipments.filter(e => e.userId === this.props.authUser.uid);
-            ;
         }
-        console.log(this.props.showAll);
-        console.log('xxxxx', this.state.data);
-
+        // console.log(this.props.showAll);
+        //  console.log('xxxxx', this.state.data);
 
         // this.state.data = d.equipments.filter(e => e.userId == '556TzAC9XUdmUGTNdESr9ZYgJwD2');
         // this.state.data = d.equipments.filter(e => e.userId == this.props.authUser.uid);
-
 
         const map = new mapboxgl
             .Map({
@@ -86,22 +85,11 @@ class MapClass extends Component {
             minPopup.setHTML(
                 '<div>' +
                 '<div> ' +
-                '<div> ' +
-                '<h3>Nom: </h3> ' +
-                '<p>' + equipment?.name + '</p> ' +
-                '</div>' +
-                '<div> ' +
-                '<h3>Type: </h3> ' +
-                '<p>' + equipment?.type + '</p> ' +
-                '</div> ' +
-                '<div> ' +
-                '<h3>Marque: </h3>' +
-                '<p>' + equipment?.mark + '</p>' +
-                '</div>' +
-                '<div>' +
-                '<h3>Ports: </h3>' +
-                '<p>' + equipment?.ports + '</p>' +
-                '</div>' +
+                '<div> <strong> Nom : </strong> ' + equipment?.name + '<div> ' +
+                '<div> <strong> Type : </strong> ' + equipment?.type + '<div> ' +
+                '<div> <strong> Marque : </strong> ' + equipment?.mark + '<div> ' +
+                '<div> <strong> Ports : </strong> ' + equipment?.ports + '<div> ' +
+                '<div> <strong> Ports Occupés : </strong> ' + equipment?.portsOccupes + '<div> ' +
                 '</div>' +
                 '</div>');
 
@@ -109,8 +97,71 @@ class MapClass extends Component {
                 .addTo(map);
         })
 
+        //
 
-        // ********************************************************DESSINER UN ITINERAIRE ***********************************************************
+
+        //
+
+        /* ++++++++++++ Ajout d'une barre de recherche pour un lieu grâce a ses coordonnées ++++++++++++++ */
+
+        const coordinatesGeocoder = function (query) {
+            // Faire correspondre tout ce qui ressemble à une paire de coordonnées en degrés décimaux.
+            const matches = query.match(/^[ ]*(?:Lat: )?(-?\d+\.?\d*)[, ]+(?:Lng: )?(-?\d+\.?\d*)[ ]*$/i);
+            if (!matches) {
+                return null;
+            }
+
+            function coordinateFeature(lng, lat) {
+                return {
+                    center: [lng, lat],
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [lng, lat]
+                    },
+                    place_name: 'Lat: ' + lat + ' Lng: ' + lng,
+                    place_type: ['coordinate'],
+                    properties: {},
+                    type: 'Feature'
+                };
+            }
+
+            const coord1 = Number(matches[1]);
+            const coord2 = Number(matches[2]);
+            const geocodes = [];
+
+            if (coord1 < -90 || coord1 > 90) {
+                // must be lng, lat
+                geocodes.push(coordinateFeature(coord1, coord2));
+            }
+
+            if (coord2 < -90 || coord2 > 90) {
+                // must be lat, lng
+                geocodes.push(coordinateFeature(coord2, coord1));
+            }
+
+            if (geocodes.length === 0) {
+                // else could be either lng, lat or lat, lng
+                geocodes.push(coordinateFeature(coord1, coord2));
+                geocodes.push(coordinateFeature(coord2, coord1));
+            }
+
+            return geocodes;
+        };
+
+// Add the control to the map.
+        map.addControl(
+            new MapboxGeocoder({
+                accessToken: process.env.NEXT_PUBLIC_MAPBOX_KEY,
+                localGeocoder: coordinatesGeocoder,
+                zoom: 12,
+                placeholder: 'latitude, longitude',
+                mapboxgl: mapboxgl,
+                reverseGeocode: true,
+            })
+        );
+        /* +++++++++ Fin d'ajout +++++++++++ */
+
+        /* ++++++++++++++++++++++++ DESSINER UN ITINERAIRE ++++++++++++++++++++++++ */
         const draw = new MapboxDraw({
             // Instead of showing all the draw tools, show only the line string and delete tools.
             displayControlsDefault: false,
@@ -171,14 +222,15 @@ class MapClass extends Component {
         });
         // Add the draw tool to the map.
         map.addControl(draw);
-//******************************************************** FIN DE DESSIN D'UN ITINERAIRE ***********************************************************
+
+        /* +++++++++++ FIN DE DESSIN D'UN ITINERAIRE +++++++++++++++ */
 
         // Add create, update, or delete actions
         map.on('draw.create', updateRoute);
         map.on('draw.update', updateRoute);
         map.on('draw.delete', removeRoute);
 
-        //************************************* Ajout des fonctions creer, modifier et supprimer une route **************************************
+        /* +++ Ajout des fonctions pour creer, modifier et supprimer une route +++ */
         function updateRoute() {
             removeRoute(); // Overwrite any existing layers
             const profile = 'driving'; // Set the profile
@@ -211,7 +263,7 @@ class MapClass extends Component {
             }
             // Get the coordinates from the response
             const coords = response.matchings[0].geometry;
-            console.log(coords);
+            //   console.log(coords);
 
             // Draw the route on the map
             addRoute(coords);
@@ -273,38 +325,40 @@ class MapClass extends Component {
             map.removeSource('route');
         }
 
-        //************************************* Fin ajout des fonctions**************************************
+        /* ++++ Fin ajout des fonctions ++++ */
 
 
-//******************************** CONTROL DE LA NAVIGUATION *********************************
+        /* +++ CONTROL DE LA NAVIGUATION +++ */
+
         // Ajout des commandes de zoom et de rotation à la carte
         map.addControl(new mapboxgl.NavigationControl({visualizePitch: true}), 'top-right');
-
-        // Ajout du bouton pour mettre la carte en plein ecran
-        map.addControl(new mapboxgl.FullscreenControl());
 
         // Ajout du bouton pour afficher ma position sur la carte
         map.addControl(new mapboxgl.GeolocateControl({
             positionOptions: {enableHighAccuracy: true}, trackUserLocation: true, showUserHeading: true
         }));
-//************************************** FIN DE CONTROL DE LA NAVIGUATION ***************************
 
+        // Ajout du bouton pour mettre la carte en plein ecran
+        map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
+
+
+        /* ++++ FIN DE CONTROL DE LA NAVIGUATION ++++ */
 
     }
+
 
     render() {
         return (
             <>
                 <Box ref={element => this.mapContainer = element} style={{
-                    height: "553px",
-                    marginLeft: "-120px", marginRight: "-53px", marginTop: "1px"
+                    height: "553px", marginLeft: "-120px",
+                    marginRight: "-53px", marginTop: "1px"
                 }}>
                 </Box>
-
                 <Box class="info-box" style={{
                     position: "absolute",
                     margin: "20px",
-                    width: "20%",
+                    width: "16%",
                     height: "200px",
                     top: "1",
                     left: "210px",
@@ -315,7 +369,7 @@ class MapClass extends Component {
                 }}
                 >
                     <p>
-                        Dessinez votre itinéraire à l'aide des outils de dessin sur la droite.
+                        Dessiner un itinéraire avec et determiner la distance du trajet !
                     </p>
                     <div id="directions"></div>
                 </Box>

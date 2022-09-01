@@ -80,6 +80,7 @@ export default function DashboardShell({children}) {
                   bg={'gray.100'} h={"100vh"} justifyContent={"flex-start"} alignItems={"flex-start"}>
                 {children}
             </Flex>
+
         </>
     );
 }
