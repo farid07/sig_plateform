@@ -41,12 +41,14 @@ export default function Sidebar() {
                 <NavItem path={"operators"} icon={FiCalendar} title="Operateurs"
                          active={router.pathname === "/operators"}/>
                 {isAdmin &&
-                    <NavItem path={"users"} icon={FiUser} title="Utilisateurs" active={router.pathname === "/users"}/>}
+                    <NavItem path={"users"} icon={FiUser} title="Utilisateurs"
+                             active={router.pathname === "/users"}/>}
                 {isOperator &&
                     <NavItem path={"equipments"} icon={IoPawOutline} title="Equipements"
                              active={router.pathname === "/equipments"}/>}
-                <NavItem path={"networks"} icon={FaNetworkWired} title="Réseaux"
-                         active={router.pathname === "/networks"}/>
+                {isOperator &&
+                    <NavItem path={"networks"} icon={FaNetworkWired} title="Réseaux"
+                             active={router.pathname === "/networks"}/>}
                 <NavItem path={"account"} icon={FiSettings} title="Parametres" active={router.pathname === "/account"}/>
             </Flex>
         </Flex>
