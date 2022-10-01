@@ -63,7 +63,7 @@ const UpdateUserModal = ({user, size, mutate}) => {
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
 
-    const options = ["admin", "operateur"]
+    const options = ["admin", "operator"]
 
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "account_type",
@@ -108,8 +108,8 @@ const UpdateUserModal = ({user, size, mutate}) => {
             />
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onUpdateUser)}>
-                    <ModalHeader fontWeight="bold">Modifier Utilisateur</ModalHeader>
+                <ModalContent as="form" onSubmit={handleSubmit(onUpdateUser)} bg={"blue.100"}>
+                    <ModalHeader fontWeight="bold">Mettre à jour l'utilisateur</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
@@ -210,13 +210,13 @@ const UpdateUserModal = ({user, size, mutate}) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button onClick={onClose} mr={3} fontWeight="medium">
+                        <Button onClick={onClose} mr={3} fontWeight="medium" backgroundColor="white" color="black">
                             Annuler
                         </Button>
                         <Button
                             id="update-user-button"
-                            backgroundColor="#99FFFE"
-                            color="#194D4C"
+                            backgroundColor="white"
+                            color="black"
                             fontWeight="medium"
                             type="submit"
                         >

@@ -30,11 +30,12 @@ const EquipmentsSkeleton = () => {
         <Table>
             <thead>
             <Tr>
-                <Th>Nom</Th>
-                <Th>Marque</Th>
-                <Th>Type</Th>
+                <Th> Nom </Th>
+                <Th> Longitude </Th>
+                <Th> Latitude </Th>
+                <Th> Type </Th>
                 <Th>Ajouté le</Th>
-                <Th>{''}</Th>
+                <Th width="50px">{''}</Th>
             </Tr>
             </thead>
             <tbody>

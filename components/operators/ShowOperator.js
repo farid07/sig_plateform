@@ -7,10 +7,11 @@ const ShowOperator = ({operator, mutate, isAdmin}) => {
         <Center>
             <Box
                 mt={'60px'}
-                mr={'430px'}
-                w={'full'}
+                mr={'330px'}
+                ml={'10px'}
+                w={'400px'}
                 h={'400px'}
-                bg={'white'}
+                bg={'blue.200'}
                 boxShadow={'2xl'}
                 rounded={'lg'}
                 p={6}
@@ -43,7 +44,6 @@ const ShowOperator = ({operator, mutate, isAdmin}) => {
                     <br/>
                     <div><strong> Site Web : </strong> {operator?.url} </div>
                     <br/>
-                    <div><strong> Contact : </strong> 21 00 00 00</div>
                 </Flex>
             </Box>
         </Center>

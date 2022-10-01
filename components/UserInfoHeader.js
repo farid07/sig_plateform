@@ -7,7 +7,8 @@ const UserInfoHeader = ({displayName, userId, isAdmin}) => {
     return (
         <Box mx={4}>
             <Flex justifyContent="space-between" mb={2}>
-                <Heading as={"h2"} fontSize={'18px'} mb={8}>{"Utilisateurs > "}{displayName}</Heading>
+                <Heading as={"h2"} fontSize={'18px'} fontFamily={'Georgia'}
+                         mb={8}>{"Utilisateurs > "}{displayName}</Heading>
                 {isAdmin && (
                     <EditUserModal userId={userId}>
                         Modifier

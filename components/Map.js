@@ -54,6 +54,8 @@ class MapClass extends Component {
         } else {
             this.state.data = d.equipments.filter(e => e.userId === this.props.authUser.uid);
         }
+
+
         // console.log(this.props.showAll);
         //  console.log('xxxxx', this.state.data);
 
@@ -87,9 +89,10 @@ class MapClass extends Component {
                 '<div> ' +
                 '<div> <strong> Nom : </strong> ' + equipment?.name + '<div> ' +
                 '<div> <strong> Type : </strong> ' + equipment?.type + '<div> ' +
-                '<div> <strong> Marque : </strong> ' + equipment?.mark + '<div> ' +
-                '<div> <strong> Ports : </strong> ' + equipment?.ports + '<div> ' +
-                '<div> <strong> Ports Occupés : </strong> ' + equipment?.portsOccupes + '<div> ' +
+                '<div> <strong> Longitude : </strong> ' + equipment?.longitude + '<div> ' +
+                '<div> <strong> Latitude : </strong> ' + equipment?.latitude + '<div> ' +
+                // '<div> <strong> Marque : </strong> ' + equipment?.mark + '<div> ' +
+                // '<div> <strong> Ports : </strong> ' + equipment?.ports + '<div> ' +
                 '</div>' +
                 '</div>');
 
@@ -97,15 +100,16 @@ class MapClass extends Component {
                 .addTo(map);
         })
 
-        //
 
 
-        //
+
+
 
         /* ++++++++++++ Ajout d'une barre de recherche pour un lieu grâce a ses coordonnées ++++++++++++++ */
 
         const coordinatesGeocoder = function (query) {
             // Faire correspondre tout ce qui ressemble à une paire de coordonnées en degrés décimaux.
+
             const matches = query.match(/^[ ]*(?:Lat: )?(-?\d+\.?\d*)[, ]+(?:Lng: )?(-?\d+\.?\d*)[ ]*$/i);
             if (!matches) {
                 return null;
@@ -153,7 +157,7 @@ class MapClass extends Component {
             new MapboxGeocoder({
                 accessToken: process.env.NEXT_PUBLIC_MAPBOX_KEY,
                 localGeocoder: coordinatesGeocoder,
-                zoom: 12,
+                zoom: 16,
                 placeholder: 'latitude, longitude',
                 mapboxgl: mapboxgl,
                 reverseGeocode: true,
@@ -182,7 +186,7 @@ class MapClass extends Component {
                         'line-join': 'round'
                     },
                     paint: {
-                        'line-color': '#56ef05',
+                        'line-color': '#11eac2',
                         'line-dasharray': [0.2, 2],
                         'line-width': 6,
                         'line-opacity': 0.7
@@ -352,7 +356,7 @@ class MapClass extends Component {
             <>
                 <Box ref={element => this.mapContainer = element} style={{
                     height: "553px", marginLeft: "-120px",
-                    marginRight: "-53px", marginTop: "1px"
+                    marginRight: "-53px", marginTop: "-5px"
                 }}>
                 </Box>
                 <Box class="info-box" style={{
@@ -369,7 +373,7 @@ class MapClass extends Component {
                 }}
                 >
                     <p>
-                        Dessiner un itinéraire avec et determiner la distance du trajet !
+                        Dessiner un itinéraire !
                     </p>
                     <div id="directions"></div>
                 </Box>

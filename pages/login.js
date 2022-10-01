@@ -37,7 +37,7 @@ const Login = () => {
                 <FormControl id="password">
                     <FormLabel>Password </FormLabel>
                     <Input type="password"/>
-                    <FormHelperText>We'll never share your password.</FormHelperText>
+                    <FormHelperText>Vous ne devez jamais partager votre mot de passe.</FormHelperText>
                 </FormControl>
 
                 <Button

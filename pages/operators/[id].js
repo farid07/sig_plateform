@@ -8,7 +8,7 @@ import DashboardShell from "@/layouts/DashboardShell";
 import React, {useEffect} from "react";
 import ShowOperator from "@/components/operators/ShowOperator";
 import EmptyState from "@/components/EmptyState";
-import AddOperatorModal from "@/components/operators/AddOperatorModal";
+import UpdateOperatorModal from "@/components/operators/UpdateOperatorModal";
 import ContentHeader from "@/components/ContentHeader";
 
 const OperatorDetail = () => {
@@ -33,11 +33,11 @@ const OperatorDetail = () => {
         return (
             <DashboardShell>
                 <Container>
-                    <ContentHeader title={"Détails Opérateurs"}>
+                    <ContentHeader title={"Détails Opérateurs"} fontFamily={'Georgia'}>
                         {isAdmin && (
-                            <AddOperatorModal>
+                            <UpdateOperatorModal>
                                 Mettre à jour
-                            </AddOperatorModal>
+                            </UpdateOperatorModal>
                         )}
                     </ContentHeader>
                     {/*<OperatorsSkeleton/>*/}
@@ -50,12 +50,12 @@ const OperatorDetail = () => {
         return (
             <DashboardShell>
                 <Container>
-                    <ContentHeader title={"Détails Opérateurs"}>
+                    <ContentHeader title={"Détails Opérateurs"} fontFamily={'Georgia'}>
                         <ShowOperator operator={data.operator} mutate={mutate} isAdmin={isAdmin}/>
                         {isAdmin && (
-                            <AddOperatorModal>
+                            <UpdateOperatorModal>
                                 Mettre à jour
-                            </AddOperatorModal>
+                            </UpdateOperatorModal>
                         )}
                     </ContentHeader>
                 </Container>
@@ -65,15 +65,15 @@ const OperatorDetail = () => {
     return (
         <DashboardShell>
             <Container>
-                <ContentHeader title={"Détails Opérateurs"}>
+                <ContentHeader title={"Détails Opérateurs"} fontFamily={'Geogia'}>
                     {isAdmin && (
-                        <AddOperatorModal>
+                        <UpdateOperatorModal>
                             Mettre à jour
-                        </AddOperatorModal>
+                        </UpdateOperatorModal>
                     )}
                 </ContentHeader>
                 <EmptyState
-                    button={<AddOperatorModal>Mettre à jour</AddOperatorModal>}
+                    button={<UpdateOperatorModal>Mettre à jour</UpdateOperatorModal>}
                     helpText={"Aucune information à afficher."}
                 />
             </Container>

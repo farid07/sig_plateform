@@ -98,14 +98,14 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
             color: operator?.settings.color,
             longitude: longitude ? longitude : "",
             latitude: latitude ? latitude : "",
-            ports: ports ? ports : 0,
-            portsOccupes: portsOccupes ? portsOccupes : 0,
+            ports: ports ? ports : "",
+            portsOccupes: portsOccupes ? portsOccupes : "",
             longitudeArrivee: longitudeArrivee ? longitudeArrivee : "",
             latitudeArrivee: latitudeArrivee ? latitudeArrivee : "",
             typeCable: typeCable ? typeCable : "",
             taille: taille ? taille : "",
         };
-        createNewEquipment(newEquipment);
+        await createNewEquipment(newEquipment);
         mutate()
         onClose()
         toast({
@@ -122,8 +122,8 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
             <Button
                 id="add-equipment-modal-button"
                 onClick={onOpen}
-                backgroundColor="teal.500"
-                color="white"
+                backgroundColor="blue.300"
+                color="black"
                 leftIcon={<MdAdd/>}
                 fontWeight="medium"
                 _hover={{bg: 'gray.700'}}
@@ -136,8 +136,8 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onCreateEquipment)}>
-                    <ModalHeader fontWeight="bold">Ajouter Equipement</ModalHeader>
+                <ModalContent as="form" onSubmit={handleSubmit(onCreateEquipment)} bg={"blue.200"}>
+                    <ModalHeader fontWeight="bold">Ajouter un nouvel équipement</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
@@ -177,19 +177,23 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                             </FormErrorMessage>
                         </FormControl>
                         {['poteau', 'conduit', 'cable'].includes(equipment) || (
-                            <FormControl isRequired mt={4}>
-                                <FormLabel>Marque</FormLabel>
-                                <Input
-                                    ref={initialRef}
-                                    id="mark"
-                                    placeholder="Marque"
-                                    name="mark"
+                            <FormControl mt={4} isRequired>
+                                <FormLabel> Marque </FormLabel>
+                                <Select
+                                    id={"mark"}
+                                    onChange={handleChange}
+                                    name={"mark"}
+                                    mb={4}
                                     type={"text"}
                                     {...register("mark", {
                                         required: 'Required',
                                         validate: true
                                     })}
-                                />
+                                >
+                                    <option key={'mark'} value={'Huawei'}>Huawei</option>
+                                    <option key={'mark'} value={'Orange'}>Orange</option>
+                                    <option key={'mark'} value={'Ericsson'}>Ericsson</option>
+                                </Select>
                                 <FormErrorMessage>
                                     {errors?.mark && errors?.mark.message}
                                 </FormErrorMessage>
@@ -266,7 +270,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                                     <Input
                                         id="ports"
                                         ref={initialRef}
-                                        placeholder="55"
+                                        placeholder="16"
                                         name="ports"
                                         autoComplete={"false"}
                                         type={"number"}

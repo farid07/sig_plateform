@@ -10,7 +10,8 @@ const theme = {
                 width: "100%",
                 color: "black",
                 overflowX: "visible",
-                fontFamily: "Inter, sans-serif"
+                fontFamily: "Georgia",
+                fontSize: "18px"
             }
         }
     },

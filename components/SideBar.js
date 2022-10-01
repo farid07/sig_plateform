@@ -17,7 +17,7 @@ export default function Sidebar() {
         <Flex
             display={"flex"}
             pos={"fixed"}
-            bg={"gray.50"}
+            bg={"blue.200"}
             left="0"
             pt={16}
             zIndex={1100}

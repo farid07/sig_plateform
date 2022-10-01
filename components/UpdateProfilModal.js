@@ -62,7 +62,7 @@ const UpdateProfilModal = ({user}) => {
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
 
-    const options = ["admin", "operateur"]
+    const options = ["admin", "operator"]
 
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "account_type",

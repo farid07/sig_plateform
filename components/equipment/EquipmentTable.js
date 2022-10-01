@@ -8,14 +8,16 @@ import DeleteEquipmentButton from "@/components/equipment/DeleteEquipmentButton"
 import UpdateEquipmentModal from "@/components/equipment/UpdateEquipmentModal";
 
 const EquipmentTable = ({equipments, operator, mutate}) => {
+    console.log('vvvvv', equipments)
     return (
-        <Box overflowX="scroll">
+        <Box overflowX="scroll" mr={'8px'}>
             <Table w="full">
                 <thead>
                 <Tr>
-                    <Th>Nom</Th>
-                    <Th>Marque</Th>
-                    <Th>Type</Th>
+                    <Th> Nom </Th>
+                    <Th> Longitude </Th>
+                    <Th> Latitude </Th>
+                    <Th> Type </Th>
                     <Th>Ajouté le</Th>
                     <Th width="50px">{''}</Th>
                 </Tr>
@@ -29,7 +31,7 @@ const EquipmentTable = ({equipments, operator, mutate}) => {
                                 as={`/equipments/${equipment.id}`}
                                 passHref
                             >
-                                {equipment.name}1
+                                {equipment.name}
                             </NextLink>
                         </Td>
                         <Td>
@@ -38,9 +40,16 @@ const EquipmentTable = ({equipments, operator, mutate}) => {
                                 as={`/equipments/${equipment.id}`}
                                 passHref
                             >
-                                <Link id={`equipment-table-link-${index}`} fontWeight="medium">
-                                    {equipment.mark}
-                                </Link>
+                                {equipment.longitude}
+                            </NextLink>
+                        </Td>
+                        <Td>
+                            <NextLink
+                                href="/equipments/[id]"
+                                as={`/equipments/${equipment.id}`}
+                                passHref
+                            >
+                                {equipment.latitude}
                             </NextLink>
                         </Td>
                         <Td>

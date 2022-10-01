@@ -29,6 +29,7 @@ export default function DashboardShell({children}) {
             <Box bg={'gray.100'}>
                 <Flex
                     h={16}
+                    top={0}
                     px={6}
                     alignItems={'center'}
                     justifyContent={'space-between'}

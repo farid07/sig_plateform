@@ -80,7 +80,7 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
         setInfrastructure(event.target.value);
     };
     const onUpdateEquipment = async ({
-                                         name, mark, longitude, latitude, ports, portsOccupees,
+                                         name, mark, longitude, latitude, ports, portsOccupes,
                                          longitudeArrivee, latitudeArrivee, typeCable, taille
                                      }) => {
         const newEquipment = {
@@ -94,15 +94,15 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
             type: equipmentType,
             longitude: longitude ? longitude : "",
             latitude: latitude ? latitude : "",
-            ports: ports ? ports : 0,
-            portsOccupees: portsOccupees ? portsOccupees : 0,
+            ports: ports ? ports : "",
+            portsOccupes: portsOccupes ? portsOccupes : "",
             longitudeArrivee: longitudeArrivee ? longitudeArrivee : "",
             latitudeArrivee: latitudeArrivee ? latitudeArrivee : "",
             typeCable: typeCable ? typeCable : "",
             taille: taille ? taille : "",
         };
 
-        updateEquipment(equipment?.id, newEquipment);
+        await updateEquipment(equipment?.id, newEquipment);
         mutate()
         onClose()
         toast({
@@ -125,7 +125,7 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
             />
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onUpdateEquipment)}>
+                <ModalContent as="form" onSubmit={handleSubmit(onUpdateEquipment)} bg={'blue.200'}>
                     <ModalHeader fontWeight="bold">Modifier Equipement</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
@@ -188,20 +188,24 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                             </FormErrorMessage>
                         </FormControl>
                         {['poteau', 'conduit', 'cable'].includes(infrastructure) || (
-                            <FormControl isRequired mt={4}>
-                                <FormLabel>Marque</FormLabel>
-                                <Input
-                                    ref={initialRef}
-                                    id="mark"
-                                    defaultValue={equipment?.mark}
-                                    placeholder="Marque"
-                                    name="mark"
+                            <FormControl mt={4} isRequired>
+                                <FormLabel> Marque </FormLabel>
+                                <Select
+                                    id={"mark"}
+                                    onChange={handleChange}
+                                    name={"mark"}
+                                    mb={4}
                                     type={"text"}
+                                    defaultValue={equipment?.mark}
                                     {...register("mark", {
                                         required: 'Required',
                                         validate: true
                                     })}
-                                />
+                                >
+                                    <option key={'mark'} value={'Huawei'}>Huawei</option>
+                                    <option key={'mark'} value={'Orange'}>Orange</option>
+                                    <option key={'mark'} value={'Ericsson'}>Ericsson</option>
+                                </Select>
                                 <FormErrorMessage>
                                     {errors?.mark && errors?.mark.message}
                                 </FormErrorMessage>
@@ -263,7 +267,7 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                                         id="ports"
                                         defaultValue={equipment?.ports}
                                         ref={initialRef}
-                                        placeholder="55"
+                                        placeholder="16"
                                         name="ports"
                                         autoComplete={"false"}
                                         type={"number"}
@@ -284,7 +288,7 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                                     <FormLabel>Ports occupés</FormLabel>
                                     <Input
                                         id="portsOccupes"
-                                        defaultValue={equipment?.portsOccupees}
+                                        defaultValue={equipment?.portsOccupes}
                                         ref={initialRef}
                                         placeholder="50"
                                         name="portsOccupes"

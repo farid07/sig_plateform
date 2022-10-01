@@ -5,7 +5,7 @@ import {format, parseISO} from 'date-fns';
 
 import {Table, Td, Th, Tr} from './Table';
 import DeleteUserButton from './DeleteUserButton';
-import UpdateUserModal from "@/components/UpateUserModal";
+import UpdateUserModal from "@/components/UpdateUserModal";
 
 const UserTable = ({users, mutate}) => {
     return (

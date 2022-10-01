@@ -70,7 +70,7 @@ const AddUserModal = ({children, mutate}) => {
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "account_type",
         required: true,
-        defaultValue: "operateur",
+        defaultValue: "operator",
         onChange: setAccountType
     })
 
@@ -103,7 +103,7 @@ const AddUserModal = ({children, mutate}) => {
             <Button
                 id="add-user-modal-button"
                 onClick={onOpen}
-                backgroundColor="teal.500"
+                backgroundColor="blue.400"
                 color="white"
                 leftIcon={<MdAdd/>}
                 fontWeight="medium"
@@ -117,8 +117,8 @@ const AddUserModal = ({children, mutate}) => {
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onCreateUser)}>
-                    <ModalHeader fontWeight="bold">Ajouter Utilisateur</ModalHeader>
+                <ModalContent as="form" onSubmit={handleSubmit(onCreateUser)} bg={"blue.100"} fontFamily={"Georgia"}>
+                    <ModalHeader fontWeight="bold">Ajouter un utilisateur</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
@@ -160,7 +160,7 @@ const AddUserModal = ({children, mutate}) => {
                             <Input
                                 id="email"
                                 ref={initialRef}
-                                placeholder="jonh.doe@site.com"
+                                placeholder="emmanueldadyfarid@gmail.com"
                                 name="email"
                                 autoComplete={"false"}
                                 type={"email"}
@@ -216,13 +216,13 @@ const AddUserModal = ({children, mutate}) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button onClick={onClose} mr={3} fontWeight="medium">
+                        <Button onClick={onClose} mr={3} fontWeight="medium" backgroundColor="white" color="black">
                             Annuler
                         </Button>
                         <Button
                             id="create-site-button"
-                            backgroundColor="#99FFFE"
-                            color="#194D4C"
+                            backgroundColor="white"
+                            color="black"
                             fontWeight="medium"
                             type="submit"
                         >

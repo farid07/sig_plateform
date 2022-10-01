@@ -25,15 +25,14 @@ import {
     useDisclosure,
     useToast
 } from '@chakra-ui/react';
-
-import {MdAdd} from "react-icons/md";
-import {createOperator} from '@/lib/db';
+import {createOperator, updateOperator} from '@/lib/db';
 import {useAuth} from '@/lib/auth';
 import create from "zustand";
-import {useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import DropZone from "@/components/DropZone";
 import {convertToBase64} from "@/utils/parser";
 import {InfoOutlineIcon} from "@chakra-ui/icons";
+import {AiFillEdit} from "react-icons/ai";
 
 const initialState = {
     file: ''
@@ -58,9 +57,8 @@ const useStore = create((set) => ({
         set({valid: true});
     },
 }));
-
-const AddOperatorModal = ({children, mutate}) => {
-    const [replaceFile, setReplaceFile] = useState(initialState)
+const UpdateOperatorModal = ({operator, children, mutate}) => {
+    const [replaceFile, setReplaceFile] = useState(initialState);
     const [operatorColor, setOperatorColor] = useState("#07A3BE");
     const initialRef = useRef(null);
     const colorPicker = useRef(null);
@@ -97,7 +95,7 @@ const AddOperatorModal = ({children, mutate}) => {
     }
 
 
-    const onCreateOperator = ({name, url, email}) => {
+    const onUpdateOperator = ({name, url, email}) => {
         const newOperator = {
             userId: auth.authUser.uid,
             createdAt: new Date().toISOString(),
@@ -110,10 +108,10 @@ const AddOperatorModal = ({children, mutate}) => {
             }
         };
 
-        const {id} = createOperator(newOperator);
+        const {id} = updateOperator(newOperator);
         toast({
             title: 'Succès!',
-            description: "Nous avons ajouté le compte opérateur.",
+            description: "Nous avons mis à jour le compte opérateur.",
             status: 'success',
             duration: 5000,
             isClosable: true
@@ -125,11 +123,11 @@ const AddOperatorModal = ({children, mutate}) => {
     return (
         <>
             <Button
-                id="add-operator-modal-button"
+                id="update-operator-modal-button"
                 onClick={onOpen}
-                backgroundColor="blue.400"
+                backgroundColor="teal.500"
                 color="white"
-                leftIcon={<MdAdd/>}
+                leftIcon={<AiFillEdit/>}
                 fontWeight="medium"
                 _hover={{bg: 'gray.700'}}
                 _active={{
@@ -141,8 +139,8 @@ const AddOperatorModal = ({children, mutate}) => {
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onCreateOperator)} bg={'blue.200'}>
-                    <ModalHeader fontWeight="bold" fontFamily={"Georgia"}>Ajouter un compte Opérateur</ModalHeader>
+                <ModalContent as="form" onSubmit={handleSubmit(onUpdateOperator)} bg={'blue.200'}>
+                    <ModalHeader fontWeight="bold" fontFamily={"Georgia"}>Editer un compte Opérateur</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
@@ -151,6 +149,7 @@ const AddOperatorModal = ({children, mutate}) => {
                                 ref={initialRef}
                                 id="name-input"
                                 placeholder="Nom operateur"
+                                defaultValue={operator?.name}
                                 name="name"
                                 {...register("name", {
                                     required: 'Required'
@@ -164,6 +163,7 @@ const AddOperatorModal = ({children, mutate}) => {
                                 ref={initialRef}
                                 placeholder="contact@siteweb.com"
                                 name="email"
+                                defaultValue={operator?.email}
                                 {...register("email", {
                                     required: 'Required'
                                 })}
@@ -177,6 +177,7 @@ const AddOperatorModal = ({children, mutate}) => {
                                 ref={initialRef}
                                 placeholder="https://siteweb.com"
                                 name="url"
+                                defaultValue={operator?.url}
                                 {...register("url", {
                                     required: 'Required'
                                 })}
@@ -208,10 +209,11 @@ const AddOperatorModal = ({children, mutate}) => {
                                 onChange={() =>
                                     setOperatorColor(colorPicker.current.value)
                                 }
-                                defaultValue='#07A3BE'
+                                defaultValue='#07A3B'
                                 type='color'
                                 id='colorPicker'
                                 name='colorPicker'
+
                                 w={16}
                                 h={12}
                                 p={0}
@@ -229,14 +231,23 @@ const AddOperatorModal = ({children, mutate}) => {
                         <Button onClick={onClose} mr={3} fontWeight="medium">
                             Annuler
                         </Button>
+                        {/*<Button*/}
+                        {/*    id="create-site-button"*/}
+                        {/*    backgroundColor="#99FFFE"*/}
+                        {/*    color="#194D4C"*/}
+                        {/*    fontWeight="medium"*/}
+                        {/*    type="submit"*/}
+                        {/*>*/}
+                        {/*    Ajouter*/}
+                        {/*</Button>*/}
                         <Button
-                            id="create-site-button"
-                            backgroundColor="#99FFFE"
-                            color="#194D4C"
+                            id="update-operator-button"
+                            backgroundColor="white"
+                            color="black"
                             fontWeight="medium"
                             type="submit"
                         >
-                            Ajouter
+                            Modifier
                         </Button>
                     </ModalFooter>
                 </ModalContent>
@@ -245,4 +256,4 @@ const AddOperatorModal = ({children, mutate}) => {
     );
 };
 
-export default AddOperatorModal;
+export default UpdateOperatorModal;

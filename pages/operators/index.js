@@ -45,7 +45,7 @@ const Operator = () => {
         return (
             <DashboardShell>
                 <Container>
-                    <ContentHeader title={"Opérateurs"}>
+                    <ContentHeader title={"Opérateurs"} fontFamily={'Georgia'}>
                         {isOperator && (
                             <AddOperatorModal mutate={mutate}>
                                 Ajouter

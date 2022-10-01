@@ -1,6 +1,6 @@
 import React from 'react';
 import {Avatar, Badge, Box, Center, Heading, Stack, Text} from "@chakra-ui/react";
-import UpdateUserModal from "@/components/UpateUserModal";
+import UpdateUserModal from "@/components/UpdateUserModal";
 
 const ShowUser = ({user, mutate, isAdmin}) => {
     return (
