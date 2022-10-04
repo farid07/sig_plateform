@@ -30,6 +30,12 @@ const EquipmentDetail = () => {
         }, []
     )
 
+    useEffect(
+        () => {
+            console.log({data})
+        }, [data]
+    )
+
     if (!data) {
         return (
             <DashboardShell>

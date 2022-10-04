@@ -185,9 +185,7 @@ const AddOperatorModal = ({children, mutate}) => {
                         <DropZone onFileAccepted={importFile}/>
                         {invalidAlert}
                         <FormControl isRequired>
-                            <FormLabel
-                                mt={4}
-                            >
+                            <FormLabel mt={4}>
                                 Couleur
                                 <Popover>
                                     <PopoverTrigger>
