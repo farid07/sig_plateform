@@ -74,9 +74,21 @@ class MapClass extends Component {
         //************ FAIRE APPARAITRE LES MARQUEURS ET LES POPUPS***********************************
 
         this.state.data?.map((equipment) => {
+            // ==> CUSTOM IMAGE MARKER
+            // const markerDiv = document.createElement('div');
+            // markerDiv.className = 'my-custom-marker';
+            // markerDiv.style.width = '20px'
+            // markerDiv.style.height = '30px'
+            // markerDiv.style.borderRadius = '3px'
+            // // markerDiv.style.backgroundImage = `url("https://picsum.photos/20/30?random=${equipment.id}")`
+            // markerDiv.style.backgroundImage = `url("${equipement.imageUrl}")`
+            // const marker = new mapboxgl.Marker(markerDiv, {color: equipment?.color, draggable: false}); //Add marker
+            
+            // ==> DEFAULT MARKER
             const marker = new mapboxgl.Marker({color: equipment?.color, draggable: false}); //Add marker
             //Afficher le popup au survol
             const markerDiv = marker.getElement();
+
             markerDiv.addEventListener('mouseenter', () => marker.togglePopup());
             markerDiv.addEventListener('mouseleave', () => marker.togglePopup());
             // Fin d'affichage
