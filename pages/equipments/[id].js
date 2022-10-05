@@ -58,13 +58,13 @@ const EquipmentDetail = () => {
             <DashboardShell>
                 <Container>
                     <ContentHeader title={"Détails Equipements"}>
-                        <ShowEquipment equipment={data.equipment} mutate={mutate} isAdmin={isAdmin}/>
                         {isAdmin && (
                             <AddEquipmentModal>
                                 Mettre à jour
                             </AddEquipmentModal>
                         )}
                     </ContentHeader>
+                    <ShowEquipment equipment={data.equipment} mutate={mutate} isAdmin={isAdmin}/>
                 </Container>
             </DashboardShell>
         );
