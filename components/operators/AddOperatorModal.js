@@ -60,7 +60,7 @@ const useStore = create((set) => ({
 }));
 
 const AddOperatorModal = ({children, mutate}) => {
-    const [replaceFile, setReplaceFile] = useState(initialState)
+    const [replaceFile, setReplaceFile] = useState(initialState);
     const [operatorColor, setOperatorColor] = useState("#07A3BE");
     const initialRef = useRef(null);
     const colorPicker = useRef(null);

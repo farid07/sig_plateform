@@ -1,5 +1,6 @@
 import {useForm} from 'react-hook-form';
 import {
+    Alert, AlertDescription, AlertIcon, AlertTitle,
     Box,
     Button,
     FormControl,
@@ -25,6 +26,32 @@ import {useAuth} from '@/lib/auth';
 import React, {useRef, useState} from "react";
 import {AiFillEdit} from "react-icons/ai";
 import {updateEquipment} from "@/lib/db";
+
+import {convertToBase64} from "@/utils/parser"; // ===
+import create from "zustand"; // ===
+import DropZone from "@/components/DropZone"; // ===
+
+const initialState = {file: ''}; // ===
+const useStore = create((set) => ({
+    valid: true,
+    parseAndValidate: async (file) => {
+        try {
+            const data = await convertToBase64(file);
+
+            set({valid: true});
+
+            return data;
+        } catch (e) {
+            set({valid: false});
+
+            return false;
+        }
+    },
+    reset: () => {
+        set({valid: true});
+    },
+}));
+
 
 function RadioCard(props) {
     const {getInputProps, getCheckboxProps} = useRadio(props)
@@ -58,6 +85,7 @@ function RadioCard(props) {
 }
 
 const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
+    const [replaceFile, setReplaceFile] = useState(initialState); // ===
     const initialRef = useRef(null);
     const toast = useToast();
     const auth = useAuth();
@@ -65,6 +93,31 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
     const [infrastructure, setInfrastructure] = useState(equipment?.infrastructureType)
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
+
+    const valid = useStore((state) => state.valid);
+    const parseAndValidate = useStore((state) => state.parseAndValidate);
+    const reset = useStore((state) => state.reset);
+
+    const importFile = async (file) => {
+        const base64 = await parseAndValidate(file);
+
+        if (base64) {
+            setReplaceFile({file: base64});
+        }
+    };
+
+    let invalidAlert = null;
+
+    if (!valid) {
+        invalidAlert = (
+            <Alert status="error" borderRadius={4} mt={5}>
+                <AlertIcon/>
+                <AlertTitle mr={2}>Fichier invalid</AlertTitle>
+                <AlertDescription>Choisissez un autre fichier</AlertDescription>
+            </Alert>
+        );
+    }
+
 
     const options = ["non-optique", "optique"]
     const {getRootProps, getRadioProps} = useRadioGroup({
@@ -80,8 +133,8 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
         setInfrastructure(event.target.value);
     };
     const onUpdateEquipment = async ({
-                                         name, mark, longitude, latitude, ports, portsOccupes,
-                                         longitudeArrivee, latitudeArrivee, typeCable, taille
+                                         name, mark, longitude, latitude, ports, portsOccupes, longitudeArrivee,
+                                         latitudeArrivee, typeCable, taille
                                      }) => {
         const newEquipment = {
             createdBy: auth.authUser.uid,
@@ -91,6 +144,7 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
             name,
             mark: mark ? mark : "",
             color: operator?.settings.color,
+            logo: replaceFile.file, // ===
             type: equipmentType,
             longitude: longitude ? longitude : "",
             latitude: latitude ? latitude : "",
@@ -169,6 +223,10 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                                 {errors?.name && errors?.name.message}
                             </FormErrorMessage>
                         </FormControl>
+
+                        <DropZone onFileAccepted={importFile}/>
+                        {invalidAlert}
+
                         <FormControl mt={4} isRequired>
                             <FormLabel>Type</FormLabel>
                             <HStack

@@ -21,7 +21,6 @@ import {
 } from '@chakra-ui/react';
 import {useAuth} from '@/lib/auth';
 import React, {useRef, useState} from "react";
-import {mutate} from "swr";
 
 function RadioCard(props) {
     const {getInputProps, getCheckboxProps} = useRadio(props)
@@ -83,9 +82,8 @@ const UpdateProfilModal = ({user}) => {
             email,
             account_type: accountType
         };
+
         await auth.updateFullUserProfile(user?.uid, newUser);
-        onClose()
-        mutate('/api/users')
         toast({
             title: 'Succès!',
             description: "Le profil a été bien modifié.",
@@ -93,6 +91,9 @@ const UpdateProfilModal = ({user}) => {
             duration: 5000,
             isClosable: true
         });
+        mutate('/api/users');
+        onClose();
+
     };
 
     return (

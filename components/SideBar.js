@@ -44,7 +44,7 @@ export default function Sidebar() {
                     <NavItem path={"users"} icon={FiUser} title="Utilisateurs"
                              active={router.pathname === "/users"}/>}
                 {isOperator &&
-                    <NavItem path={"equipments"} icon={IoPawOutline} title="Equipements"
+                    <NavItem path={"equipments"} icon={IoPawOutline} title="Infrastructures"
                              active={router.pathname === "/equipments"}/>}
                 {isOperator &&
                     <NavItem path={"networks"} icon={FaNetworkWired} title="Réseaux"

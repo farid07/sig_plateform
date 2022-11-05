@@ -32,7 +32,7 @@
     "react-dropzone": "^11.4.2",
     "react-hook-form": "^7.18.0",
     "react-icons": "^4.3.1",
-    "react-map-gl": "^6.1.18",
+    "react-map-gl": "^7.0.19",
     "react-map-gl-draw": "^1.0.2-alpha.0",
     "reactstrap": "^9.0.0",
     "sass": "^1.49.0",

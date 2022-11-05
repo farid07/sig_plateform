@@ -1,5 +1,6 @@
 import {useForm} from 'react-hook-form';
 import {
+    Alert, AlertDescription, AlertIcon, AlertTitle,
     Box,
     Button,
     FormControl,
@@ -26,6 +27,36 @@ import {useAuth} from '@/lib/auth';
 import {useRef, useState} from "react";
 import {useRouter} from "next/router";
 import {createNewEquipment} from "@/lib/db";
+
+import {convertToBase64} from "@/utils/parser"; // ===
+import create from "zustand"; // ===
+import DropZone from "@/components/DropZone"; // ===
+
+
+const initialState = {file: ''}; // ===
+
+// ===
+const useStore = create((set) => ({
+    valid: true,
+    parseAndValidate: async (file) => {
+        try {
+            const data = await convertToBase64(file);
+
+            set({valid: true});
+
+            return data;
+        } catch (e) {
+            set({valid: false});
+
+            return false;
+        }
+    },
+    reset: () => {
+        set({valid: true});
+    },
+}));
+
+// ===
 
 function RadioCard(props) {
     const {getInputProps, getCheckboxProps} = useRadio(props)
@@ -59,6 +90,7 @@ function RadioCard(props) {
 }
 
 const AddEquipmentModal = ({children, operator, mutate}) => {
+    const [replaceFile, setReplaceFile] = useState(initialState); // ===
     const initialRef = useRef(null);
     const router = useRouter();
     const toast = useToast();
@@ -68,7 +100,34 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
 
-    const options = ["non-optique", "optique"]
+    // ===
+    const valid = useStore((state) => state.valid);
+    const parseAndValidate = useStore((state) => state.parseAndValidate);
+    const reset = useStore((state) => state.reset);
+
+    const importFile = async (file) => {
+        const base64 = await parseAndValidate(file);
+
+        if (base64) {
+            setReplaceFile({file: base64});
+        }
+    };
+
+    let invalidAlert = null;
+
+    if (!valid) {
+        invalidAlert = (
+            <Alert status="error" borderRadius={4} mt={5}>
+                <AlertIcon/>
+                <AlertTitle mr={2}>Fichier invalide </AlertTitle>
+                <AlertDescription>Choisissez un autre fichier</AlertDescription>
+            </Alert>
+        );
+    }
+
+    // ===
+
+    const options = ["non-optique", "optique"];
 
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "equipmentType",
@@ -96,6 +155,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
             mark: mark ? mark : "",
             type: equipmentType,
             color: operator?.settings.color,
+            logo: replaceFile.file, // ===
             longitude: longitude ? longitude : "",
             latitude: latitude ? latitude : "",
             ports: ports ? ports : "",
@@ -154,12 +214,12 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                                 <option key={"sro"} value='sro'>SRO</option>
                                 <option key={"pbo"} value='pbo'>PBO</option>
                                 <option key={"pto"} value='pto'>PTO</option>
-                                <option key={"cable"} value='cable'>CABLE</option>
+                                {/*<option key={"cable"} value='cable'>CABLE</option>*/}
                                 <option key={"conduit"} value='conduit'>CHAMBRE SOUTERRAINE</option>
                                 <option key={"poteau"} value='poteau'>POTEAU</option>
                             </Select>
                         </FormControl>
-                        <FormControl>
+                        <FormControl isRequired>
                             <FormLabel>Nom</FormLabel>
                             <Input
                                 ref={initialRef}
@@ -176,6 +236,29 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                                 {errors?.name && errors?.name.message}
                             </FormErrorMessage>
                         </FormControl>
+
+                        <DropZone onFileAccepted={importFile}/>
+                        {invalidAlert}
+
+                        <FormControl mt={4} isRequired>
+                            <FormLabel>Type</FormLabel>
+                            <HStack
+                                {...group}
+                            >
+                                {options.map((value) => {
+                                    const radio = getRadioProps({value})
+                                    return (
+                                        <RadioCard key={value} {...radio} >
+                                            {value.charAt(0).toUpperCase() + value.slice(1)}
+                                        </RadioCard>
+                                    )
+                                })}
+                            </HStack>
+                            <FormErrorMessage>
+                                {errors?.equipmentType && errors?.equipmentType.message}
+                            </FormErrorMessage>
+                        </FormControl>
+
                         {['poteau', 'conduit', 'cable'].includes(equipment) || (
                             <FormControl mt={4} isRequired>
                                 <FormLabel> Marque </FormLabel>
@@ -199,24 +282,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                                 </FormErrorMessage>
                             </FormControl>)
                         }
-                        <FormControl mt={4} isRequired>
-                            <FormLabel>Type</FormLabel>
-                            <HStack
-                                {...group}
-                            >
-                                {options.map((value) => {
-                                    const radio = getRadioProps({value})
-                                    return (
-                                        <RadioCard key={value} {...radio} >
-                                            {value.charAt(0).toUpperCase() + value.slice(1)}
-                                        </RadioCard>
-                                    )
-                                })}
-                            </HStack>
-                            <FormErrorMessage>
-                                {errors?.equipmentType && errors?.equipmentType.message}
-                            </FormErrorMessage>
-                        </FormControl>
+
                         {['nro', 'bpeo', 'sro', 'pbo', 'pto', 'poteau', 'conduit', 'cable'].includes(equipment) && (
                             <>
                                 <FormControl mt={4} isRequired>
@@ -292,7 +358,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                                     <Input
                                         id="portsOccupes"
                                         ref={initialRef}
-                                        placeholder="50"
+                                        placeholder="09"
                                         name="portsOccupes"
                                         autoComplete={"false"}
                                         type={"number"}

@@ -25,7 +25,7 @@ import {
     useDisclosure,
     useToast
 } from '@chakra-ui/react';
-import {createOperator, updateOperator} from '@/lib/db';
+import {updateOperator} from '@/lib/db';
 import {useAuth} from '@/lib/auth';
 import create from "zustand";
 import React, {useRef, useState} from "react";
@@ -186,9 +186,7 @@ const UpdateOperatorModal = ({operator, children, mutate}) => {
                         <DropZone onFileAccepted={importFile}/>
                         {invalidAlert}
                         <FormControl isRequired>
-                            <FormLabel
-                                mt={4}
-                            >
+                            <FormLabel mt={4}>
                                 Couleur
                                 <Popover>
                                     <PopoverTrigger>
@@ -255,5 +253,4 @@ const UpdateOperatorModal = ({operator, children, mutate}) => {
         </>
     );
 };
-
 export default UpdateOperatorModal;

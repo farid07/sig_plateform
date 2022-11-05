@@ -8,7 +8,6 @@ import DeleteEquipmentButton from "@/components/equipment/DeleteEquipmentButton"
 import UpdateEquipmentModal from "@/components/equipment/UpdateEquipmentModal";
 
 const EquipmentTable = ({equipments, operator, mutate}) => {
-    console.log('vvvvv', equipments)
     return (
         <Box overflowX="scroll" mr={'8px'}>
             <Table w="full">

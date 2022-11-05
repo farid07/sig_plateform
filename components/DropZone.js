@@ -5,14 +5,16 @@ import {AiFillFileAdd} from 'react-icons/ai';
 
 export default function DropZone({onFileAccepted, helpText}) {
     const onDrop = useCallback((acceptedFiles) => {
+        //recuperrons toutes les images
+
         onFileAccepted(acceptedFiles[0]);
     }, [onFileAccepted]);
 
     const {getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject} = useDropzone({
-        onDrop, accept: 'image/jpeg, image/png', maxFiles: 1, multiple: false,
+        onDrop, accept: 'image/jpeg, image/png, image/svg', maxFiles: 1, multiple: false,
     });
 
-    const dropText = isDragActive ? 'Deposez votre logo ici ...' : 'Glissez et déposez le logo ici, ou cliquez pour sélectionnez';
+    const dropText = isDragActive ? 'Deposez votre logo ici ...' : 'Glissez et déposez le logo ici, ou cliquez pour sélectionner';
 
     const activeBg = useColorModeValue('gray.100', 'gray.600');
     const borderColor = useColorModeValue(
@@ -21,10 +23,7 @@ export default function DropZone({onFileAccepted, helpText}) {
     );
 
     return (
-        <FormControl
-            mt={4}
-            isRequired
-        >
+        <FormControl mt={4} isRequired>
             <FormLabel>Logo</FormLabel>
             <Center
                 p={10}

@@ -95,7 +95,6 @@ const Account = () => {
                     <Heading as={"h1"} fontSize={"32px"} my={"4px"} letterSpacing="-1px">{authUser?.last_name}</Heading>
                     <Heading as={"h1"} fontSize={"32px"} my={"4px"}
                              letterSpacing="-1px">{authUser?.first_name}</Heading>
-
                     <Text>{authUser?.email}</Text>
                 </Flex>
                 <SettingsTable userRole={authUser?.accountType}>

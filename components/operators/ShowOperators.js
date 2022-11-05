@@ -19,7 +19,7 @@ const ShowOperators = ({mutate, operators, isAdmin,}) => {
                     key={operator.id}
                 >
                     <Avatar
-                        size={'xl'}
+                        size={'xxl'}
                         src={
                             `${operator.logo}`
                         }

@@ -9,6 +9,7 @@ import React from 'react';
 
 import {AuthProvider} from '@/lib/auth';
 import customTheme from '@/styles/theme';
+import {MapDataProvider} from "@/components/MapDataContext";
 
 
 {/*import { DefaultSeo } from 'next-seo'; */
@@ -32,8 +33,10 @@ const App = ({Component, pageProps}) => {
                 />
             </Head>
             <AuthProvider>
-                {/* <DefaultSeo {...SEO} /> */}
-                <Component {...pageProps} />
+                <MapDataProvider>
+                    {/* <DefaultSeo {...SEO} /> */}
+                    <Component {...pageProps} />
+                </MapDataProvider>
             </AuthProvider>
         </ChakraProvider>
     );

@@ -1,6 +1,12 @@
 import {getEquipments} from '@/lib/db-admin';
 import {formatObjectKeys, logger} from '@/utils/logger';
 
+export const config = {
+    api: {
+        responseLimit: '20mb',
+    },
+}
+
 export default async (req, res) => {
     try {
         // const { uid } = await auth.verifyIdToken(req.headers.token);
