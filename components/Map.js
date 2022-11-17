@@ -244,37 +244,39 @@ const Map = (props) => {
                 reverseGeocode: true,
             })
         );
-
-        // Ajout des commandes de zoom et de rotation à la carte
-        map.current.addControl(new mapboxgl.NavigationControl({visualizePitch: true}), 'top-right');
+        // Ajout des boutons de dessin sur la carte
+        map.current.addControl(draw);
+        map.current.on('draw.create', updateRoute);
+        map.current.on('draw.update', updateRoute);
+        map.current.on('draw.delete', removeRoute);
 
         // Ajout du bouton pour afficher ma position sur la carte
         map.current.addControl(new mapboxgl.GeolocateControl({
             positionOptions: {enableHighAccuracy: true}, trackUserLocation: true, showUserHeading: true
         }));
+
+        // Ajout des commandes de zoom et de rotation à la carte
+        map.current.addControl(new mapboxgl.NavigationControl({visualizePitch: true}), 'top-right');
+
         // Ajout du bouton pour mettre la carte en plein ecran
         map.current.addControl(new mapboxgl.FullscreenControl(), 'top-right');
 
-        map.current.addControl(draw);
-        map.current.on('draw.create', updateRoute);
-        map.current.on('draw.update', updateRoute);
-        map.current.on('draw.delete', removeRoute);
 
         props?.data?.map((equipment) => {
 
             // ==> CUSTOM IMAGE MARKER
             const markerDiv = document.createElement('div');
             markerDiv.className = 'my-custom-marker';
-            markerDiv.style.width = '50px';
-            markerDiv.style.height = '55px';
-            markerDiv.style.borderRadius = '3px';
-            markerDiv.style.borderColor = equipment?.color;
-            markerDiv.style.borderWidth = '3px';
-            markerDiv.style.padding = '6px';
-            // markerDiv.style.backgroundImage = `url("")`; // https://picsum.photos/20/30?random=${equipment.id}
-            markerDiv.style.backgroundImage = `url("${equipment?.logo}")`;
             markerDiv.style.backgroundSize = 'cover';
-            const marker = new mapboxgl.Marker(markerDiv, {color: equipment?.color, draggable: false}); //Add marker
+            markerDiv.style.width = '20px';
+            markerDiv.style.height = '25px';
+            markerDiv.style.backgroundImage = `url("${equipment?.logo}")`;
+            // markerDiv.style.borderRadius = '3px';
+            // markerDiv.style.borderColor = equipment?.color;
+            // markerDiv.style.borderWidth = '3px';
+            // markerDiv.style.padding = '10px';
+            //  markerDiv.style.backgroundImage = `url("")`; // https://picsum.photos/20/30?random=${equipment.id}
+            const marker = new mapboxgl.Marker(markerDiv, {draggable: false}); //Add marker
 
             // ==> DEFAULT MARKER
             // const marker = new mapboxgl.Marker({color: equipment?.color, draggable: false}); //Add marker
@@ -317,17 +319,18 @@ const Map = (props) => {
 
             // ==> CUSTOM IMAGE MARKER
             const markerDiv = document.createElement('div');
+            markerDiv.style.backgroundSize = 'cover';
             markerDiv.className = 'my-custom-marker';
             markerDiv.style.width = '50px';
-            markerDiv.style.height = '55px';
-            markerDiv.style.borderRadius = '3px';
-            markerDiv.style.borderColor = equipment?.color;
-            markerDiv.style.borderWidth = '3px';
-            markerDiv.style.padding = '6px';
-            // markerDiv.style.backgroundImage = `url("")`; // https://picsum.photos/20/30?random=${equipment.id}
+            markerDiv.style.height = '69px';
             markerDiv.style.backgroundImage = `url("${equipment?.logo}")`;
-            markerDiv.style.backgroundSize = 'cover';
-            const marker = new mapboxgl.Marker(markerDiv, {color: equipment?.color, draggable: false}); //Add marker
+            // markerDiv.style.borderRadius = '3px';
+            // markerDiv.style.borderColor = equipment?.color;
+            // markerDiv.style.borderWidth = '3px';
+            // markerDiv.style.padding = '6px';
+            // // markerDiv.style.backgroundImage = `url("")`; // https://picsum.photos/20/30?random=${equipment.id}
+            const marker = new mapboxgl.Marker(markerDiv, {draggable: false}); //Add marker
+            // color: equipment?.color,
 
             // ==> DEFAULT MARKER
             // const marker = new mapboxgl.Marker({color: equipment?.color, draggable: false}); //Add marker
