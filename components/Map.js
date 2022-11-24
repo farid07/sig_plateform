@@ -25,9 +25,9 @@ const Map = (props) => {
     //     zoom: 12.721197192553936
     // });
 
+// ++++++++ Ajout d'une barre de recherche pour rechercher un lieu sur la carte ++++++
     const coordinatesGeocoder = function (query) {
         // Faire correspondre tout ce qui ressemble à une paire de coordonnées en degrés décimaux.
-
         const matches = query.match(/^[ ]*(?:Lat: )?(-?\d+\.?\d*)[, ]+(?:Lng: )?(-?\d+\.?\d*)[ ]*$/i);
         if (!matches) {
             return null;
@@ -70,6 +70,7 @@ const Map = (props) => {
         return geocodes;
     };
 
+//  +++++++ Ajout des outils permettant de dessiner un itinéraire sur la carte +++++++
     const draw = new MapboxDraw({
         // Instead of showing all the draw tools, show only the line string and delete tools.
         displayControlsDefault: false,
@@ -129,8 +130,6 @@ const Map = (props) => {
         ]
     });
 
-    //ffffffff
-
     function updateRoute() {
         removeRoute(); // Overwrite any existing layers
         const profile = 'driving'; // Set the profile
@@ -187,7 +186,7 @@ const Map = (props) => {
 
     }
 
-    // Dessinez l'itinéraire MapBack Matching en tant que nouvelle couche sur la carte
+    // Dessinez l'itinéraire Map Matching en tant que nouvelle couche sur la carte
     function addRoute(coords) {
         // If a route is already loaded, remove it
         if (map.current.getSource('route')) {
