@@ -49,7 +49,7 @@ const Dashboard = () => {
     return (
         <DashboardShell>
             <Container>
-                <DynamicComponentWithNoSSR data={equipments}/>
+                <DynamicComponentWithNoSSR data={equipments} showAll={true}/>
             </Container>
         </DashboardShell>
     );

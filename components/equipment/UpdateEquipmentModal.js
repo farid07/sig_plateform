@@ -171,20 +171,26 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
     return (
         <>
             <IconButton
+                onClick={onOpen}
                 aria-label="Update user"
                 icon={<AiFillEdit/>}
-                color={"green.500"}
+                color="white"
+                fontWeight="medium"
+                _hover={{bg: 'gray.500'}}
+                _active={{
+                    bg: 'gray.800',
+                    transform: 'scale(0.95)'
+                }}
                 variant="ghost"
-                onClick={onOpen}
             />
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onUpdateEquipment)} bg={'blue.200'}>
-                    <ModalHeader fontWeight="bold">Modifier Equipement</ModalHeader>
+                <ModalContent as="form" onSubmit={handleSubmit(onUpdateEquipment)} bg={"white"} color={'black'}>
+                    <ModalHeader fontWeight="bold" fontSize={'28px'}>Modifier infrastructure</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
-                            <FormLabel>{"Selectionnez l'infrastructure"}</FormLabel>
+                            <FormLabel fontSize={'24px'}>{"Selectionnez l'infrastructure"}</FormLabel>
                             <Select
                                 ref={initialRef}
                                 id="infrastructureType"
@@ -206,7 +212,7 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                             </Select>
                         </FormControl>
                         <FormControl>
-                            <FormLabel>Nom</FormLabel>
+                            <FormLabel fontSize={'24px'}>Nom</FormLabel>
                             <Input
                                 ref={initialRef}
                                 id="name"
@@ -228,7 +234,7 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                         {invalidAlert}
 
                         <FormControl mt={4} isRequired>
-                            <FormLabel>Type</FormLabel>
+                            <FormLabel fontSize={'24px'}>Type</FormLabel>
                             <HStack
                                 {...group}
                             >
@@ -247,7 +253,7 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                         </FormControl>
                         {['poteau', 'conduit', 'cable'].includes(infrastructure) || (
                             <FormControl mt={4} isRequired>
-                                <FormLabel> Marque </FormLabel>
+                                <FormLabel fontSize={'24px'}> Marque </FormLabel>
                                 <Select
                                     id={"mark"}
                                     onChange={handleChange}
@@ -272,7 +278,7 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                         {['nro', 'bpeo', 'sro', 'pbo', 'pto', 'poteau', 'conduit', 'cable'].includes(infrastructure) && (
                             <>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>Longitude</FormLabel>
+                                    <FormLabel fontSize={'24px'}>Longitude</FormLabel>
                                     <Input
                                         id="longitude"
                                         defaultValue={equipment?.longitude}
@@ -294,7 +300,7 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                                     </FormErrorMessage>
                                 </FormControl>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>Latitude</FormLabel>
+                                    <FormLabel fontSize={'24px'}>Latitude</FormLabel>
                                     <Input
                                         id="latitude"
                                         defaultValue={equipment?.latitude}
@@ -317,10 +323,10 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                                 </FormControl>
                             </>
                         )}
-                        {['sro', 'pbo', 'pto'].includes(infrastructure) && (
+                        {['nro', 'sro', 'pbo', 'pto'].includes(infrastructure) && (
                             <>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>Total ports</FormLabel>
+                                    <FormLabel fontSize={'24px'}>Total ports</FormLabel>
                                     <Input
                                         id="ports"
                                         defaultValue={equipment?.ports}
@@ -340,10 +346,10 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                                 </FormControl>
                             </>
                         )}
-                        {['pbo'].includes(infrastructure) && (
+                        {['nro', 'sro', 'pbo', 'pto'].includes(infrastructure) && (
                             <>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>Ports occupés</FormLabel>
+                                    <FormLabel fontSize={'24px'}>Ports occupés</FormLabel>
                                     <Input
                                         id="portsOccupes"
                                         defaultValue={equipment?.portsOccupes}
@@ -453,13 +459,13 @@ const UpdateEquipmentModal = ({equipment, operator, mutate}) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button onClick={onClose} mr={3} fontWeight="medium">
+                        <Button onClick={onClose} mr={3} fontWeight="medium" bg={'gray.400'} _hover={{bg: 'gray.600'}}>
                             Annuler
                         </Button>
                         <Button
                             id="create-site-button"
-                            backgroundColor="#99FFFE"
-                            color="#194D4C"
+                            backgroundColor="gray.400"
+                            _hover={{bg: 'gray.600'}}
                             fontWeight="medium"
                             type="submit"
                         >

@@ -30,7 +30,7 @@ const Operator = () => {
                 <Container>
                     <ContentHeader title={"Opérateurs"}>
                         {isOperator && (
-                            <AddOperatorModal mutate={mutate}>
+                            <AddOperatorModal mutate={mutate} color={'white'} backgroundColor={'blue.600'}>
                                 Ajouter
                             </AddOperatorModal>
                         )}
@@ -47,7 +47,7 @@ const Operator = () => {
                 <Container>
                     <ContentHeader title={"Opérateurs"} fontFamily={'Georgia'}>
                         {isOperator && (
-                            <AddOperatorModal mutate={mutate}>
+                            <AddOperatorModal mutate={mutate} color={'white'} backgroundColor={'blue.600'}>
                                 Ajouter
                             </AddOperatorModal>
                         )}
@@ -64,13 +64,14 @@ const Operator = () => {
             <Container>
                 <ContentHeader title={"Opérateurs"}>
                     {isOperator && (
-                        <AddOperatorModal mutate={mutate}>
+                        <AddOperatorModal mutate={mutate} color={'white'} backgroundColor={'blue.600'}>
                             Ajouter
                         </AddOperatorModal>
                     )}
                 </ContentHeader>
                 <EmptyState
-                    button={<AddOperatorModal mutate={mutate}>Ajoutez un opérateur</AddOperatorModal>}
+                    button={<AddOperatorModal mutate={mutate} color={'white'} backgroundColor={'blue.600'}>Ajoutez un
+                        opérateur</AddOperatorModal>}
                     helpText={"Aucun opérateur trouvé."}
                     subHelpText={"Commençons."}
                 />

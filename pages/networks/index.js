@@ -20,9 +20,10 @@ const Network = () => {
     const {authUser} = useAuth();
     const {router} = useRouter();
     const token = authUser?.token
-    const [data, setData] = useContext(MapDataContext);
+    // const [data, setData] = useContext(MapDataContext); carlos
+    const data = {}
 
-    const [equipments, setEquipments] = useState(data)
+    const [equipments, setEquipments] = useState([])
     const [operators, setOperators] = useState([])
     const [uid, setUid] = useState(null)
 
@@ -49,7 +50,7 @@ const Network = () => {
         });
 
         const d = await t.json()
-        setData(d.equipments);
+        setEquipments(d.equipments.filter(e => e.userId === authUser?.uid)); // farid
 
     }, [])
 
@@ -65,13 +66,23 @@ const Network = () => {
         );
     }
 
-    if (operators?.operators?.length && data.length) {
+
+    // if (operators?.operators?.length && data.length) {
+    //     return (
+    //         <DashboardShell>
+    //             {/*   <Container>
+    //                 <NetworkHeader title={"Réseaux"} operators={operators.operators} onChange={onChange}/>
+    //                 <DynamicComponentWithNoSSR data={data}/>
+    //             </Container>
+    //             */}
+    //             <Container/> {/* farid */}
+    //         </DashboardShell>
+    //     );
+    // }
+    if (data?.sites?.length) {
         return (
             <DashboardShell>
-                <Container>
-                    <NetworkHeader title={"Réseaux"} operators={operators.operators} onChange={onChange}/>
-                    <DynamicComponentWithNoSSR data={data}/>
-                </Container>
+                <Container/>
             </DashboardShell>
         );
     }
@@ -79,9 +90,14 @@ const Network = () => {
     return (
         <DashboardShell>
             <Container/>
+            <Container>
+                {/*<NetworkHeader title={"Réseaux"}/> */}
+                <DynamicComponentWithNoSSR data={equipments} showAll={false}/>
+            </Container>
         </DashboardShell>
     );
 };
+
 
 const NetworkPage = () => (
     <Page name="Network" path="/pages/networks/index">

@@ -38,7 +38,8 @@ const Equipment = () => {
                 <Container>
                     <ContentHeader title={"Equipements"}>
                         {isOperator && (
-                            <AddEquipmentModal operator={operator} mutate={mutate}>
+                            <AddEquipmentModal operator={operator} mutate={mutate} color={'white'}
+                                               backgroundColor={'blue.600'}>
                                 Ajouter
                             </AddEquipmentModal>
                         )}
@@ -55,7 +56,8 @@ const Equipment = () => {
                 <Container>
                     <ContentHeader title={"Equipements"}>
                         {isOperator && (
-                            <AddEquipmentModal operator={operator} mutate={mutate}>
+                            <AddEquipmentModal operator={operator} mutate={mutate} color={'white'}
+                                               backgroundColor={'blue.600'}>
                                 Ajouter
                             </AddEquipmentModal>
                         )}
@@ -94,5 +96,3 @@ const EquipmentPage = () => (
 );
 
 export default EquipmentPage;
-
-

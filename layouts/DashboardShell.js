@@ -35,11 +35,11 @@ export default function DashboardShell({children}) {
                     justifyContent={'space-between'}
                     w="full"
                     position={"fixed"}
-                    borderTop="5px solid"
+                    borderTop="2px solid"
                     zIndex={1200}
                     mb={[8, 16]}
                     borderTopColor={"#72c8dc"}
-                    backgroundColor="blue.200"
+                    backgroundColor="blue.500"
                     boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
                 >
 
@@ -52,7 +52,7 @@ export default function DashboardShell({children}) {
                                 }}
                             >
                                 <Icon as={FiMap} w="24px" h={"24px"} mr={4}/>
-                                <Box as={"span"}>
+                                <Box as={"span"} color={'white'} fontFamily={'Georgia'} fontSize={'25px'}>
                                     SIG PLATFORM
                                 </Box>
                             </Link>

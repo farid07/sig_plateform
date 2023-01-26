@@ -125,8 +125,10 @@ const UpdateOperatorModal = ({operator, children, mutate}) => {
             <Button
                 id="update-operator-modal-button"
                 onClick={onOpen}
-                backgroundColor="teal.500"
+                backgroundColor="blue.400"
                 color="white"
+                mt={'10px'}
+                fontSize={'16px'}
                 leftIcon={<AiFillEdit/>}
                 fontWeight="medium"
                 _hover={{bg: 'gray.700'}}
@@ -139,12 +141,13 @@ const UpdateOperatorModal = ({operator, children, mutate}) => {
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onUpdateOperator)} bg={'blue.200'}>
-                    <ModalHeader fontWeight="bold" fontFamily={"Georgia"}>Editer un compte Opérateur</ModalHeader>
+                <ModalContent as="form" onSubmit={handleSubmit(onUpdateOperator)} bg={'blue.600'} color={'white'}>
+                    <ModalHeader fontWeight="bold" fontFamily={"Georgia"} fontSize={'30px'}>Editer le compte
+                        opérateur</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
-                            <FormLabel>Nom</FormLabel>
+                            <FormLabel fontSize={'24px'}>Nom</FormLabel>
                             <Input
                                 ref={initialRef}
                                 id="name-input"
@@ -157,7 +160,7 @@ const UpdateOperatorModal = ({operator, children, mutate}) => {
                             />
                         </FormControl>
                         <FormControl mt={4} isRequired>
-                            <FormLabel> Email </FormLabel>
+                            <FormLabel fontSize={'24px'}> Email </FormLabel>
                             <Input
                                 id="email-input"
                                 ref={initialRef}
@@ -171,7 +174,7 @@ const UpdateOperatorModal = ({operator, children, mutate}) => {
                         </FormControl>
 
                         <FormControl mt={4} isRequired>
-                            <FormLabel>Site Web</FormLabel>
+                            <FormLabel fontSize={'24px'}>Site Web</FormLabel>
                             <Input
                                 id="link-input"
                                 ref={initialRef}
@@ -186,7 +189,7 @@ const UpdateOperatorModal = ({operator, children, mutate}) => {
                         <DropZone onFileAccepted={importFile}/>
                         {invalidAlert}
                         <FormControl isRequired>
-                            <FormLabel mt={4}>
+                            <FormLabel mt={4} fontSize={'24px'}>
                                 Couleur
                                 <Popover>
                                     <PopoverTrigger>
@@ -197,7 +200,8 @@ const UpdateOperatorModal = ({operator, children, mutate}) => {
                                         <PopoverArrow/>
                                         <PopoverCloseButton/>
                                         {/*<PopoverHeader>Couleur principale de l'opérateur</PopoverHeader>*/}
-                                        <PopoverBody>Cette couleur sera utilisée pour représenter vos équipements sur la
+                                        <PopoverBody bg={'blue.500'} color={'white'}>Cette couleur sera utilisée pour
+                                            représenter vos infrastructures sur la
                                             carte</PopoverBody>
                                     </PopoverContent>
                                 </Popover>
@@ -226,22 +230,15 @@ const UpdateOperatorModal = ({operator, children, mutate}) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button onClick={onClose} mr={3} fontWeight="medium">
+                        <Button onClick={onClose} mr={3} fontWeight="medium" backgroundColor="darkgray"
+                                color="gray.900">
                             Annuler
                         </Button>
-                        {/*<Button*/}
-                        {/*    id="create-site-button"*/}
-                        {/*    backgroundColor="#99FFFE"*/}
-                        {/*    color="#194D4C"*/}
-                        {/*    fontWeight="medium"*/}
-                        {/*    type="submit"*/}
-                        {/*>*/}
-                        {/*    Ajouter*/}
-                        {/*</Button>*/}
+
                         <Button
                             id="update-operator-button"
-                            backgroundColor="white"
-                            color="black"
+                            backgroundColor={'darkgray'}
+                            color={'gray.900'}
                             fontWeight="medium"
                             type="submit"
                         >

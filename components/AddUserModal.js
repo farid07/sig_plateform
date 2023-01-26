@@ -1,4 +1,5 @@
 import {useForm} from 'react-hook-form';
+import fibre from 'public/fibre.jpg';
 import {
     Box,
     Button,
@@ -65,7 +66,7 @@ const AddUserModal = ({children, mutate}) => {
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
 
-    const options = ["admin", "operator"]
+    const options = ["operator"]
 
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "account_type",
@@ -107,7 +108,7 @@ const AddUserModal = ({children, mutate}) => {
                 color="white"
                 leftIcon={<MdAdd/>}
                 fontWeight="medium"
-                _hover={{bg: 'gray.700'}}
+                _hover={{bg: 'gray.500'}}
                 _active={{
                     bg: 'gray.800',
                     transform: 'scale(0.95)'
@@ -117,12 +118,14 @@ const AddUserModal = ({children, mutate}) => {
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onCreateUser)} bg={"blue.100"} fontFamily={"Georgia"}>
-                    <ModalHeader fontWeight="bold">Ajouter un utilisateur</ModalHeader>
+                <ModalContent as="form" onSubmit={handleSubmit(onCreateUser)} color={'white'} bg={'blue.400'}
+                              fontFamily={"Georgia"}>
+                    <ModalHeader fontWeight="bold" fontFamily={"Georgia"} fontSize={'30px'}>Ajouter un
+                        utilisateur</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
-                        <FormControl isRequired>
-                            <FormLabel>Nom</FormLabel>
+                        <FormControl isRequired mt={4}>
+                            <FormLabel fontSize={'24px'}>Nom</FormLabel>
                             <Input
                                 ref={initialRef}
                                 id="first_name"
@@ -139,7 +142,7 @@ const AddUserModal = ({children, mutate}) => {
                             </FormErrorMessage>
                         </FormControl>
                         <FormControl isRequired mt={4}>
-                            <FormLabel>Prénoms</FormLabel>
+                            <FormLabel fontSize={'24px'}>Prénoms</FormLabel>
                             <Input
                                 ref={initialRef}
                                 id="last_name"
@@ -156,7 +159,7 @@ const AddUserModal = ({children, mutate}) => {
                             </FormErrorMessage>
                         </FormControl>
                         <FormControl mt={4} isRequired>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel fontSize={'24px'}>Email</FormLabel>
                             <Input
                                 id="email"
                                 ref={initialRef}
@@ -174,7 +177,7 @@ const AddUserModal = ({children, mutate}) => {
                             </FormErrorMessage>
                         </FormControl>
                         <FormControl mt={4} isRequired>
-                            <FormLabel>Mot de passe</FormLabel>
+                            <FormLabel fontSize={'24px'}>Mot de passe</FormLabel>
                             <Input
                                 id="password"
                                 ref={initialRef}
@@ -196,7 +199,7 @@ const AddUserModal = ({children, mutate}) => {
                         </FormControl>
 
                         <FormControl mt={4} isRequired>
-                            <FormLabel>Type de compte</FormLabel>
+                            <FormLabel fontSize={'24px'}>Type de compte</FormLabel>
                             <HStack
                                 {...group}
                             >
@@ -216,15 +219,16 @@ const AddUserModal = ({children, mutate}) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button onClick={onClose} mr={3} fontWeight="medium" backgroundColor="white" color="black">
+                        <Button onClick={onClose} mr={3} fontWeight="medium" backgroundColor="darkgray"
+                                color="gray.900">
                             Annuler
                         </Button>
                         <Button
                             id="create-site-button"
-                            backgroundColor="white"
-                            color="black"
                             fontWeight="medium"
                             type="submit"
+                            backgroundColor={'darkgray'}
+                            color={'gray.900'}
                         >
                             Ajouter
                         </Button>

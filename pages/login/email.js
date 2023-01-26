@@ -33,7 +33,7 @@ const Login = () => {
     };
 
     return (
-        <Flex align="center" justify="center" h="100vh" backgroundColor="blue.200">
+        <Flex align="center" justify="center" h="100vh" backgroundColor="blue.300">
             <Stack
                 as="form"
                 backgroundColor="white"
@@ -96,15 +96,15 @@ const Login = () => {
                     <Button
                         id="login"
                         type="submit"
-                        backgroundColor="blue.200"
-                        color="black"
+                        backgroundColor="blue.400"
+                        color="white"
                         isLoading={loading}
                         fontWeight="medium"
                         h="50px"
                         fontSize="lg"
-                        _hover={{bg: 'gray.300'}}
+                        _hover={{bg: 'gray.500'}}
                         _active={{
-                            bg: 'gray.600',
+                            bg: 'gray.500',
                             transform: 'scale(0.95)'
                         }}
                     >

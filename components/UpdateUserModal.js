@@ -63,7 +63,7 @@ const UpdateUserModal = ({user, size, mutate}) => {
     const {handleSubmit, register, formState: {errors, isValid, isDirty}} = useForm({mode: "onChange"});
     const {isOpen, onOpen, onClose} = useDisclosure();
 
-    const options = ["admin", "operator"]
+    const options = ["operator"]
 
     const {getRootProps, getRadioProps} = useRadioGroup({
         name: "account_type",
@@ -102,18 +102,19 @@ const UpdateUserModal = ({user, size, mutate}) => {
                 size={size}
                 aria-label="Update user"
                 icon={<AiFillEdit size={size}/>}
-                color={"green.500"}
+                backgroundColor={"blue.400"}
                 variant="ghost"
                 onClick={onOpen}
             />
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onUpdateUser)} bg={"blue.100"}>
-                    <ModalHeader fontWeight="bold">Mettre à jour l'utilisateur</ModalHeader>
+                <ModalContent as="form" onSubmit={handleSubmit(onUpdateUser)} color={'white'} bg={'blue.400'}
+                              fontFamily={"Georgia"}>
+                    <ModalHeader fontSize={'30px'} fontWeight="bold">Mettre à jour l'utilisateur </ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
-                            <FormLabel>Nom</FormLabel>
+                            <FormLabel fontSize={'24px'}>Nom</FormLabel>
                             <Input
                                 ref={initialRef}
                                 id="first_name"
@@ -131,7 +132,7 @@ const UpdateUserModal = ({user, size, mutate}) => {
                             </FormErrorMessage>
                         </FormControl>
                         <FormControl isRequired mt={4}>
-                            <FormLabel>Prénoms</FormLabel>
+                            <FormLabel fontSize={'24px'}>Prénoms</FormLabel>
                             <Input
                                 ref={initialRef}
                                 id="last_name"
@@ -149,7 +150,7 @@ const UpdateUserModal = ({user, size, mutate}) => {
                             </FormErrorMessage>
                         </FormControl>
                         <FormControl mt={4} isRequired>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel fontSize={'24px'}>Email</FormLabel>
                             <Input
                                 id="email"
                                 ref={initialRef}
@@ -168,7 +169,7 @@ const UpdateUserModal = ({user, size, mutate}) => {
                             </FormErrorMessage>
                         </FormControl>
                         <FormControl mt={4} isRequired>
-                            <FormLabel>Mot de passe</FormLabel>
+                            <FormLabel fontSize={'24px'}>Mot de passe</FormLabel>
                             <Input
                                 id="password"
                                 ref={initialRef}
@@ -190,7 +191,7 @@ const UpdateUserModal = ({user, size, mutate}) => {
                         </FormControl>
 
                         <FormControl mt={4} isRequired>
-                            <FormLabel>Type de compte</FormLabel>
+                            <FormLabel fontSize={'24px'}>Type de compte</FormLabel>
                             <HStack
                                 {...group}
                             >
@@ -210,15 +211,16 @@ const UpdateUserModal = ({user, size, mutate}) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button onClick={onClose} mr={3} fontWeight="medium" backgroundColor="white" color="black">
+                        <Button onClick={onClose} mr={3} fontWeight="medium" backgroundColor="darkgray"
+                                color="gray.900">
                             Annuler
                         </Button>
                         <Button
                             id="update-user-button"
-                            backgroundColor="white"
-                            color="black"
                             fontWeight="medium"
                             type="submit"
+                            backgroundColor={'darkgray'}
+                            color={'gray.900'}
                         >
                             Modifier
                         </Button>

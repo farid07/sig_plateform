@@ -141,12 +141,13 @@ const AddOperatorModal = ({children, mutate}) => {
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onCreateOperator)} bg={'blue.200'}>
-                    <ModalHeader fontWeight="bold" fontFamily={"Georgia"}>Ajouter un compte Opérateur</ModalHeader>
+                <ModalContent as="form" onSubmit={handleSubmit(onCreateOperator)} bg={'blue.400'} color={'white'}>
+                    <ModalHeader fontWeight={'bold'} fontFamily={"Georgia"} fontSize={'30px'}>Ajouter un compte
+                        opérateur</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
-                            <FormLabel>Nom</FormLabel>
+                            <FormLabel fontSize={'24px'}>Nom du FAI</FormLabel>
                             <Input
                                 ref={initialRef}
                                 id="name-input"
@@ -158,7 +159,7 @@ const AddOperatorModal = ({children, mutate}) => {
                             />
                         </FormControl>
                         <FormControl mt={4} isRequired>
-                            <FormLabel> Email </FormLabel>
+                            <FormLabel fontSize={'24px'}> Email </FormLabel>
                             <Input
                                 id="email-input"
                                 ref={initialRef}
@@ -171,7 +172,7 @@ const AddOperatorModal = ({children, mutate}) => {
                         </FormControl>
 
                         <FormControl mt={4} isRequired>
-                            <FormLabel>Site Web</FormLabel>
+                            <FormLabel fontSize={'24px'}>Site Web</FormLabel>
                             <Input
                                 id="link-input"
                                 ref={initialRef}
@@ -185,7 +186,7 @@ const AddOperatorModal = ({children, mutate}) => {
                         <DropZone onFileAccepted={importFile}/>
                         {invalidAlert}
                         <FormControl isRequired>
-                            <FormLabel mt={4}>
+                            <FormLabel mt={4} fontSize={'24px'}>
                                 Couleur
                                 <Popover>
                                     <PopoverTrigger>
@@ -196,7 +197,8 @@ const AddOperatorModal = ({children, mutate}) => {
                                         <PopoverArrow/>
                                         <PopoverCloseButton/>
                                         {/*<PopoverHeader>Couleur principale de l'opérateur</PopoverHeader>*/}
-                                        <PopoverBody>Cette couleur sera utilisée pour représenter vos équipements sur la
+                                        <PopoverBody bg={'blue.500'} color={'white'}>Cette couleur sera utilisée pour
+                                            représenter vos infrastructures sur la
                                             carte</PopoverBody>
                                     </PopoverContent>
                                 </Popover>
@@ -224,13 +226,14 @@ const AddOperatorModal = ({children, mutate}) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button onClick={onClose} mr={3} fontWeight="medium">
+                        <Button onClick={onClose} mr={3} fontWeight="medium" backgroundColor="darkgray"
+                                color="gray.900">
                             Annuler
                         </Button>
                         <Button
                             id="create-site-button"
-                            backgroundColor="#99FFFE"
-                            color="#194D4C"
+                            backgroundColor={'darkgray'}
+                            color={'gray.900'}
                             fontWeight="medium"
                             type="submit"
                         >

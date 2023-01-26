@@ -5,10 +5,10 @@ export const Th = (props) => (
     <Text
         as="th"
         textTransform="uppercase"
-        fontSize="s"
-        color="black"
-        backgroundColor="blue.300"
-        fontWeight="medium"
+        fontSize="22px"
+        color="white"
+        backgroundColor="blue.700"
+        fontWeight="bold"
         px={4}
         {...props}
     />
@@ -17,8 +17,9 @@ export const Th = (props) => (
 export const Td = (props) => (
     <Box
         as="td"
-        color="gray.900"
+        color="white"
         p={4}
+        fontSize="17px"
         borderBottom="1px solid"
         borderBottomColor="gray.100"
         {...props}
@@ -43,7 +44,7 @@ export const Table = (props) => {
         <Box
             as="table"
             textAlign="center"
-            backgroundColor="blue.200"
+            backgroundColor="blue.600"
             ml={0}
             mr={0}
             borderRadius={8}

@@ -17,7 +17,7 @@ const EmptyState = ({mutate}) => (
             Aucun utilisateur trouvé.
         </Heading>
         <Text mb={4}>Commençons.</Text>
-        <AddUserModal mutate={mutate}>Ajoutez un utilisateur</AddUserModal>
+        <AddUserModal mutate={mutate} fontFamily={'Georgia'}>Ajoutez un utilisateur</AddUserModal>
     </Flex>
 );
 

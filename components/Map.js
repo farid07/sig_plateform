@@ -17,6 +17,7 @@ const Map = (props) => {
     const [lng, setLng] = useState(2.328328);
     const [lat, setLat] = useState(6.409846);
     const [zoom, setZoom] = useState(14);
+    const showAll = props;
     // const [viewport, setViewPort] = useState({
     //     width: "100%",
     //     height: "100%",
@@ -181,7 +182,7 @@ const Map = (props) => {
         //      tripDirections += `<li>${step.maneuver.instruction}</li>`;
         //     }
         // }
-        directions.innerHTML = `<p><strong> Distance de cable: ${data.distance} mètres </strong></p>`;
+        directions.innerHTML = `<p><div> Distance de câble: ${data.distance} mètres </div></p>`;
         //Durée du trajet : ${Math.floor(data.duration / 60)} min
 
     }
@@ -224,6 +225,7 @@ const Map = (props) => {
         map.current.removeSource('route');
     }
 
+    //
     useEffect(() => {
         if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
@@ -373,24 +375,26 @@ const Map = (props) => {
                 <Box className="info-box" style={{
                     position: "absolute",
                     margin: "20px",
-                    width: "16%",
+                    width: "18%",
                     height: "200px",
                     top: "10px",
-                    left: "10px",
+                    left: "8px",
                     zIndex: 10,
                     padding: "20px",
-                    backgroundColor: "#fff",
+                    backgroundColor: 'white',
+                    fontFamily: 'Georgia',
+                    fontWeight: 'bold',
+                    fontSize: '18px',
                     overflowY: "scroll"
                 }}
                 >
                     <p>
                         Dessiner un itinéraire !
-                    </p>
+                    </p> <br/>
                     <div id="directions"></div>
                 </Box>
             </Box>
         </>
     );
 };
-
 export default Map;

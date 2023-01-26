@@ -7,15 +7,18 @@ const ShowOperator = ({operator, mutate, isAdmin}) => {
         <Center>
             <Box
                 mt={'60px'}
-                mr={'330px'}
-                ml={'10px'}
+                mr={'350px'}
+                ml={'60px'}
                 w={'400px'}
                 h={'400px'}
-                bg={'blue.200'}
+                bg={'blue.500'}
+                fontSize={'25px'}
+                color={'white'}
                 boxShadow={'2xl'}
                 rounded={'lg'}
                 p={6}
                 textAlign={'center'}
+                fontFamily={'Georgia'}
             >
                 <Avatar
                     size={'xl'}
@@ -35,7 +38,7 @@ const ShowOperator = ({operator, mutate, isAdmin}) => {
                         right: 3,
                     }}
                 />
-                <Heading fontSize={'2xl'} fontFamily={'body'}>
+                <Heading fontSize={'25px'} fontFamily={'Georgia'}>
                     {operator?.name}
                 </Heading>
 

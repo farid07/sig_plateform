@@ -27,7 +27,7 @@ const SkeletonRow = ({width}) => (
 
 const EquipmentsSkeleton = () => {
     return (
-        <Table>
+        <Table color={'white'}>
             <thead>
             <Tr>
                 <Th> Nom </Th>

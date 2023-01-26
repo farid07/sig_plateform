@@ -6,16 +6,6 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import {useAuth} from "@/lib/auth";
 import {MapDataContext} from "@/components/MapDataContext";
 
-// const CircleIcon = (props) => (
-//     <Icon height={24} viewBox='0 0 200 200' style={{fill: '#d00', stroke: 'none'}} {...props}>
-//         <path
-//             fill='#d00'
-//             d='M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0'
-//         />
-//     </Icon>
-// );
-
-
 const MapBack = (props) => {
     const {authUser} = useAuth();
     // console.log(authUser);

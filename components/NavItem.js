@@ -12,13 +12,13 @@ export default function NavItem({icon, title, active, path}) {
         >
             <Menu>
                 <Link
-                    backgroundColor={active && "gray.200"}
+                    backgroundColor={active && "gray.600"}
                     p={3}
                     onClick={() => {
                         Router.push(`/${path}`)
                     }}
                     borderRadius={8}
-                    _hover={{textDecor: 'none', backgroundColor: "gray.100"}}
+                    _hover={{textDecor: 'none', backgroundColor: "gray.600"}}
                     w={"100%"}
                 >
                     <MenuButton w="100%">

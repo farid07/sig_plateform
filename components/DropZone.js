@@ -24,7 +24,7 @@ export default function DropZone({onFileAccepted, helpText}) {
 
     return (
         <FormControl mt={4} isRequired>
-            <FormLabel>Logo</FormLabel>
+            <FormLabel fontSize={'24px'}>Logo</FormLabel>
             <Center
                 p={10}
                 cursor="pointer"

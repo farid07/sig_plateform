@@ -182,11 +182,11 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
             <Button
                 id="add-equipment-modal-button"
                 onClick={onOpen}
-                backgroundColor="blue.300"
-                color="black"
+                backgroundColor="blue.400"
+                color="white"
                 leftIcon={<MdAdd/>}
                 fontWeight="medium"
-                _hover={{bg: 'gray.700'}}
+                _hover={{bg: 'gray.500'}}
                 _active={{
                     bg: 'gray.800',
                     transform: 'scale(0.95)'
@@ -196,12 +196,12 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} mt={12} initialFocusRef={initialRef}>
                 <ModalOverlay/>
-                <ModalContent as="form" onSubmit={handleSubmit(onCreateEquipment)} bg={"blue.200"}>
-                    <ModalHeader fontWeight="bold">Ajouter un nouvel équipement</ModalHeader>
+                <ModalContent as="form" onSubmit={handleSubmit(onCreateEquipment)} bg={"white"} color={'black'}>
+                    <ModalHeader fontWeight="bold" fontSize={'28px'}>Ajouter une infrastructure </ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl isRequired>
-                            <FormLabel>{"Selectionnez l'infrastructure"}</FormLabel>
+                            <FormLabel fontSize={'24px'}>{"Selectionnez l'infrastructure"}</FormLabel>
                             <Select
                                 id={"infrastructureType"}
                                 onChange={handleChange}
@@ -220,7 +220,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                             </Select>
                         </FormControl>
                         <FormControl isRequired>
-                            <FormLabel>Nom</FormLabel>
+                            <FormLabel fontSize={'24px'}>Nom</FormLabel>
                             <Input
                                 ref={initialRef}
                                 id="name"
@@ -241,7 +241,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                         {invalidAlert}
 
                         <FormControl mt={4} isRequired>
-                            <FormLabel>Type</FormLabel>
+                            <FormLabel fontSize={'24px'}>Type</FormLabel>
                             <HStack
                                 {...group}
                             >
@@ -261,7 +261,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
 
                         {['poteau', 'conduit', 'cable'].includes(equipment) || (
                             <FormControl mt={4} isRequired>
-                                <FormLabel> Marque </FormLabel>
+                                <FormLabel fontSize={'24px'}> Marque </FormLabel>
                                 <Select
                                     id={"mark"}
                                     onChange={handleChange}
@@ -286,7 +286,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                         {['nro', 'bpeo', 'sro', 'pbo', 'pto', 'poteau', 'conduit', 'cable'].includes(equipment) && (
                             <>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>Longitude</FormLabel>
+                                    <FormLabel fontSize={'24px'}>Longitude</FormLabel>
                                     <Input
                                         id="longitude"
                                         ref={initialRef}
@@ -307,7 +307,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                                     </FormErrorMessage>
                                 </FormControl>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>Latitude</FormLabel>
+                                    <FormLabel fontSize={'24px'}>Latitude</FormLabel>
                                     <Input
                                         id="latitude"
                                         ref={initialRef}
@@ -332,7 +332,7 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                         {['sro', 'pbo', 'pto'].includes(equipment) && (
                             <>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>Total ports</FormLabel>
+                                    <FormLabel fontSize={'24px'}>Total ports</FormLabel>
                                     <Input
                                         id="ports"
                                         ref={initialRef}
@@ -351,10 +351,10 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                                 </FormControl>
                             </>
                         )}
-                        {['pbo', 'sro'].includes(equipment) && (
+                        {['pbo', 'sro', 'nro'].includes(equipment) && (
                             <>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>Ports occupés</FormLabel>
+                                    <FormLabel fontSize={'24px'}>Ports occupés</FormLabel>
                                     <Input
                                         id="portsOccupes"
                                         ref={initialRef}
@@ -465,13 +465,13 @@ const AddEquipmentModal = ({children, operator, mutate}) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button onClick={onClose} mr={3} fontWeight="medium">
+                        <Button onClick={onClose} mr={3} fontWeight="medium" bg={'gray.400'} _hover={{bg: 'gray.600'}}>
                             Annuler
                         </Button>
                         <Button
                             id="create-site-button"
-                            backgroundColor="#99FFFE"
-                            color="#194D4C"
+                            backgroundColor="gray.400"
+                            _hover={{bg: 'gray.600'}}
                             fontWeight="medium"
                             type="submit"
                         >

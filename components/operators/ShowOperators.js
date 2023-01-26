@@ -27,7 +27,7 @@ const ShowOperators = ({mutate, operators, isAdmin,}) => {
                         mb={6}
                         pos={'relative'}
                     />
-                    <Heading fontSize={['lg', 'xl']} fontFamily={'body'} mb={8}>
+                    <Heading fontSize={['lg', 'xl']} fontFamily={'Georgia'} mb={8}>
                         {operator.name}
                     </Heading>
 
@@ -43,10 +43,10 @@ const ShowOperators = ({mutate, operators, isAdmin,}) => {
                                 fontSize={'sm'}
                                 w={"lg"}
                                 rounded={'lg'}
-                                colorScheme={'teal'}
-                                boxShadow={
-                                    '0px 1px 25px -5px rgb(66 153 225 / 38%), 0 10px 10px -5px rgb(66 153 225 / 33%)'
-                                }
+                                backgroundColor={'blue.500'}
+                                color={'white'}
+                                fontWeight={'bold'}
+                                _hover={{bg: 'gray.500'}}
                             >
                                 Voir informations
                             </Button>

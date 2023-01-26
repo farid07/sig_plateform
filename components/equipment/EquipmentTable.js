@@ -24,7 +24,7 @@ const EquipmentTable = ({equipments, operator, mutate}) => {
                 <tbody>
                 {equipments.map((equipment, index) => (
                     <Box as="tr" key={equipment.id}>
-                        <Td>
+                        <Td fontSize={'22px'}>
                             <NextLink
                                 href="/equipments/[id]"
                                 as={`/equipments/${equipment.id}`}
@@ -33,7 +33,7 @@ const EquipmentTable = ({equipments, operator, mutate}) => {
                                 {equipment.name}
                             </NextLink>
                         </Td>
-                        <Td>
+                        <Td fontSize={'22px'}>
                             <NextLink
                                 href="/equipments/[id]"
                                 as={`/equipments/${equipment.id}`}
@@ -42,7 +42,7 @@ const EquipmentTable = ({equipments, operator, mutate}) => {
                                 {equipment.longitude}
                             </NextLink>
                         </Td>
-                        <Td>
+                        <Td fontSize={'22px'}>
                             <NextLink
                                 href="/equipments/[id]"
                                 as={`/equipments/${equipment.id}`}
@@ -51,13 +51,13 @@ const EquipmentTable = ({equipments, operator, mutate}) => {
                                 {equipment.latitude}
                             </NextLink>
                         </Td>
-                        <Td>
+                        <Td fontSize={'22px'}>
                             <Text id={`equipment-table-link-${index}`} fontWeight="medium">
                                 {equipment.type}
                             </Text>
                         </Td>
-                        <Td>{format(parseISO(equipment?.createdAt), 'PPpp')}</Td>
-                        <Td display={"flex"}>
+                        <Td fontSize={'22px'}>{format(parseISO(equipment?.createdAt), 'PPpp')}</Td>
+                        <Td>
                             <UpdateEquipmentModal operator={operator} equipment={equipment} mutate={mutate}/>
                             <DeleteEquipmentButton equipmentId={equipment.id}/>
                         </Td>

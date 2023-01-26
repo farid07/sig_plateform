@@ -47,7 +47,7 @@ const ShowEquipment = ({equipment}) => {
                 <br/>
                 {/*<Flex direction="column" align={['left', 'center']} ml={4}>*/}
                 <Flex width={'100%'} height={'100%'} background={'blue.400'} color={'whiteAlpha.900'} display={'flex'}
-                      justifyContent={'space-around'}>
+                      justifyContent={'space-around'} fontSize={'20px'}>
                     <div id={'details'}>
                         <div><strong> MARQUE : </strong> {equipment?.mark} </div>
                         <br/>
@@ -60,6 +60,10 @@ const ShowEquipment = ({equipment}) => {
                         <div><strong> NOMBRE DE PORTS : </strong> {equipment?.ports} </div>
                         <br/>
                         <div><strong> NOMBRE DE PORTS OCCUPES : </strong> {equipment?.portsOccupes} </div>
+                        <br/>
+                        <AddImageModal equipment={equipment} mutate={mutate}>
+                            Ajouter des photos
+                        </AddImageModal>
                     </div>
                     <div id={'detailsPhotos'}>
                         <div><strong> PHOTOS : </strong><br/>
@@ -69,10 +73,7 @@ const ShowEquipment = ({equipment}) => {
                     </div>
 
                 </Flex>
-                <br/>
-                <AddImageModal equipment={equipment} mutate={mutate}>
-                    Ajouter des photos
-                </AddImageModal>
+
             </Box>
         </Center>
     );

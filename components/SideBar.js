@@ -17,13 +17,14 @@ export default function Sidebar() {
         <Flex
             display={"flex"}
             pos={"fixed"}
-            bg={"blue.200"}
+            bg={"blue.500"}
+            fontWeight={'bold'}
             left="0"
             pt={16}
             zIndex={1100}
             h="full"
             boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.07)"
-            w={{base: "250px", lg: "215px"}}
+            w={{base: "20px", lg: "225px"}}
             flexDir="column"
             justifyContent="space-between"
         >
@@ -34,6 +35,10 @@ export default function Sidebar() {
                 w="90%"
                 alignItems={"flex-start"}
                 as="nav"
+                fontWeight={'bold'}
+                color={'white'}
+                fontSize={'25px'}
+
             >
                 <NavItem path={"dashboard"} icon={FiHome} title="Accueil"
                          description="This is the description for the dashboard."
